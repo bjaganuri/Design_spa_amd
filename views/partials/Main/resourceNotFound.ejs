@@ -1,0 +1,8 @@
+<div>
+    <% if(loggenIn) { %>
+        <h2>Requested resource not found. Click here to navigate <a ui-sref="common.home">Home</a> page</h2>
+    <% } %>
+    <% if(!loggenIn) { %>
+	    <h2>Requested resource not found. Click here to navigate <a ui-sref="authenticateUser.login">Login</a> page</h2>
+	<% } %>
+</div>

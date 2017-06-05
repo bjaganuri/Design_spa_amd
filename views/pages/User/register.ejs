@@ -1,0 +1,98 @@
+<div class="signUpFormContainer row">
+	<div class="col-sm-12" style="padding:0px;">
+		<div class="alert alert-success" ng-hide="!signUpSuccess" style="margin-bottom:2px;">SignUp success you can <a ui-sref="authenticateUser.login" class="link">Login now</a></div>
+		<div class="alert alert-danger" ng-hide="!showSignUpError" style="margin-bottom:2px;">SignUp failed with following error <span ng-bind="signUpError"></span></div>
+	</div>
+	<div class="col-sm-12 text-left loginHeader">
+		<span>Sign Up</span>
+	</div>
+	<div class="col-sm-12">
+		<form name="signUpForm" ng-submit="signUp($event)" novalidate class="form-horizontal" >
+			<div class="form-group">
+				<label class="control-label col-sm-3 text-left" for="name" style="text-align: left;">Full Name:</label>
+				<div class="col-sm-9">
+			     	<input type="text" name="name" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.name" placeholder="Enter your name" class="form-control" ng-minlength="5" required>
+			     	<span style="color:red" ng-show="(submitted || signUpForm.name.$dirty ) && signUpForm.name.$invalid">
+			     		<span ng-show="signUpForm.name.$error.required">Name is required.</span>
+			     	</span>
+			     	<span style="color:red" ng-show="signUpForm.name.$touched && signUpForm.name.$error.minlength">Username should have min. 5 characters</span>
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3 text-left" for="dob" style="text-align: left;">Date of Birth:</label>
+				<div class="col-sm-9">
+			     	<input type="date" name="dob" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.dob" placeholder="Enter your dob" class="form-control" required>
+			     	<span style="color:red" ng-show="(submitted || signUpForm.dob.$dirty ) && signUpForm.dob.$invalid">
+			     		<span ng-show="signUpForm.dob.$error.required">dob is required.</span>
+			     	</span>
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3 text-left" for="gender" style="text-align: left;">Gender:</label>
+				<div class="col-sm-9">
+			     	<label class="radio-inline"><input type="radio" name="gender" ng-model="newUser.gender" value="Male" required>Male</label>
+			     	<label class="radio-inline"><input type="radio" name="gender" ng-model="newUser.gender" value="Female" required>Female</label><br>
+			     	<span style="color:red" ng-show="submitted  && signUpForm.gender.$invalid">
+			     		<span ng-show="signUpForm.gender.$error.required">Gender is required.</span>
+			     	</span>
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3 text-left" for="email" style="text-align: left;">Email:</label>
+				<div class="col-sm-9">
+			     	<input type="email" name="email" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.email" placeholder="Enter your email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+			     	<span style="color:red" ng-show="(submitted || signUpForm.email.$dirty) && signUpForm.email.$invalid">
+			     		<span ng-show="signUpForm.email.$error.required">email is required.</span>
+			     	</span>
+			     	<span style="color:red" ng-show="signUpForm.email.$touched && signUpForm.email.$error.pattern">Invalid email</span>
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3 text-left" for="mobile" style="text-align: left;">Phone Number:</label>
+				<div class="col-sm-9">
+			     	<input type="number" name="mobile" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.mobile" placeholder="Enter your mobile" class="form-control" ng-pattern="/^[0-9]{10,10}$/" required>
+			     	<span style="color:red" ng-show="(submitted || signUpForm.mobile.$dirty) && signUpForm.mobile.$invalid">
+			     		<span ng-show="signUpForm.mobile.$error.required">Phone No. is required.</span>
+			     	</span>
+			     	<span style="color:red" ng-show="signUpForm.mobile.$touched && signUpForm.mobile.$error.pattern">Invalid Phone Number</span>
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3 text-left" for="username" style="text-align: left;">Username:</label>
+				<div class="col-sm-9">
+			     	<input type="text" name="username" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.username" placeholder="Enter your username" class="form-control" ng-minlength="5" required>
+			     	<span style="color:red" ng-show="(submitted || signUpForm.username.$dirty) && signUpForm.username.$invalid">
+			     		<span ng-show="signUpForm.username.$error.required">Username is required.</span>
+			     	</span>
+			     	<span style="color:red" ng-show="signUpForm.username.$touched && signUpForm.username.$error.minlength">Username should have min. 5 characters</span>
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3 text-left" for="password" style="text-align: left;">password:</label>
+				<div class="col-sm-9">
+			     	<input type="password" name="password" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.password" placeholder="Enter your password" class="form-control" ng-minlength="5" ng-change="cpassword=''" required>
+			     	<span style="color:red" ng-show="(submitted || signUpForm.password.$dirty) && signUpForm.password.$invalid">
+			     		<span ng-show="signUpForm.password.$error.required">Password is required.</span>
+			     	</span>
+			     	<span style="color:red" ng-show="signUpForm.password.$touched && signUpForm.password.$error.minlength">Password should have atleast 5 characters</span>
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-3 text-left" for="cpassword" style="text-align: left;">Confirm password:</label>
+				<div class="col-sm-9">
+			     	<input type="password" name="cpassword" ng-model="newUser.cpassword" placeholder="Enter your cpassword" class="form-control" pw-check="password" required>
+			     	<span style="color:red" ng-show="(submitted || signUpForm.cpassword.$dirty) && signUpForm.cpassword.$invalid">
+			     		<span ng-show="signUpForm.cpassword.$error.required">Password should be confirmed.</span>
+			     	</span>
+			     	<span style="color:red" ng-show="signUpForm.cpassword.$dirty && signUpForm.cpassword.$error.pwmatch && !signUpForm.cpassword.$error.required">Passwords don't match.</span>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a ui-sref="authenticateUser.login" class="btn btn-primary link pull-left">Cancel</a>
+					<input type="submit" value="Sign Up" class="btn btn-primary pull-right"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

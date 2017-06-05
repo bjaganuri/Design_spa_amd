@@ -1,0 +1,1102 @@
+[{
+	"name": "animation",
+	"about": "Test text",
+	"syntax" : "name duration timing-function delay iteration-count direction fill-mode play-state",
+	"styleType":"COMB",
+	"disType":"SYNTAX",
+	"Unit":"REFER"
+}, {
+	"name": "animation-delay",
+	"about": "Test text",
+	"syntax" : "time|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"TIME"
+}, {
+	"name": "animation-direction",
+	"about": "Test text",
+	"syntax" : "normal|reverse|alternate|alternate-reverse|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "animation-duration",
+	"about": "Test text",
+	"syntax": "time|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"TIME"
+}, {
+	"name": "animation-iteration-count",
+	"about": "Test text",
+	"syntax": "number|infinite|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}, {
+	"name": "animation-name",
+	"about": "Test text",
+	"syntax":"name|none|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"STRING"
+}, {
+	"name": "animation-play-state",
+	"about": "Test text",
+	"syntax" : "paused|running|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "animation-timing-function",
+	"about": "Test text",
+	"syntax" : "linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|steps(int,start|end)|cubic-bezier(n,n,n,n)|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "azimuth",
+	"about": "Test text"
+}, {
+	"name": "backface-visibility",
+	"about": "Test text",
+	"syntax":"visible|hidden|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "background",
+	"about": "Test text",
+	"syntax":"color image position/size repeat origin clip attachment|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "background-attachment",
+	"about": "Test text",
+	"syntax":"scroll|fixed|local|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "background-clip",
+	"about": "Test text",
+	"syntax":"border-box|padding-box|content-box|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "background-color",
+	"about": "Test text",
+	"syntax":"color|transparent|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "background-image",
+	"about": "Test text",
+	"syntax":"url|none|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"URL"
+}, {
+	"name": "background-origin",
+	"about": "Test text",
+	"syntax":"padding-box|border-box|content-box|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "background-position",
+	"about": "Test text",
+	"syntax" : "value",
+	"value":"left top,left center ,left bottom ,right top ,right center ,right bottom ,center top ,center center ,center bottom,x y,initial,inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "background-repeat",
+	"about": "Test text",
+	"syntax":"repeat|repeat-x|repeat-y|no-repeat|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "background-size",
+	"about": "Test text",
+	"syntax":"auto|x y|cover|contain|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border",
+	"about": "Test text",
+	"syntax":"width style color|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "border-bottom",
+	"about": "Test text",
+	"syntax":"width style color|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "border-bottom-color",
+	"about": "Test text",
+	"syntax":"color|transparent|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "border-bottom-left-radius",
+	"about": "Test text",
+	"syntax":"xy|xy2|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-bottom-right-radius",
+	"about": "Test text",
+	"syntax": "xy|xy2|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-bottom-style",
+	"about": "Test text",
+	"syntax":"none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "border-bottom-width",
+	"about": "Test text",
+	"syntax":"medium|thin|thick|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-collapse",
+	"about": "Test text",
+	"syntax":"separate|collapse|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "border-color",
+	"about": "Test text",
+	"syntax":"color|transparent|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "border-image",
+	"about": "Test text",
+	"syntax":"source slice width outset repeat|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "border-image-outset",
+	"about": "Test text",
+	"syntax":"xy|xy2|xy4|number|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-image-repeat",
+	"about": "Test text",
+	"syntax":"stretch|repeat|round|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "border-image-source",
+	"about": "Test text",
+	"syntax":"none|url|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"URL"
+}, {
+	"name": "border-image-width",
+	"about": "Test text",
+	"syntax":"xy|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-left",
+	"about": "Test text",
+	"syntax":"width style color|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "border-left-color",
+	"about": "Test text",
+	"syntax":"color|transparent|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "border-left-style",
+	"about": "Test text",
+	"syntax":"none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "border-left-width",
+	"about": "Test text",
+	"syntax":"medium|thin|thick|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-radius",
+	"about": "Test text",
+	"syntax":"xy|xy2|xy3|xy4|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-right",
+	"about": "Test text",
+	"syntax":"width style color|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "border-right-color",
+	"about": "Test text",
+	"syntax":"color|transparent|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "border-right-style",
+	"about": "Test text",
+	"syntax":"none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "border-right-width",
+	"about": "Test text",
+	"syntax":"medium|thin|thick|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-spacing",
+	"about": "Test text",
+	"syntax":"xy|xy2|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-style",
+	"about": "Test text",
+	"syntax":"none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "border-top",
+	"about": "Test text",
+	"syntax":"width style color|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "border-top-color",
+	"about": "Test text",
+	"syntax":"color|transparent|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "border-top-left-radius",
+	"about": "Test text",
+	"syntax":"xy|xy2|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-top-right-radius",
+	"about": "Test text",
+	"syntax":"xy|xy2|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-top-style",
+	"about": "Test text",
+	"syntax":"none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "border-top-width",
+	"about": "Test text",
+	"syntax":"medium|thin|thick|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "border-width",
+	"about": "Test text",
+	"syntax":"medium|thin|thick|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "bottom",
+	"about": "Test text",
+	"syntax":"auto|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "box-shadow",
+	"about": "Test text",
+	"syntax":"none|h-shadow v-shadow blur spread color|inset|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "box-sizing",
+	"about": "Test text",
+	"syntax":"content-box|border-box|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "caption-side",
+	"about": "Test text",
+	"syntax":"top|bottom|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "clear",
+	"about": "Test text",
+	"syntax":"none|left|right|both|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "clip",
+	"about": "Test text",
+	"syntax":"auto|shape|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"SHAPE",
+	"shapes":"rect(x1,y1,x2,y2)"
+}, {
+	"name": "color",
+	"about": "Test text",
+	"syntax":"color|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "column-count",
+	"about": "Test text",
+	"syntax":"number|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}, {
+	"name": "column-fill",
+	"about": "Test text",
+	"syntax":"balance|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "column-gap",
+	"about": "Test text",
+	"syntax":"xy|normal|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "column-rule",
+	"about": "Test text",
+	"syntax":"width style color|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "column-rule-color",
+	"about": "Test text",
+	"syntax":"color|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "column-rule-style",
+	"about": "Test text",
+	"syntax":"none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "column-rule-width",
+	"about": "Test text",
+	"syntax":"medium|thin|thick|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "column-span",
+	"about": "Test text",
+	"syntax":" 1|all|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "column-width",
+	"about": "Test text",
+	"syntax":"auto|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "columns",
+	"about": "Test text",
+	"syntax":"auto|column-width column-count|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "content",
+	"about": "Test text",
+	"syntax": "normal|none|counter|attr|string|open-quote|close-quote|no-open-quote|no-close-quote|url|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"STRING"
+}, {
+	"name": "counter-increment",
+	"about": "Test text",
+	"syntax":"none|elemref|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"ELEMREFER"
+}, {
+	"name": "counter-reset",
+	"about": "Test text",
+	"syntax":"none|name number|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "cursor",
+	"about": "Test text",
+	"syntax":"value",
+	"value":"auto,default ,none ,context-menu ,help ,pointer ,progress ,wait ,cell ,crosshair ,text ,vertical-text ,alias ,copy ,move ,no-drop ,not-allowed ,all-scroll ,col-resize ,row-resize ,n-resize ,e-resize ,s-resize ,w-resize ,ns-resize ,ew-resize ,ne-resize ,nw-resize ,se-resize ,sw-resize ,nesw-resize ,nwse-resize",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "direction",
+	"about": "Test text",
+	"syntax":"ltr|rtl|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "display",
+	"about": "Test text",
+	"syntax":"value",
+	"value":"block, inline, run-in, flow, flow-root, table, flex, grid, ruby, subgrid, block flow, inline table, flex run-in, list-item, list-item block, list-item inline, list-item flow, list-item flow-root, list-item block flow, list-item block flow-root, flow list-item block, table-row-group, table-header-group, table-footer-group, table-row, table-cell, table-column-group, table-column, table-caption, ruby-base, ruby-text, ruby-base-container, ruby-text-container, contents, none, inline-block, inline-list-item, inline-table, inline-flex, inline-grid, inherit, initial, unset",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "empty-cells",
+	"about": "Test text",
+	"syntax":"show|hide|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "float",
+	"about": "Test text",
+	"syntax":"none|left|right|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "font",
+	"about": "Test text",
+	"syntax":"style variant weight size family|caption|icon|menu|message-box|small-caption|status-bar|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "font-family",
+	"about": "Test text",
+	"syntax":"name|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"STRING"
+}, {
+	"name": "font-size",
+	"about": "Test text",
+	"syntax":"medium|xx-small|x-small|small|large|x-large|xx-large|smaller|larger|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "font-size-adjust",
+	"about": "Test text",
+	"syntax":"number|none|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}, {
+	"name": "font-stretch",
+	"about": "Test text",
+	"syntax":"ultra-condensed|extra-condensed|condensed|semi-condensed|normal|semi-expanded|expanded|extra-expanded|ultra-expanded|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "font-style",
+	"about": "Test text",
+	"syntax":"normal|italic|oblique|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "font-variant",
+	"about": "Test text",
+	"syntax":"normal|small-caps|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "font-weight",
+	"about": "Test text",
+	"syntax":"normal|bold|bolder|lighter|number|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}, {
+	"name": "height",
+	"about": "Test text",
+	"syntax":"auto|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "hyphens",
+	"about": "Test text",
+	"syntax":"none|manual|auto|inherit|initial|unset",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "image-rendering",
+	"about": "Test text",
+	"syntax":"auto|crisp-edges|pixelated|inherit|initial|unset",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "left",
+	"about": "Test text",
+	"syntax":"auto|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "letter-spacing",
+	"about": "Test text",
+	"syntax":"normal|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "line-height",
+	"about": "Test text",
+	"syntax":"normal|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "list-style",
+	"about": "Test text",
+	"syntax":"type position image|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "list-style-image",
+	"about": "Test text",
+	"syntax":"none|url|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"URL"
+}, {
+	"name": "list-style-position",
+	"about": "Test text",
+	"syntax":"inside|outside|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "list-style-type",
+	"about": "Test text",
+	"syntax":"value",
+	"value":"circle, disc, square, armenian, cjk-ideographic, decimal, decimal-leading-zero, georgian, hebrew, hiragana, hiragana-iroha, katakana, katakana-iroha, lower-alpha, lower-greek, lower-latin, lower-roman, upper-alpha, upper-greek, upper-latin, upper-roman, none, inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "margin",
+	"about": "Test text",
+	"syntax":"xy4|xy2|xy|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "margin-bottom",
+	"about": "Test text",
+	"syntax":"xy|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "margin-left",
+	"about": "Test text",
+	"syntax":"xy|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "margin-right",
+	"about": "Test text",
+	"syntax":"xy|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "margin-top",
+	"about": "Test text",
+	"syntax":"xy|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "marker-offset",
+	"about": "Test text",
+	"syntax":"xy|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "max-height",
+	"about": "Test text",
+	"syntax":"none|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "max-width",
+	"about": "Test text",
+	"syntax":"none|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "min-height",
+	"about": "Test text",
+	"syntax":"xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "min-width",
+	"about": "Test text",
+	"syntax":"xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "opacity",
+	"about": "Test text",
+	"syntax":"number|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}, {
+	"name": "orphans",
+	"about": "Test text",
+	"syntax":"number|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}, {
+	"name": "outline",
+	"about": "Test text",
+	"syntax":"color style width|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "outline-color",
+	"about": "Test text",
+	"syntax":"invert|color|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "outline-offset",
+	"about": "Test text",
+	"syntax":"xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "outline-style",
+	"about": "Test text",
+	"syntax":"none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "outline-width",
+	"about": "Test text",
+	"syntax":"medium|thin|thick|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "overflow",
+	"about": "Test text",
+	"syntax":"visible|hidden|scroll|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "overflow-x",
+	"about": "Test text",
+	"syntax":"visible|hidden|scroll|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+},{
+	"name": "overflow-y",
+	"about": "Test text",
+	"syntax":"visible|hidden|scroll|auto|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "padding",
+	"about": "Test text",
+	"syntax":"xy4|xy2|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "padding-bottom",
+	"about": "Test text",
+	"syntax":"xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "padding-left",
+	"about": "Test text",
+	"syntax":"xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "padding-right",
+	"about": "Test text",
+	"syntax":"xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "padding-top",
+	"about": "Test text",
+	"syntax":"xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "page-break-after",
+	"about": "Test text",
+	"syntax":"auto|always|avoid|left|right|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "page-break-before",
+	"about": "Test text",
+	"syntax":"auto|always|avoid|left|right|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "page-break-inside",
+	"about": "Test text",
+	"syntax":"auto|always|avoid|left|right|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "perspective",
+	"about": "Test text",
+	"syntax":"xy|none|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+	
+}, {
+	"name": "perspective-origin",
+	"about": "Test text",
+	"syntax":"xy2|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "position",
+	"about": "Test text",
+	"syntax":"static|absolute|fixed|relative|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "quotes",
+	"about": "Test text",
+	"syntax":"none|string|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"STRING"
+}, {
+	"name": "resize",
+	"about": "Test text",
+	"syntax":"none|both|horizontal|vertical|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "right",
+	"about": "Test text",
+	"syntax":"auto|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "tab-size",
+	"about": "Test text",
+	"syntax":"number|length|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}, {
+	"name": "table-layout",
+	"about": "Test text",
+	"syntax":"auto|fixed|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "text-align",
+	"about": "Test text",
+	"syntax":"left|right|center|justify|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "text-align-last",
+	"about": "Test text",
+	"syntax":"auto|left|right|center|justify|start|end|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "text-decoration",
+	"about": "Test text",
+	"syntax":"none|underline|overline|line-through|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "text-decoration-color",
+	"about": "Test text",
+	"syntax":"color|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"COLOR"
+}, {
+	"name": "text-decoration-line",
+	"about": "Test text",
+	"syntax":"none|underline|overline|line-through|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "text-decoration-style",
+	"about": "Test text",
+	"syntax":"solid|double|dotted|dashed|wavy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "text-indent",
+	"about": "Test text",
+	"syntax":"xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "text-shadow",
+	"about": "Test text",
+	"syntax":"h-shadow v-shadow blur spread color|none|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "text-transform",
+	"about": "Test text",
+	"syntax":"none|capitalize|uppercase|lowercase|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "top",
+	"about": "Test text",
+	"syntax":"auto|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "transform",
+	"about": "Test text",
+	"syntax":"none|function|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"FUNCTION"
+}, {
+	"name": "transform-origin",
+	"about": "Test text",
+	"syntax":"xyz|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "transform-style",
+	"about": "Test text",
+	"syntax":"flat|preserve-3d|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "transition",
+	"about": "Test text",
+	"syntax":"property duration timing-function delay|initial|inherit",
+	"styleType":"COMB",
+	"disType":"SYNTAX+RADIOSELECT",
+	"Unit":"REFER"
+}, {
+	"name": "transition-delay",
+	"about": "Test text",
+	"syntax":"time|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"TIME"
+}, {
+	"name": "transition-duration",
+	"about": "Test text",
+	"syntax":"time|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"TIME"
+}, {
+	"name": "transition-property",
+	"about": "Test text",
+	"syntax":"none|all|property|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "transition-timing-function",
+	"about": "Test text",
+	"syntax":"linear|ease|ease-in|ease-out|ease-in-out|step-start|step-end|steps(int,start|end)|cubic-bezier(n,n,n,n)|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "vertical-align",
+	"about": "Test text",
+	"syntax":"baseline|length|sub|super|top|text-top|middle|bottom|text-bottom|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "visibility",
+	"about": "Test text",
+	"syntax":"visible|hidden|collapse|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "white-space",
+	"about": "Test text",
+	"syntax":"normal|nowrap|pre|pre-line|pre-wrap|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "widows",
+	"about": "Test text",
+	"syntax":"number|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}, {
+	"name": "width",
+	"about": "Test text",
+	"syntax":"auto|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "word-spacing",
+	"about": "Test text",
+	"syntax":"normal|xy|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"VALUE"
+}, {
+	"name": "word-wrap",
+	"about": "Test text",
+	"syntax":"normal|break-word|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+}, {
+	"name": "word-break",
+	"about": "Test text",
+	"syntax":"normal|break-all|keep-all|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NONE"
+},{
+	"name": "z-index",
+	"about": "Test text",
+	"syntax":"auto|number|initial|inherit",
+	"styleType":"UNIQUE",
+	"disType":"RADIOSELECT",
+	"Unit":"NUMBER"
+}]

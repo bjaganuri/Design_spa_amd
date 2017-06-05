@@ -1,0 +1,107 @@
+html , body{
+	min-height: 100%;
+	height: 100%;
+	background: #eee;
+}
+.carousel{
+	height:200px;
+	width: inherit;
+	text-align: center;
+}
+.banner .carousel-inner , .banner .carousel-inner .item , .banner .carousel-inner .item img{
+	height: inherit;
+	width: 100%;
+}
+.carousel-indicators{
+	bottom: 0px;
+}
+.carousel-indicators li{
+	border:1px solid red;
+}
+.navbar{
+	margin-bottom: 15px;
+}
+.carousel-content {
+	position: absolute;
+	bottom: 20%;
+	left: 50%;
+	transform:translateX(-50%);
+	z-index: 20;
+	color: blue;
+	text-shadow: 0 1px 2px rgba(0,0,0,.6);
+	cursor: pointer;
+}
+.carousel-content a{
+	text-decoration: none;
+	color: blue;
+}
+body {
+    position: relative;
+}
+.affix {
+  	top: 0px;
+  	width: 100%;
+  	z-index: 9999;
+}
+.dropdown-menu{
+	background-color: inherit;
+	border-color: #080808;
+	padding: 0px;
+	background-color: #222
+}
+.dropdown-menu  li a{
+	height:50px;
+	line-height: 50px;
+	color:#777;
+}
+.dropdown-menu  li a:hover{
+	background-color: #337ab7;
+	color: #fff;
+}
+.dropdown-menu .divider {
+	margin: 0px;
+	height:1px;
+}
+section.body{
+	height:auto;
+	padding: 15px;
+	padding-top: 0px;
+}
+.footer{
+	background-color: #333;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	font-size: 12px;
+	color: #fff;
+}
+.container{
+	height: 100%;
+}
+.loginFormContainer , .signUpFormContainer , .recoverUserFormContainer,.setNewPasswdContainer{
+	height:auto;
+	border: 1px solid #bce8f1;
+}
+.submitBtn{
+	margin-left: 15px;
+}
+.loginHeader{
+	height:30px;
+	margin-bottom: 25px;
+	background: #d9edf7;
+	color: #31708f;
+	line-height: 30px;
+}
+form[name=loginForm],form[name=signUpForm],form[name=recoverUserForm],form[name=setNewPasswdForm]{
+	padding: 15px;
+}
+.signUpLabel{
+	text-align: left !important;
+	border-top: 1px solid gray;
+}
+input.ng-touched.ng-invalid {
+	color: red
+}
+section{
+	overflow: hidden;
+}

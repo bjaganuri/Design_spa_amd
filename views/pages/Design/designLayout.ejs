@@ -1,0 +1,31 @@
+<% include ../../partials/Design/Design %>
+<div class="row">
+	<div class="col-sm-12 col-md-12" style="margin-bottom:15px;">
+		<h2>Select Mode of Design</h2>
+		<form class="form-horizontal">
+			<div class="radio">
+				<label><input type="radio" data-ng-model="psdTotemplate" data-ng-value="true">I want to convert PSD image to HTML template</label>	
+			</div>
+			<div class="radio">
+				<label><input type="radio" data-ng-model="psdTotemplate" data-ng-value="false">I want to draw manually</label>	
+			</div>
+		</form>
+	</div>
+	<div class="col-sm-12 col-md-12" ng-show="psdTotemplate">
+		<input type="file" file-model="myFile"/>
+		<button ng-click="uploadFile()">upload me</button>
+	</div>
+	<div class="col-sm-12 col-md-12" ng-show="!psdTotemplate">
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label for="elements" class="col-sm-2">Select the Element:</label>
+				<div class="col-sm-4">
+					<select class="form-control" id="elements">
+		
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

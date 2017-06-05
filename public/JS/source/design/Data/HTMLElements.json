@@ -1,0 +1,80 @@
+[{
+	"name": "a",
+	"attributes": {
+		"href": "https://www.google.com",
+		"title": "Test Link",
+		"innerHTML": "Test Link",
+		"class": "link"
+	}
+}, {
+	"name": "div",
+	"attributes": {
+		"title": "Test Element",
+		"innerHTML": "Test div"
+	}
+}, {
+	"name": "button",
+	"attributes": {
+		"class": "btn btn-primary",
+		"title": "Test Element",
+		"innerHTML": "Test button"
+	}
+}, {
+	"name": "input",
+	"attributes": {
+		"type": ["text", "email", "password", "button", "checkbox", "radio", "submit", "reset"],
+		"name": "Test element",
+		"value": "Test"
+	}
+}, {
+	"name": "table",
+	"attributes": {
+		"border": "1",
+		"cellspacing": "0",
+		"class": "table table-responsive table bordered"
+	},
+	"childrens": {
+		"type": "tr",
+		"rows": 4,
+		"col": 4,
+		"innerHTML": "Test table"
+	}
+}, {
+	"name": "textarea",
+	"attributes": {
+		"rows": 10,
+		"cols": 10,
+		"name": "test",
+		"value": "Test text area"
+	}
+}, {
+	"name": "ul",
+	"childrens": {
+		"count": 5,
+		"type": "li",
+		"innerHTML": "Test Li"
+	}
+}, {
+	"name": "ol",
+	"childrens": {
+		"count": 5,
+		"type": "li",
+		"innerHTML": "Test Li"
+	}
+}, {
+	"name": "img",
+	"attributes": {
+		"src": "images/image1.png",
+		"alt": "Test image"
+	}
+}, {
+	"name": "p",
+	"attributes": {
+		"innerHTML": "Test P"
+	}
+}, {
+	"name": "span",
+	"attributes": {
+		"innerHTML": "Test span"
+	}
+}]

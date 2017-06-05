@@ -1,0 +1,126 @@
+.design-element-container{
+	height:200px;
+	border:2px solid gray;
+	box-sizing: border-box;
+	overflow: auto;
+	padding: 15px;
+}
+.add-style-wrapper{
+	height:400px;
+	overflow: hidden;
+	padding-right: 0px;
+}
+.form-horizontal .control-label{
+	text-align:left;
+}
+.form-horizontal .control-label{
+	padding:0px;
+	padding-left: 10px;
+}
+.helpLabel{
+	padding:8px;
+}
+
+.applied-style-wrapper .control-label,.applied-style-wrapper input{
+	margin-bottom: 5px;
+}
+.applied-style-wrapper input{
+	border:0px solid gray;
+}
+.style-helper-popover{
+	height:400px;
+	width: 94%;
+	background-color: #fff;
+	position: absolute;
+}
+
+.footer {
+	margin-top: 15px;
+}
+
+@keyframes hideContainer {
+  from {
+  		opacity: 1;
+  } 
+  to {
+  		opacity: 0;
+  }
+}
+
+@keyframes showContainer {
+  from {
+    	opacity: 0;
+  } 
+  to{
+    	opacity: 1;
+  }
+}
+
+.add-style-wrapper.ng-hide-add{
+	animation: 1s hideContainer linear;
+}
+
+.add-style-wrapper.ng-hide-remove{
+	animation: 2s showContainer linear;
+}
+
+.style-helper-popover.ng-hide-remove{
+	animation: 2s showContainer linear;
+}
+
+.style-helper-popover.ng-hide-add{
+	animation: 1s hideContainer linear;
+}
+
+#uploadFileInput{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+} 
+
+.upload-field {
+  position: relative;
+  cursor: pointer;
+  width: 250px;
+  height: 40px;
+  line-height: 40px;
+  padding: 0px 10px;
+  border: 1px solid #203F53;
+  border-radius: 5px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-top: 15px;
+  margin-right: 15px;
+}
+
+.icon-folder {
+  background-image: url("../../Images/folderIcon.jpg");
+  height: 30px;
+  width: 30px;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+  float: right;
+  margin-top: 3px;
+}
+
+.upload-file-button {
+  height: 40px;
+  width: 120px;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px #203F53;
+  background-color: #203F53;
+  color: white;
+  font-size: 15px;
+  margin-top: 15px;
+}
+.d-inline-block{
+	display: inline-block;
+}

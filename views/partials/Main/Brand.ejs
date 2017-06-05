@@ -1,0 +1,26 @@
+<div class="navbar navbar-inverse header">
+	<div class="navbar-header">
+		<a href="" class="navbar-brand">Design It</a>
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#userAction">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span> 
+		</button>
+	</div>
+	<div class="collapse navbar-collapse" id="userAction">
+		<ul class="nav navbar-nav pull-right">
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi <% if(UserName){ %>
+						<%= UserName %>
+					<% } %>
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><a ui-sref="userProfile" class="menuItem"><span class="glyphicon glyphicon-user"></span>View Profile</a></li>
+					<li class="divider"></li>
+					<li><a ui-sref="authenticateUser.logout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li> 
+				</ul>
+			</li>
+	    </ul>
+	</div>
+</div>

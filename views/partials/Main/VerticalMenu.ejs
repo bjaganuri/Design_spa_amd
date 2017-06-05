@@ -1,0 +1,35 @@
+<link rel="stylesheet" type="text/css" href="css/common/vMenu.css">
+<nav class="navbar navbar-default">
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span> 
+	</button>
+	<div class="collapse navbar-collapse" id="navBar">
+		<ul class="nav navbar-nav">
+			<li><a ui-sref="common.home" class="menuItem">Home</a></li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Learn<span class="glyphicon glyphicon-chevron-right"></span></a>
+				<ul class="dropdown-menu">
+					<li><a ui-sref="learn.html" class="menuItem">HTML</a></li>
+					<li class="divider"></li>
+					<li><a ui-sref="learn.css" class="menuItem">CSS</a></li>
+					<li class="divider"></li>
+					<li><a ui-sref="learn.js" class="menuItem">Javascript</a></li> 
+				</ul>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Design<span class="glyphicon glyphicon-chevron-right"></span></a>
+				<ul class="dropdown-menu">
+					<li><a ui-sref="design.designElement" class="menuItem">Design Element</a></li>
+					<li class="divider"></li>
+					<li><a ui-sref="design.designComponent" class="menuItem">Design Components</a></li>
+					<li class="divider"></li>
+					<li><a ui-sref="design.designLayout" class="menuItem">Design Layouts</a></li> 
+				</ul>
+			</li>
+			<li><a ui-sref="common.about" class="menuItem">About</a></li>
+			<li><a ui-sref="common.query" class="menuItem">Query??</a></li>
+	    </ul>
+	</div>
+</nav>

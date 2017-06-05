@@ -1,0 +1,12 @@
+<div class="form-group pull-left col-lg-12 col-md-12" style="padding:0px;">
+    <label class='control-label col-lg-5 col-md-5' >
+    <input type="checkbox" ng-change="openSelectedStyleHelper()" ng-model="styleSelected"></input>
+    <span>{{style.name}}</span>
+    </label>
+    <div class='col-lg-6 col-md-6'>
+        <input type='text' class='form-control' placeholder="{{style.value}}" name="{{style.name}}" ng-change="updateChangedStyleVal(curElemAppliedStyles[style.name])" ng-model="curElemAppliedStyles[style.name]">
+    </div>
+    <label class='col-lg-1 col-md-1 helpLabel' ng-mouseover="showSelectedStyleInfo($event)">
+        <span class="glyphicon glyphicon-info-sign"></span>
+    </label>
+</div>

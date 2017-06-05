@@ -1,0 +1,26 @@
+.body{
+	overflow:visible !important;
+}
+#navBar .glyphicon-chevron-right{
+	margin-right:5px;
+	float:right;
+}
+#navBar .dropdown-menu{
+	left:100%;
+	border : 1px solid gray;
+	border-radius:0px;
+	top:0px;
+}
+#navBar .navbar-nav > li > a {
+	color:#337ab7 !important;
+}
+#navBar .navbar-nav li a:hover,#navBar .navbar-nav li a:focus{
+	background-color: #337ab7 !important;
+	color: #fff !important;
+}
+#navBar .menuItem{
+	background:#fff;
+}
+#navBar .navbar-nav , #navBar .navbar-nav li{
+	width:100%;
+}
