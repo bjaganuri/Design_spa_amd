@@ -28,10 +28,30 @@ define (['../app'] , function(app){
 					$rootScope.reLoginTriggered = true;			
 				},
 				preClose: function(modal){
-					return modal.element.modal('hide');;
+					return modal.element.modal('hide');
 				}
 			}).then(function(modal) {
 				modal.element.modal();
+			});
+		});
+
+		$rootScope.$on("accountLocked" , function(event,args){
+			var modalInstance = ModalService.showModal({
+				templateUrl: 'accountLocked.html',
+				controller:function($scope, $element, close){
+					$scope.navigateToLoginPage = function(){
+						$element.modal('hide');
+						close(null, 200);
+					};
+				},
+				preClose: function(modal){
+					return modal.element.modal('hide');
+				}
+			}).then(function(modal) {
+				modal.element.modal();
+				modal.close.then(function(result) {
+					
+				});
 			});
 		});
 

@@ -68,7 +68,7 @@
 			    </div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="password" style="text-align: left;">password:</label>
+				<label class="control-label col-sm-3 text-left" for="password" style="text-align: left;">Password:</label>
 				<div class="col-sm-9">
 			     	<input type="password" name="password" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.password" placeholder="Enter your password" class="form-control" ng-minlength="5" ng-change="cpassword=''" required>
 			     	<span style="color:red" ng-show="(submitted || signUpForm.password.$dirty) && signUpForm.password.$invalid">
@@ -80,7 +80,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="cpassword" style="text-align: left;">Confirm password:</label>
 				<div class="col-sm-9">
-			     	<input type="password" name="cpassword" ng-model="newUser.cpassword" placeholder="Enter your cpassword" class="form-control" pw-check="password" required>
+			     	<input type="password" name="cpassword" ng-model="newUser.cpassword" placeholder="Confirm password" class="form-control" pw-check="password" required>
 			     	<span style="color:red" ng-show="(submitted || signUpForm.cpassword.$dirty) && signUpForm.cpassword.$invalid">
 			     		<span ng-show="signUpForm.cpassword.$error.required">Password should be confirmed.</span>
 			     	</span>

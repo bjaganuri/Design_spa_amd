@@ -68,7 +68,29 @@
 					</div>
 				</div>
 			</div>
-		</script>		
+		</script>
+		
+		<!-- Modal template for account locked info popup -->
+		<script type="text/ng-template" id="accountLocked.html">
+			<div class="modal fade" data-backdrop="static" data-keyboard="false">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<!-- <button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+							<h4 class="modal-title">Information</h4>
+						</div>
+						<div class="modal-body">
+							<div class="col-sm-12" style="padding:0px;">
+								<span>Your Account has been locked permanently pls contact admin to unlock and try again</span>
+							</div>
+						</div>
+						<div class="modal-footer" style="margin-top:15px;">
+							<!-- <button type="button" ng-click="navigateToLoginPage()" class="btn btn-primary" data-dismiss="modal">Login</button> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
 
 		<!--<div ng-view></div>-->
 		<div class="row">

@@ -5,7 +5,7 @@
 <% } %>
 <div class="row" ng-controller="loginController" ng-class="{'loginFormContainer':reLoginTriggered != true}">
 	<div class="col-sm-12" style="padding:0px;">
-		<div class="alert alert-danger" ng-hide="validUser" style="margin-bottom:2px;"><span ng-bind="loginError"></span></span></div>
+		<div class="alert alert-danger" ng-hide="validUser" style="margin-bottom:2px;"><span ng-bind="loginError"></span></div>
 	</div>
 	<div class="col-sm-12 text-left loginHeader" ng-if="!reLoginTriggered">
 		<span>Sign In</span>

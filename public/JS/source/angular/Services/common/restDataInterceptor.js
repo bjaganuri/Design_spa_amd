@@ -14,9 +14,9 @@ define (['../module'] , function(app){
 		};
 
 		this.responseError = function (rejection) {
-			console.log(rejection);
+			var data = (angular.fromJson(rejection.data)).status;
 			var $rootScope = $injector.get('$rootScope');
-			if(rejection.status == 401){
+			if(rejection.status == 401 && data === "LOGIN_REQUIRED"){
 				/*var restDataService = $injector.get('restDataService');
 				var $http = $injector.get('$http');
 				var $window = $injector.get('$window');
@@ -28,6 +28,9 @@ define (['../module'] , function(app){
 					});
 				}*/
 				$rootScope.$broadcast("loggedOut");
+			}
+			else if(rejection.status == 401 && data === "ACCOUNT_LOCKED"){
+				$rootScope.$broadcast("accountLocked");
 			}
 			return $q.reject(rejection);
 		};

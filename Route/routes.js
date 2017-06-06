@@ -89,15 +89,24 @@ app.get("/manageUserAccounts" , ensureAuthenticated ,  Routes.manageUserAccounts
 
 app.get("/viewUser/:username" , ensureAuthenticated , Routes.viewUser)
 
-app.get("/getUserAccountsList" , AdminOPS.getUserAccountsList);
+app.get("/getUserAccountsList" , ensureAuthenticated , AdminOPS.getUserAccountsList);
 
-app.post("/manageAccountLock" , AdminOPS.manageLockAdminRight);
+app.post("/manageAccountLock" , ensureAuthenticated , AdminOPS.manageLockAdminRight);
 
 function ensureAuthenticated(req, res, next){
+	var accountLocked = false;
+	if(req.user && req.user.opState && req.user.opState === "LOCKED"){
+		accountLocked = true;
+		req.logout();
+		req.flash('success_msg', 'You are logged out');
+	}
 	if(req.isAuthenticated()){
 		return next();
 	} else {
-		res.status(HttpStatus.UNAUTHORIZED).send({status:"Login_Required"});
+		if(accountLocked)
+			res.status(HttpStatus.UNAUTHORIZED).json({status:"ACCOUNT_LOCKED"});
+		else
+			res.status(HttpStatus.UNAUTHORIZED).json({status:"LOGIN_REQUIRED"});
 	}
 }
 
