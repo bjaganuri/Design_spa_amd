@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var ObjectId = require('mongodb').ObjectID;
 var bcrypt = require("bcryptjs");
 var assert = require('assert');
+var async = require("async");
 var Constants = require("../Route/Global_Const/Constants");
 var Schema = mongoose.Schema;
 var SALT_WORK_FACTOR = Constants.login.salt_factor;
@@ -9,14 +10,14 @@ var MAX_LOGIN_ATTEMPTS = Constants.login.maxAttempts;
 var LOCK_TIME = Constants.login.lockoutHours;
 
 var userSchema = new Schema({
-	name: { type: String},
+	name: { type: String , required: true},
 	email:{ type: String, required: true, unique: true },
 	altEmail:{ type: String},
 	username: { type: String, required: true, unique: true },
 	password: { type: String, required: true },
-	dob:{ type: Date},
-	gender:{ type: String},
-	mobile:{ type: String},
+	dob:{ type: Date , required: true},
+	gender:{ type: String , required: true},
+	mobile:{ type: String , required: true},
 	altMobile:{ type: String},
 	loginAttempts: { type: Number, required: true, default: 0 },
 	lockUntil: { type: Number },
@@ -36,6 +37,12 @@ userSchema.virtual('isLocked').get(function() {
 
 userSchema.pre('save', function(next) {
     var user = this;
+	if(!user.toObject().hasOwnProperty('admin') || user.toObject().hasOwnProperty('admin') === "" || user.toObject().hasOwnProperty('admin') === undefined || user.toObject().hasOwnProperty('admin') === null){
+		user.admin = false;
+	}
+	if(!user.toObject().hasOwnProperty('opState') || user.toObject().hasOwnProperty('opState') === "" || user.toObject().hasOwnProperty('opState') === undefined || user.toObject().hasOwnProperty('opState') === null){
+		user.opState = "ACTIVE";
+	}
 
     if (!user.isModified('password')) 
 		return next();
@@ -100,10 +107,6 @@ module.exports.createNewUser = function(newUser , callback){
 			newUser.save(callback);
 		});
 	});*/
-	if(!newUser.hasOwnProperty('admin')){
-		newUser.admin = false;
-	}
-	newUser.opState = "ACTIVE";
 	newUser.save(callback);
 };
 
@@ -146,4 +149,18 @@ module.exports.updateUserProfileData = function (user,callback) {
 
 module.exports.getUserAccounts = function(query,callback){
 	User.find(query,{_id:1,name:1,email:1,username:1,opState:1},callback);
+};
+
+module.exports.insertMultiple = function(data , callback){
+	async.mapLimit(data , 10 , function(userDoc,cb){
+		(new User(userDoc)).save(function(err , user){
+			var errObj = {};
+			if(err){
+				errObj.error = err.errmsg;
+				errObj.name = userDoc.name; 
+				errObj.username = userDoc.username;
+			}
+			cb(null , errObj);
+		});
+	},callback);
 };

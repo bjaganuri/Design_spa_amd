@@ -40,6 +40,8 @@
     "connect-redis": "^3.2.0",
     "cookie": "^0.3.1",
     "cookie-parser": "^1.4.3",
+    "csvjson": "^4.3.3",
+    "csvtojson": "^1.1.6",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
     "express-brute": "^1.0.1",

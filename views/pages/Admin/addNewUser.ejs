@@ -1,0 +1,8 @@
+<div>
+    <% if(!admin) { %>
+        <h2>You are not authorized to use this feature</h2>
+    <% } %>
+    <% if(admin) { %>
+	 <div ng-include="'users/signUp'"></div>
+    <% } %>
+</div>

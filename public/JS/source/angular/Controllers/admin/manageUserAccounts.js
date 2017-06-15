@@ -18,10 +18,10 @@ define(['../module'], function (app) {
 		$scope.lockUnlockAccount = function(user){
 			restDataService.postData("users/manageAccountLock",user,function(response){
 				if(response.data.status == "Success"){
-					if($state.is("adminOPs.manageUserAccounts")){
+					if($state.is("adminOPs.viewUser")){
 						$scope.updateTableData($scope.manageAccountList);
 					}
-					else if($state.is("adminOPs.userDetail")){
+					else if($state.is("adminOPs.viewUserDetail")){
 						$state.reload($state.current.name);
 					}
 				}

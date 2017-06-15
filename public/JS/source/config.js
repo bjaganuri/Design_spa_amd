@@ -219,8 +219,8 @@ define (['../app'] , function(app){
 				}
 			}
 		})
-		.state("adminOPs.manageUserAccounts" , {
-			url:"/manageUserAccounts",
+		.state("adminOPs.viewUser" , {
+			url:"/viewUser",
 			resolve : {
 				userToView:function(restDataService,$stateParams){
 					return {};
@@ -228,13 +228,13 @@ define (['../app'] , function(app){
 			},
 			views:{
 				"content@adminOPs":{
-					templateUrl:'/users/manageUserAccounts',
+					templateUrl:'/users/viewUser',
 					controller:"manageUserAccounts"
 				}
 			}
 		})
-		.state("adminOPs.userDetail" , {
-			url:"/viewUser/:userID",
+		.state("adminOPs.viewUserDetail" , {
+			url:"/viewUserDetails/:userID",
 			resolve : {
 				userToView:function(restDataService,$stateParams){
 					return restDataService.get("users/getUserProfile" , {username:$stateParams.userID});
@@ -243,8 +243,22 @@ define (['../app'] , function(app){
 			views:{
 				"content@adminOPs":{
 					templateUrl:function($stateParams){
-						return '/users/viewUser/'+$stateParams.userID;
+						return '/users/viewUserDetails/'+$stateParams.userID;
 					},
+					controller:"manageUserAccounts"
+				}
+			}
+		})
+		.state("adminOPs.addNewUser" , {
+			url:"/addNewUser",
+			resolve : {
+				userToView:function(restDataService,$stateParams){
+					return {};
+				}
+			},
+			views:{
+				"content@adminOPs":{
+					templateUrl:'/users/addNewUser',
 					controller:"manageUserAccounts"
 				}
 			}

@@ -7,6 +7,8 @@ define([
 	'angularModalService',
 	'angularColorPicker',
 	'angularTreeView',
+	'angularDatePicker',
+	'ngTables',
     './source/angular/Controllers/index',
     './source/angular/Directives/index',
     './source/angular/Services/index'
@@ -22,7 +24,9 @@ define([
 		'ngAnimate',
 		'colorpicker.module',
 		'rzModule',
+		'720kb.datepicker',
 		'angularTreeview',
-		'angularModalService'
+		'angularModalService',
+		'ngTable'
     ]);
 });

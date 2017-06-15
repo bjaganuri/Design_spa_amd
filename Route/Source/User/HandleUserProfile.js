@@ -11,13 +11,20 @@ module.exports.getUserProfile = function (req,res) {
 		query = {username:req.user.username , email:req.user.email , name:req.user.name};
 	}
     User.getUserProfile(query , function(err,user){
+		var resObj = {};
 		if(err) throw err;
-		user = user.toObject();
-		user["ownProfile"] = false;
-		if(user.username === req.user.username){
-			user["ownProfile"] = true;
+		if(user){		
+			resObj = user.toObject();
+			resObj.exists = true;
+			resObj["ownProfile"] = false;
+			if(resObj.username === req.user.username){
+				resObj["ownProfile"] = true;
+			}
 		}
-		res.send(JSON.stringify(user));
+		else{
+			resObj.exists = false;
+		}
+		res.send(JSON.stringify(resObj));
 	});
 };
 

@@ -11,6 +11,8 @@ require.config({
 		'angularModalService':'./lib/angular/modal_service/angular-modal-service',
 		'angularColorPicker':'./lib/angular/colorPicker/bootstrap-color-picker',
 		'angularTreeView':'./lib/angular/angular.treeview/angular.treeview',
+		'angularDatePicker':'./lib/angular/angular-datepicker/js/angular-datepicker',
+		'ngTables':'./lib/angular/ngTables/ngTables',
 		'jquery':'./lib/jquery/jquery',
 		'bootstrapJS':'./lib/Bootstrap/js/bootstrap'
     },
@@ -39,6 +41,12 @@ require.config({
             deps: ['angular']
         },
 		'angularTreeView':{
+            deps: ['angular']
+        },
+		'angularDatePicker':{
+            deps: ['angular']
+        },
+		'ngTables':{
             deps: ['angular']
         },
 		'jquery':{

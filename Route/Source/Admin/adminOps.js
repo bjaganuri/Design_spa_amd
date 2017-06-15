@@ -1,4 +1,6 @@
 var User = require("../../../Model/users");
+var fileUploadService = require('../Common/fileUpload');
+var async = require("async");
 
 module.exports.getUserAccountsList = function(req,res){
 	var param = req.query.searchParam;
@@ -45,5 +47,42 @@ module.exports.manageLockAdminRight = function(req, res){
 				res.send(JSON.stringify({status:"Failed"}));
 			}
 		});
+	});
+};
+
+module.exports.importUsersList = function(req,res){
+	fileUploadService.getFileData(req,res,function(err , data){
+		if(err){
+			res.send(err);
+		}
+		else{
+			try {
+				var dataObj = JSON.parse(data);
+			} catch (e) {
+				dataObj = data;
+			}
+			User.insertMultiple(dataObj , function(err,result){
+				if(err){
+					res.send(err);
+				}
+				else{
+					async.filterLimit(result , 10 , function(item , cb){
+						cb(null , item.hasOwnProperty('error'));
+					} , function(E , resArray){
+						if(E){
+							res.send(E);
+						}
+						else{
+							if(resArray.length === 0){
+								res.json({status:"SUCCESS"});
+							}
+							else{
+								res.json({status:"FAILURE" , failures:resArray});
+							}								
+						}
+					});						
+				}
+			});
+		}
 	});
 };

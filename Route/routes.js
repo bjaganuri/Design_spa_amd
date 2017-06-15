@@ -10,6 +10,7 @@ var HandleUserProfile = require("./Source/User/HandleUserProfile");
 var Learn = require("./Source/Learn/Learn");
 var Design = require("./Source/Design/Design");
 var AdminOPS = require("./Source/Admin/adminOps");
+var fileUploadService = require('./Source/Common/fileUpload')
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -80,18 +81,22 @@ app.get("/cssprops" , Learn.cssprops);
 
 app.get("/htmlElements" , Learn.htmlElements);
 
-app.get('/fileExists' , Design.fileExists);
+app.get('/fileExists' , fileUploadService.fileExists);
 
-app.post("/parsePSD" , Design.parsePSD);
+app.post("/uploadPSDFile/:reqFileType" , Design.uploadPSDFile); // to uploadfile
 
 // Admin operation
-app.get("/manageUserAccounts" , ensureAuthenticated ,  Routes.manageUserAccounts);
+app.get("/viewUser" , ensureAuthenticated ,  Routes.viewUser);
 
-app.get("/viewUser/:username" , ensureAuthenticated , Routes.viewUser)
+app.get("/viewUserDetails/:username" , ensureAuthenticated , Routes.viewUserDetails);
+
+app.get("/addNewUser" , ensureAuthenticated ,  Routes.addNewUser);
 
 app.get("/getUserAccountsList" , ensureAuthenticated , AdminOPS.getUserAccountsList);
 
 app.post("/manageAccountLock" , ensureAuthenticated , AdminOPS.manageLockAdminRight);
+
+app.post("/importUsers/:reqFileType" , ensureAuthenticated ,  AdminOPS.importUsersList);
 
 function ensureAuthenticated(req, res, next){
 	var accountLocked = false;

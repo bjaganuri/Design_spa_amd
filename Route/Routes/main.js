@@ -2,7 +2,7 @@ var User = require("../../Model/users");
 
 module.exports.header = function (req, res) {
 	if(req.user)
-		res.render("partials/Main/Header",{UserName:req.user.name});
+		res.render("partials/Main/Header",{UserName:req.user.name,admin:req.user.admin});
 	else
 		res.send(undefined);
 };
@@ -23,14 +23,14 @@ module.exports.banner = function (req, res) {
 
 module.exports.horizontalMenu = function (req, res) {
 	if(req.user)
-	    res.render("partials/Main/HorozontalMenu");
+	    res.render("partials/Main/HorozontalMenu",{admin:req.user.admin});
 	else
 		res.send(undefined);
 };
 
 module.exports.VerticalMenu = function (req, res) {
 	if(req.user)
-		res.render("partials/Main/VerticalMenu");
+		res.render("partials/Main/VerticalMenu", {admin:req.user.admin});
 	else
 		res.send(undefined);
 };
@@ -116,18 +116,25 @@ module.exports.styleAdd = function (req, res) {
 };
 
 //Admin operation
-module.exports.manageUserAccounts = function(req,res){
+module.exports.viewUser = function(req,res){
 	var admin = false;
 	if(req.user && req.user.admin)
 		admin=true
-	res.render("pages/Admin/manageUserAccounts",{admin:admin});
+	res.render("pages/Admin/viewUser",{admin:admin});
 }
 
-module.exports.viewUser = function(req,res){
+module.exports.viewUserDetails = function(req,res){
 	if(req.user && req.user.admin){
-		res.render("pages/Admin/viewUser",{admin:true});
+		res.render("pages/Admin/viewUserDetails",{admin:true});
 	}
 	else{
-		res.render("pages/Admin/viewUser",{admin:false});	
+		res.render("pages/Admin/viewUserDetails",{admin:false});	
 	}
+}
+
+module.exports.addNewUser = function(req,res){
+	var admin = false;
+	if(req.user && req.user.admin)
+		admin=true
+	res.render("pages/Admin/addNewUser",{admin:admin});
 }

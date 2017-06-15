@@ -1,5 +1,5 @@
 define([
-	'./design/fileUpload',
+	'./common/fileUpload',
     './common/idleObserverService',
 	'./common/restDataService',
 	'./common/restDataInterceptor',
