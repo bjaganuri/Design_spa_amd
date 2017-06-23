@@ -1,4 +1,5 @@
 var User = require("../../../Model/users");
+var JobScheduler = require("../../../Model/schedulejobs");
 var fileUploadService = require('../Common/fileUpload');
 var async = require("async");
 
@@ -53,35 +54,20 @@ module.exports.manageLockAdminRight = function(req, res){
 module.exports.importUsersList = function(req,res){
 	fileUploadService.getFileData(req,res,function(err , data){
 		if(err){
-			res.send(err);
+			res.json(err);
 		}
 		else{
-			try {
-				var dataObj = JSON.parse(data);
-			} catch (e) {
-				dataObj = data;
-			}
-			User.insertMultiple(dataObj , function(err,result){
+			JobScheduler.scheduleCreateMulUserJob(data,"Import_users_"+req.file.filename+"_"+req.params.reqFileType+"_"+req.user.username+"_"+Date.now() , function(err,job){
+				var result = {};
 				if(err){
-					res.send(err);
+					result.status = "FAILURE";
+					result.reason = err;
 				}
 				else{
-					async.filterLimit(result , 10 , function(item , cb){
-						cb(null , item.hasOwnProperty('error'));
-					} , function(E , resArray){
-						if(E){
-							res.send(E);
-						}
-						else{
-							if(resArray.length === 0){
-								res.json({status:"SUCCESS"});
-							}
-							else{
-								res.json({status:"FAILURE" , failures:resArray});
-							}								
-						}
-					});						
+					result.status = "SUCCESS";
+					result.jobName = job.attrs.name;
 				}
+				res.json(JSON.stringify(result));
 			});
 		}
 	});

@@ -3,6 +3,7 @@ var mkdirp = require('mkdirp');
 var path = require('path');
 var PSD = require('psd');
 var fs = require('fs');
+var jsonfile = require('jsonfile')
 var csv = require('csvtojson');
 var gridFS = require("../../../Model/gridFsOperation");
 
@@ -90,7 +91,7 @@ module.exports.getFileData = function(req,res,cb){
 		}
 		else{
 			if(req.params.reqFileType === "json"){
-				fs.readFile(req.file.path ,  'utf8' , cb);
+				jsonfile.readFile(req.file.path , cb);
 			}
 			else if(req.params.reqFileType === "csv"){
 				csv().fromFile(req.file.path).on('end_parsed',(jsonArrObj)=>{
