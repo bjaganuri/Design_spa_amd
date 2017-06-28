@@ -10,7 +10,12 @@ mongoose.connection.on('open', function callback () {
     agenda.database(dbURI , 'adminJobs');
 
 	agenda.on('start', function(job) {
-		console.log("Job %s starting", job.attrs.name);
+		job.attrs.status = "PROGRESS";
+		job.attrs.scheduledBy = job.attrs.data.scheduledBy;
+		job.attrs.schedulerEmail = job.attrs.data.schedulerEmail;
+		job.save(function(){
+			console.log("Job %s attributes saved and started execution", job.attrs.name);
+		});
 	});
 
 	agenda.on('fail', function(err, job) {
@@ -34,14 +39,15 @@ mongoose.connection.on('open', function callback () {
 	});
 });
 
-function scheduleJob(jobName,attrs,cb){
-	agenda.now(jobName ,  attrs , cb);
+function scheduleJob(jobScheduleTime , jobName,attrs,cb){
+	//agenda.now(jobName, attrs , cb);
+	agenda.schedule(jobScheduleTime,jobName, attrs , cb);
 	agenda.start();
 }
 
-module.exports.scheduleCreateMulUserJob = function(dataObj,jobName,callback){
+module.exports.scheduleCreateMulUserJob = function(jobScheduleTime , dataObj,jobName,callback){
 	agenda.define(jobName , {priority: 'high'} , function(job,done){
-		User.insertMultiple(job.attrs.data.dataObj , function(err,result){
+		User.insertMultiple(job.attrs.data.data , function(err,result){
 			if(err){
 				done(err);
 			}
@@ -65,5 +71,5 @@ module.exports.scheduleCreateMulUserJob = function(dataObj,jobName,callback){
 		});
 	});
 
-	scheduleJob(jobName ,  {dataObj: dataObj} , callback);	
+	scheduleJob(jobScheduleTime , jobName ,  {data: dataObj.data , scheduledBy:dataObj.scheduledBy , schedulerEmail:dataObj.schedulerEmail } , callback);	
 };

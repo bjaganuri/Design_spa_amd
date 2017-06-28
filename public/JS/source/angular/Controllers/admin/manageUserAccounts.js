@@ -1,7 +1,12 @@
 define(['../module'], function (app) {
 	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView' , function($scope,restDataService,$state,userToView){
-		$scope.manageAccountList = {};
+		$scope.manageAcctSearchParams = {};
 		$scope.submitted = false;
+		$scope.sameAsWorkingUserID = "";
+		$scope.manageAcctSearchParams.pageNo =1;
+		$scope.manageAcctSearchParams.pageSize = 10;
+		$scope.lastPageNo = 0;
+		$scope.recordsSize = 0;
 		$scope.accountsList = [];
 		$scope.dataReadSuccess = false;
 		$scope.accountsListHeaders = ['Sl.No' , 'Name' , 'Email' , 'Username' , 'Operational State' , 'Lock/Unlock'];
@@ -9,9 +14,64 @@ define(['../module'], function (app) {
 
 		$scope.getAccountsList = function($event){
 			$event.preventDefault();
+			$scope.manageAcctSearchParams.pageNo =1;
 			$scope.submitted = true;
 			if($scope.searchAccountsForm.$valid){
-				$scope.updateTableData($scope.manageAccountList);
+				$scope.updateTableData($scope.manageAcctSearchParams);
+			}
+		};
+
+		$scope.onPageSizeChange = function(){
+			$scope.manageAcctSearchParams.pageNo =1;
+			$scope.updateTableData($scope.manageAcctSearchParams);
+		};
+
+		$scope.onPageNoChange = function(page){
+			var pageChanged = false;
+			if(page === 'FIRST'){
+				if(parseInt($scope.manageAcctSearchParams.pageNo) === 1){
+					$scope.manageAcctSearchParams.pageNo = 1;
+					pageChanged = false;
+				}
+				else{
+					$scope.manageAcctSearchParams.pageNo = 1;
+					pageChanged = true;
+				}
+			}
+			else if(page === 'PREV'){
+				if(parseInt($scope.manageAcctSearchParams.pageNo) <= 1){
+					$scope.manageAcctSearchParams.pageNo = 1;
+					pageChanged = false;
+				}
+				else{
+					$scope.manageAcctSearchParams.pageNo = $scope.manageAcctSearchParams.pageNo-1;
+					pageChanged = true;
+				}
+			}
+			else if(page === 'NEXT'){
+				if(parseInt($scope.manageAcctSearchParams.pageNo) >= parseInt($scope.lastPageNo)){
+					$scope.manageAcctSearchParams.pageNo = $scope.lastPageNo;
+					pageChanged = false;
+				}
+				else{
+					$scope.manageAcctSearchParams.pageNo = $scope.manageAcctSearchParams.pageNo+1;
+					pageChanged = true;
+				}
+			}
+			else if(page === 'LAST'){
+				if(parseInt($scope.manageAcctSearchParams.pageNo) === parseInt($scope.lastPageNo)){
+					$scope.manageAcctSearchParams.pageNo = $scope.lastPageNo;
+					pageChanged = false;
+				}
+				else{
+					$scope.manageAcctSearchParams.pageNo = $scope.lastPageNo;
+					pageChanged = true;
+				}
+			
+			}
+
+			if(pageChanged === true || pageChanged === "true"){
+				$scope.updateTableData($scope.manageAcctSearchParams);
 			}
 		};
 
@@ -19,7 +79,7 @@ define(['../module'], function (app) {
 			restDataService.postData("users/manageAccountLock",user,function(response){
 				if(response.data.status == "Success"){
 					if($state.is("adminOPs.viewUser")){
-						$scope.updateTableData($scope.manageAccountList);
+						$scope.updateTableData($scope.manageAcctSearchParams);
 					}
 					else if($state.is("adminOPs.viewUserDetail")){
 						$state.reload($state.current.name);
@@ -30,23 +90,22 @@ define(['../module'], function (app) {
 				}
 			});		
 		};
-
-		$scope.updateUserProfile = function(user){
-			console.log(user);
-		};
 		
-		$scope.updateTableData = function(filterVal){
-			restDataService.getData("users/getUserAccountsList" , filterVal , function(response){
+		$scope.updateTableData = function(acctListingParams){
+			restDataService.getData("users/getUserAccountsList" , acctListingParams , function(response){
 				$scope.accountsList  = [];
-				angular.forEach(response.data , function(item,index){
+				angular.forEach(response.data.results , function(item,index){
 					if(item.opState == "ACTIVE" || item.opState == "INACTIVE")
-						response.data[index].action = "Lock";
+						response.data.results[index].action = "Lock";
 					else if(item.opState == "LOCKED")
-						response.data[index].action = "Unlock";
+						response.data.results[index].action = "Unlock";
 					else
-						response.data[index].action = "Lock";
+						response.data.results[index].action = "Lock";
 				});
-				[].push.apply($scope.accountsList , response.data);
+				[].push.apply($scope.accountsList , response.data.results);
+				$scope.sameAsWorkingUserID = response.data.workingUserId;
+				$scope.lastPageNo = response.data.noOfPages;
+				$scope.recordsSize = response.data.recordsSize;
 				$scope.dataReadSuccess = true;
 			});	
 		};

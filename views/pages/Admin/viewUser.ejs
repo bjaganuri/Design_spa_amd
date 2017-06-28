@@ -7,7 +7,7 @@
 		<form name="searchAccountsForm" ng-submit="getAccountsList($event)" novalidate class="form-horizontal">
 			<div class="form-group">
 				<div class="col-sm-6">
-					<input type="text" name="searchParam" ng-model="manageAccountList.searchParam" placeholder="Enter Email or Username or Name" class="form-control" required>
+					<input type="text" name="searchParam" ng-model="manageAcctSearchParams.searchParam" placeholder="Enter Email or Username or Name" class="form-control" required>
 					<span style="color:red" ng-show="searchAccountsForm.searchParam.$invalid">
 						<span ng-show="submitted && searchAccountsForm.searchParam.$error.required">Search field can not be empty</span>
 					</span>
@@ -40,7 +40,7 @@
 				<tr ng-repeat="user in accountsList">
 					<td>{{$index+1}}</td>
 					<td>
-						<a ui-sref="adminOPs.viewUserDetail({userID:user.username})">{{user.name}}</a>
+						<a ui-sref="adminOPs.viewUserDetail({userID:user.username})" title="View {{user.name}}'s profile details">{{user.name}}</a>
 					</td>
 					<td>{{user.email}}</td>
 					<td>{{user.username}}</td>
@@ -48,10 +48,30 @@
 						<span ng-class="{'text-success':user.opState == 'ACTIVE' || user.opState == 'INACTIVE'  , 'text-danger':user.opState == 'LOCKED'}">{{user.opState}}</span>
 					</td>
 					<td>
-						<button class="btn btn-primary" ng-click="lockUnlockAccount(user)">{{user.action}}</button>
+						<button class="btn btn-primary" ng-click="lockUnlockAccount(user)" ng-disabled="sameAsWorkingUserID === user.username" title="{{sameAsWorkingUserID === user.username ? 'Hello it\'s your own account' : user.action+' '+user.username+' \'s account '}}">{{user.action}}</button>
 					</td>
 				</tr>
 			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<span ng-bind="recordsSize"></span>
+						<span> Record(s) found</span>
+					</td>
+					<td colspan="2"></td>
+					<td>
+						<label>Page Size : </label>
+						<select ng-model="manageAcctSearchParams.pageSize" ng-options="size for size in [10,25,50,100,500]" ng-change="onPageSizeChange()"></select>
+					</td>
+					<td>
+						<span class="glyphicon glyphicon-fast-backward" title="Fast Backword:First Page" ng-click="onPageNoChange('FIRST')" style="cursor:pointer;"></span>
+						<span class="glyphicon glyphicon-backward" title="Backword:Previous Page" ng-click="onPageNoChange('PREV')" style="cursor:pointer;"></span>
+						<span>{{manageAcctSearchParams.pageNo}}/{{lastPageNo}}</span>
+						<span class="glyphicon glyphicon-forward" title="Forward:Next Page" ng-click="onPageNoChange('NEXT')" style="cursor:pointer;" ></span>
+						<span class="glyphicon glyphicon-fast-forward" title="Fast Forward:Last Page" ng-click="onPageNoChange('LAST')" style="cursor:pointer;"></span>
+					</td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
     <% } %>
