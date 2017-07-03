@@ -1,5 +1,5 @@
 define (['../app'] , function(app){
-	app.run(['$rootScope','idleObserverService' , 'Idle','$templateCache','ModalService', function($rootScope,idleObserverService,Idle,$templateCache,ModalService) {
+	app.run(['$rootScope','idleObserverService' , 'Idle','$templateCache','ModalService','$state', function($rootScope,idleObserverService,Idle,$templateCache,ModalService,$state) {
 		$rootScope.$on('IdleStart', function() {
 			idleObserverService.checkUserLoggedStatus();
 		});
@@ -14,7 +14,27 @@ define (['../app'] , function(app){
 		});
 
 		$rootScope.$on("$stateChangeStart" , function (event, toState, toParams, fromState, fromParams) {
-			$templateCache.remove(fromState.templateUrl);
+			var templateUrls = [];
+			if(fromState.hasOwnProperty('templateUrl')  && typeof fromState.templateUrl === "string"){
+				templateUrls.push(fromState.templateUrl);
+			}
+			else if(fromState.hasOwnProperty('templateUrl')  && typeof fromState.templateUrl === "function"){
+				templateUrls.push(fromState.templateUrl(fromParams));
+			}
+			else if(fromState.hasOwnProperty('views')){
+				for(key in fromState.views){
+					if(fromState.views[key].hasOwnProperty('templateUrl') && typeof fromState.views[key].templateUrl === "string"){
+						templateUrls.push(fromState.views[key].templateUrl);
+					}
+					else if(fromState.views[key].hasOwnProperty('templateUrl') && typeof fromState.views[key].templateUrl === "function"){
+						templateUrls.push(fromState.views[key].templateUrl(fromParams));
+					}
+				}
+			}
+			for(var i=0;i<templateUrls.length;i++){
+				$templateCache.remove(templateUrls[i]);
+			}
+			//$templateCache.removeAll();
 		});
 
 		$rootScope.$on("$stateChangeSuccess" , function (event, toState, toParams, fromState, fromParams) {

@@ -23,22 +23,22 @@ define (['../app'] , function(app){
 		})
 		.state('authenticateUser.login',{
 			url:'/login',
-			templateUrl:"users/login",
+			templateUrl:"/users/login",
 			controller:"loginController"
 		})
 		.state('authenticateUser.signUp',{
 			url:"/signUp",
-			templateUrl:"users/signUp",
+			templateUrl:"/users/signUp",
 			controller:"signupController"
 		})
 		.state('authenticateUser.recoverCredentials',{
 			url:"/recoverCredentials",
-			templateUrl:"users/forgotCredentials",
+			templateUrl:"/users/forgotCredentials",
 			controller:"recoverUserController"
 		})
 		.state('authenticateUser.logout',{
 			url:"/logout",
-			templateUrl:"users/logout",
+			templateUrl:"/users/logout",
 			controller:["$scope" , "$window", function($scope,$window){
 				//$window.sessionStorage.clear();
 			}]
@@ -48,13 +48,13 @@ define (['../app'] , function(app){
 			url:'/common',
 			views:{
 				"header":{
-					templateUrl:"users/header"
+					templateUrl:"/users/header"
 				},
 				"hContentPanel":{
 					template:"<div ui-view='content'></div>"
 				},
 				"footer":{
-					templateUrl:"users/footer"
+					templateUrl:"/users/footer"
 				}
 			}
 		})
@@ -62,7 +62,7 @@ define (['../app'] , function(app){
 			url:'/home',
 			views:{
 				"content@common":{
-					templateUrl:"users/home"
+					templateUrl:"/users/home"
 				}
 			}
 		})
@@ -70,7 +70,7 @@ define (['../app'] , function(app){
 			url:'/about',
 			views:{
 				"content@common":{
-					templateUrl:"users/about"
+					templateUrl:"/users/about"
 				}
 			}
 		})
@@ -78,7 +78,7 @@ define (['../app'] , function(app){
 			url:'/query',
 			views:{
 				"content@common":{
-					templateUrl:"users/query"
+					templateUrl:"/users/query"
 				}
 			}
 		})
@@ -87,13 +87,13 @@ define (['../app'] , function(app){
 			url:'/learn',
 			views:{
 				"header":{
-					templateUrl:"users/header"
+					templateUrl:"/users/header"
 				},
 				"hContentPanel":{
 					template:"<div ui-view='content'></div>"
 				},
 				"footer":{
-					templateUrl:"users/footer"
+					templateUrl:"/users/footer"
 				}
 			}
 		})
@@ -101,7 +101,7 @@ define (['../app'] , function(app){
 			url:'/html',
 			views:{
 				"content@learn":{
-					templateUrl:"users/HTML",
+					templateUrl:"/users/HTML",
 					controller:"learnController"
 				}
 			},
@@ -115,7 +115,7 @@ define (['../app'] , function(app){
 			url:'/css',
 			views:{
 				"content@learn":{
-					templateUrl:"users/CSS",
+					templateUrl:"/users/CSS",
 					controller:"learnController"
 				}
 			},
@@ -129,7 +129,7 @@ define (['../app'] , function(app){
 			url:'/js',
 			views:{
 				"content@learn":{
-					templateUrl:"users/JS",
+					templateUrl:"/users/JS",
 					controller:"learnController"
 				}
 			},
@@ -144,7 +144,7 @@ define (['../app'] , function(app){
 			url:'/design',
 			views:{
 				"header":{
-					templateUrl:"users/brand"	
+					templateUrl:"/users/brand"	
 				},
 				"verticalMenu":{
 					templateUrl:"/users/VerticalMenu"
@@ -153,7 +153,7 @@ define (['../app'] , function(app){
 					template:"<div ui-view='content'></div>"
 				},
 				"footer":{
-					templateUrl:"users/footer"
+					templateUrl:"/users/footer"
 				}
 			}
 		})
@@ -161,7 +161,7 @@ define (['../app'] , function(app){
 			url:'/designElement',
 			views:{
 				"content@design":{
-					templateUrl:"users/designElement",
+					templateUrl:"/users/designElement",
 					controller:"designElementController"
 				}
 			}
@@ -170,7 +170,7 @@ define (['../app'] , function(app){
 			url:'/designComponent',
 			views:{
 				"content@design":{
-					templateUrl:"users/designComponent"
+					templateUrl:"/users/designComponent"
 				}
 			}
 		})
@@ -178,7 +178,7 @@ define (['../app'] , function(app){
 			url:'/designLayout',
 			views:{
 				"content@design":{
-					templateUrl:"users/designLayout",
+					templateUrl:"/users/designLayout",
 					controller:"designLayoutController"
 				}
 			}
@@ -187,7 +187,7 @@ define (['../app'] , function(app){
 			url:"/myProfile",
 			views:{
 				"header":{
-					templateUrl:"users/brand"	
+					templateUrl:"/users/brand"	
 				},
 				"verticalMenu":{
 					templateUrl:"/users/VerticalMenu"
@@ -197,7 +197,7 @@ define (['../app'] , function(app){
 					controller:"userProfileController"
 				},
 				"footer":{
-					templateUrl:"users/footer"
+					templateUrl:"/users/footer"
 				}
 			}
 		})
@@ -206,7 +206,7 @@ define (['../app'] , function(app){
 			url:"/adminOp",
 			views:{
 				"header":{
-					templateUrl:"users/brand"	
+					templateUrl:"/users/brand"	
 				},
 				"verticalMenu":{
 					templateUrl:"/users/VerticalMenu"
@@ -215,7 +215,7 @@ define (['../app'] , function(app){
 					template:"<div ui-view='content'></div>"
 				},
 				"footer":{
-					templateUrl:"users/footer"
+					templateUrl:"/users/footer"
 				}
 			}
 		})
@@ -265,7 +265,7 @@ define (['../app'] , function(app){
 		})
 		.state('otherwise',{
 			url:'*path',
-			templateUrl:'users/resourceNotFound'
+			templateUrl:'/users/resourceNotFound'
 		});
 		
 		$locationProvider.html5Mode(true);

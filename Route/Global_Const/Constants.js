@@ -1,7 +1,7 @@
 module.exports = Object.freeze({
 	initServerData:{
 		port:3000,
-		dbURI:'mongodb://bbj:bbj@ds159208.mlab.com:59208/bjaganuri'/*'mongodb://bbj:bbj@localhost/NodeApp'*/
+		dbURI:'mongodb://bbj:bbj@ds159208.mlab.com:59208/bjaganuri'/*'mongodb://bbj:bbj@ds159208.mlab.com:59208/bjaganuri'*/
 	},
     login:{
 		salt_factor:10,

@@ -9,17 +9,19 @@
 	</div>
 	<div class="col-sm-12 text-left loginHeader">
 		<span ng-if="genericSignUp">Sign Up</span>
-		<span ng-if="!genericSignUp">Add user data and submit</span>
-		<span style="margin:0px 15px;">|</span>
-		<span class="dropdown" style="cursor:pointer;">
-			<span class="dropdown-toggle" data-toggle="dropdown">Import Users <span class="caret"></span></button></span>
-			<ul class="dropdown-menu">
-			    <li><a href="" class="menuItem" ng-click="activateImportOpt('json')">Import JSON</a></li>
-			    <li class="divider"></li>
-			    <li><a href="" class="menuItem" ng-click="activateImportOpt('csv')">Import CSV</a></li>
-			 </ul>
-		</button>
-		<input type="file" id="importUserList" style="visibility: hidden;" />
+		<div ng-if="!genericSignUp">
+			<span>Add user data and submit</span>
+			<span style="margin:0px 15px;">|</span>
+			<span class="dropdown" style="cursor:pointer;">
+				<span class="dropdown-toggle" data-toggle="dropdown">Import Users <span class="caret"></span></button></span>
+				<ul class="dropdown-menu">
+				    <li><a href="" class="menuItem" ng-click="activateImportOpt('json')">Import JSON</a></li>
+				    <li class="divider"></li>
+				    <li><a href="" class="menuItem" ng-click="activateImportOpt('csv')">Import CSV</a></li>
+				 </ul>
+			</button>
+			<input type="file" id="importUserList" style="visibility: hidden;" />
+		</div>
 	</div>
 	<div class="col-sm-12">
 		<form name="signUpForm" ng-submit="signUp($event)" novalidate class="form-horizontal" >

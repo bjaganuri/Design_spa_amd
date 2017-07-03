@@ -1,5 +1,5 @@
 define(['../module'], function (app) {
-	app.controller("signupController" , ['$scope','restDataService','$state','fileUpload',function($scope,restDataService,$state,fileUpload){
+	app.controller("signupController" , ['$scope','restDataService','$state','fileUpload','$timeout',function($scope,restDataService,$state,fileUpload,$timeout){
 		$scope.newUser = {};
 		$scope.submitted = false;
 		$scope.phoneRegEx="/^[0-9]{10,10}$/;";
@@ -10,10 +10,6 @@ define(['../module'], function (app) {
 		$scope.genericSignUp = true;
 		$scope.fileToImport = $scope.userListFile;
 		$scope.newUser.admin = false;
-
-		if(!$state.includes('authenticateUser') && $state.$current.name === "adminOPs.addNewUser"){
-			$scope.genericSignUp = false;
-		}
 
 		$scope.signUp = function($event){
 			$event.preventDefault();
@@ -64,24 +60,32 @@ define(['../module'], function (app) {
 				console.log(res.data);
 			});
 		};
-	
-		document.getElementById('importUserList').addEventListener("change" , function(event){
-			var file = event.target.files[0];
-			var fileTypeToAccept = event.target.accept;
-			var fileType = "";
-			if(file.type !== "" && (file.type.includes("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") || file.type.includes("application/vnd.ms-excel")) && fileTypeToAccept.includes(file.type)){
-				fileType = "csv";
-			}
-			else if(file.type === "" && file.name.split(".")[1] === "json" && fileTypeToAccept.includes(file.name.split(".")[1])){
-				fileType = "json";
-			}
-			if(fileType == ""){
-				alert("Invalid file type");
-			}
-			else{
-				angular.element(event.target).scope().importUsersList(file,fileType);
-			}
-		});
 		
+		if(!$state.includes('authenticateUser') && $state.$current.name === "adminOPs.addNewUser"){
+			$scope.genericSignUp = false;
+			$scope.$parent.$parent.$on("$includeContentLoaded" , function(){
+				$timeout(function(){
+					if(document.getElementById('importUserList')){
+						document.getElementById('importUserList').addEventListener("change" , function(event){
+							var file = event.target.files[0];
+							var fileTypeToAccept = event.target.accept;
+							var fileType = "";
+							if(file.type !== "" && (file.type.includes("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") || file.type.includes("application/vnd.ms-excel")) && fileTypeToAccept.includes(file.type)){
+								fileType = "csv";
+							}
+							else if(file.type === "" && file.name.split(".")[1] === "json" && fileTypeToAccept.includes(file.name.split(".")[1])){
+								fileType = "json";
+							}
+							if(fileType == ""){
+								alert("Invalid file type");
+							}
+							else{
+								angular.element(event.target).scope().importUsersList(file,fileType);
+							}
+						});			
+					}
+				});
+			});
+		}
 	}]);
 });
