@@ -100,7 +100,11 @@ app.post("/importUsers/:reqFileType" , ensureAuthenticated ,  AdminOPS.importUse
 
 function ensureAuthenticated(req, res, next){
 	var accountLocked = false;
+	var lockedBy = "NA";
+	var lockComments = "NA";
 	if(req.user && req.user.opState && req.user.opState === "LOCKED"){
+		lockedBy = req.user.lockedBy;
+		lockComments = req.user.lockComments;
 		accountLocked = true;
 		req.logout();
 		req.flash('success_msg', 'You are logged out');
@@ -109,7 +113,10 @@ function ensureAuthenticated(req, res, next){
 		return next();
 	} else {
 		if(accountLocked)
-			res.status(HttpStatus.UNAUTHORIZED).json({status:"ACCOUNT_LOCKED"});
+			res.status(HttpStatus.UNAUTHORIZED).json({
+				status:"ACCOUNT_LOCKED",
+				message:"Your account has been locked permanently by "+ lockedBy +" with " + lockComments + " as comments pls contact admin to unlock your account"
+			});
 		else
 			res.status(HttpStatus.UNAUTHORIZED).json({status:"LOGIN_REQUIRED"});
 	}

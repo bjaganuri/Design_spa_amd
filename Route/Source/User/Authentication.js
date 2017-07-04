@@ -14,7 +14,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 		}
 
 		if(user.opState === "LOCKED"){
-			return done(null,false,{message:"Your account has been locked permanently pls contact admin to unlock"});
+			return done(null,false,{message:"Your account has been locked permanently by "+ user.lockedBy +" with " + user.lockComments + " as comments pls contact admin to unlock your account"});
 		}
 
 		if (user.isLocked) {

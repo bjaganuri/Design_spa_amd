@@ -1,5 +1,6 @@
 define(['../module'], function (app) {
-	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView' , function($scope,restDataService,$state,userToView){
+	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView','ModalService' , 
+		function($scope,restDataService,$state,userToView,ModalService){
 		$scope.manageAcctSearchParams = {};
 		$scope.submitted = false;
 		$scope.sameAsWorkingUserID = "";
@@ -11,6 +12,7 @@ define(['../module'], function (app) {
 		$scope.dataReadSuccess = false;
 		$scope.accountsListHeaders = ['Sl.No' , 'Name' , 'Email' , 'Username' , 'Operational State' , 'Lock/Unlock'];
 		$scope.userDataToview = userToView.data;
+		$scope.userDataToUpdate = {};
 
 		$scope.getAccountsList = function($event){
 			$event.preventDefault();
@@ -74,8 +76,41 @@ define(['../module'], function (app) {
 				$scope.updateTableData($scope.manageAcctSearchParams);
 			}
 		};
-
+		
 		$scope.lockUnlockAccount = function(user){
+			angular.copy(user , $scope.userDataToUpdate);
+			var _this = $scope;
+			var modalInstance = ModalService.showModal({
+				templateUrl: 'adminOpComments.html',
+				controller:function($scope, $element, close){
+					$scope.submitted = false;
+					$scope.upDateAction = function($event){
+						$event.preventDefault();
+						$scope.submitted = true;
+						if($scope.manageUserAccountForm.$valid){
+							_this.userDataToUpdate.comments = $scope.comments;
+							_this.executeUpdate(_this.userDataToUpdate);
+							$element.modal('hide');
+							$event.target.reset();
+							$scope.comments = "";
+							$scope.manageUserAccountForm.$setPristine();
+							$scope.manageUserAccountForm.$setUntouched();
+							$scope.submitted = false;
+						}
+					}
+				},
+				preClose: function(modal){
+					return modal.element.modal('hide');
+				}
+			}).then(function(modal) {
+				modal.element.modal();
+				modal.close.then(function(result) {
+					
+				});
+			});
+		};
+
+		$scope.executeUpdate = function(user){
 			restDataService.postData("users/manageAccountLock",user,function(response){
 				if(response.data.status == "Success"){
 					if($state.is("adminOPs.viewUser")){
@@ -88,8 +123,8 @@ define(['../module'], function (app) {
 				else{
 					alert("Something went wrong pls try again");
 				}
-			});		
-		};
+			});
+		}
 		
 		$scope.updateTableData = function(acctListingParams){
 			restDataService.getData("users/getUserAccountsList" , acctListingParams , function(response){

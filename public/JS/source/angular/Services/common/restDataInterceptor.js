@@ -30,6 +30,7 @@ define (['../module'] , function(app){
 				$rootScope.$broadcast("loggedOut");
 			}
 			else if(rejection.status == 401 && data === "ACCOUNT_LOCKED"){
+				$rootScope.accountLockComments = (angular.fromJson(rejection.data)).message;
 				$rootScope.$broadcast("accountLocked");
 			}
 			return $q.reject(rejection);

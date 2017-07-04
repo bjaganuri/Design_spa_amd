@@ -19,10 +19,18 @@ var userSchema = new Schema({
 	gender:{ type: String , required: true},
 	mobile:{ type: String , required: true},
 	altMobile:{ type: String},
-	loginAttempts: { type: Number, required: true, default: 0 },
+	loginAttempts: { type: Number, required: true, default: 0},
 	lockUntil: { type: Number },
 	admin:{type: Boolean},
-	opState:{type: String}
+	opState:{type: String},
+	lockComments:{type:String , default:'NA'},
+	unLockComments:{type:String, default:'NA'},
+	lockedBy:{type:String , default:'NA'},
+	unLockedBy:{type:String , default:'NA'},
+	adminRightGrantComments:{type:String , default:'NA'},
+	adminRightRevokeComments:{type:String , default:'NA'},
+	adminRightGrantedBy:{type:String , default:'NA'},
+	adminRightRevokedBy:{type:String , default:'NA'}
 });
 
 userSchema.statics.failedLogin = {

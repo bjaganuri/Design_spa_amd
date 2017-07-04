@@ -52,20 +52,27 @@ module.exports.manageLockAdminRight = function(req, res){
 		if(req.body.action !== undefined && req.body.action !== null){
 			if(req.body.action === "Lock"){
 				user.opState = "LOCKED";
+				user.lockComments = req.body.comments;
+				user.lockedBy = req.user.email;
 			}
 			else{
 				user.opState = "ACTIVE";
+				user.unLockComments = req.body.comments;
+				user.unLockedBy = req.user.email;
 			}
 		}
 
 		if(req.body.admin !== undefined && req.body.admin !== null){
 			if(req.body.admin === "Grant"){
 				user.admin = true;
+				user.adminRightGrantComments = req.body.comments;
+				user.adminRightGrantedBy = req.user.email;
 			}
 			else if(req.body.admin === "Revoke"){
 				user.admin = false;
+				user.adminRightRevokeComments = req.body.comments;
+				user.adminRightRevokedBy = req.user.email;
 			}
-
 		}
 		User.updateUserProfileData(user , function (err , raw) {
 			if(err) throw err;
