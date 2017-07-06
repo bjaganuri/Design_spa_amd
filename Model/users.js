@@ -156,7 +156,7 @@ module.exports.updateUserProfileData = function (user,callback) {
 };
 
 module.exports.getUserAccounts = function(query,skip,limit,callback){
-	User.find(query,{_id:1,name:1,email:1,username:1,opState:1}).skip(skip).limit(limit).sort({name:1}).exec(callback);
+	User.find(query,{_id:1,name:1,email:1,username:1,opState:1,lockedBy:1,lockComments:1,unLockedBy:1,unLockComments:1,adminRightGrantComments:1,adminRightRevokeComments:1,adminRightGrantedBy:1,adminRightRevokedBy:1}).skip(skip).limit(limit).sort({name:1}).exec(callback);
 };
 
 module.exports.insertMultiple = function(data , callback){

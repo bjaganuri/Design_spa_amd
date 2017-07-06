@@ -10,7 +10,7 @@ define(['../module'], function (app) {
 		$scope.recordsSize = 0;
 		$scope.accountsList = [];
 		$scope.dataReadSuccess = false;
-		$scope.accountsListHeaders = ['Sl.No' , 'Name' , 'Email' , 'Username' , 'Operational State' , 'Lock/Unlock'];
+		$scope.accountsListHeaders = ['Sl.No' , 'Name' , 'Email' , 'Username' , 'LockedBy(last)' , 'Lock Comments(last)' , 'Operational State' , 'Lock/Unlock'];
 		$scope.userDataToview = userToView.data;
 		$scope.userDataToUpdate = {};
 

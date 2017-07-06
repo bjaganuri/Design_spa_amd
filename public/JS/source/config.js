@@ -1,7 +1,7 @@
 define (['../app'] , function(app){
 	return app.config(['$stateProvider', '$urlRouterProvider','$locationProvider','$urlMatcherFactoryProvider','$httpProvider','idleObserverServiceProvider','T','MIN','IdleProvider','KeepaliveProvider' , 
 		function($stateProvider, $urlRouterProvider,$locationProvider,$urlMatcherFactoryProvider,$httpProvider,idleObserverServiceProvider,T,MIN,IdleProvider,KeepaliveProvider){
-		idleObserverServiceProvider.setTimeout(T);
+		idleObserverServiceProvider.setTimeout(MIN);
 		IdleProvider.idle(T*MIN);
 		IdleProvider.timeout(T*MIN);
 		KeepaliveProvider.interval(2*T*MIN);

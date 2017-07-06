@@ -31,7 +31,7 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th ng-repeat="header in accountsListHeaders">
+					<th ng-repeat="header in accountsListHeaders" style="vertical-align:middle;">
 						{{header}}
 					</th>
 				</tr>
@@ -44,6 +44,8 @@
 					</td>
 					<td>{{user.email}}</td>
 					<td>{{user.username}}</td>
+					<td>{{user.lockedBy}}</td>
+					<td>{{user.lockComments}}</td>
 					<td>
 						<span ng-class="{'text-success':user.opState == 'ACTIVE' || user.opState == 'INACTIVE'  , 'text-danger':user.opState == 'LOCKED'}">{{user.opState}}</span>
 					</td>
@@ -54,16 +56,15 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="2">
+					<td colspan="3" style="border-right:0px solid black;border-left:0px solid black;">
 						<span ng-bind="recordsSize"></span>
 						<span> Record(s) found</span>
 					</td>
-					<td colspan="2"></td>
-					<td>
+					<td colspan="2" style="border-right:0px solid black;border-left:0px solid black;"></td>
+					<td colspan="3" style="text-align:right;border-right:0px solid black;border-left:0px solid black;">
 						<label>Page Size : </label>
 						<select ng-model="manageAcctSearchParams.pageSize" ng-options="size for size in [10,25,50,100,500]" ng-change="onPageSizeChange()"></select>
-					</td>
-					<td>
+						<span style="margin-right:25px;"></span>
 						<span class="glyphicon glyphicon-fast-backward" title="Fast Backword:First Page" ng-click="onPageNoChange('FIRST')" style="cursor:pointer;"></span>
 						<span class="glyphicon glyphicon-backward" title="Backword:Previous Page" ng-click="onPageNoChange('PREV')" style="cursor:pointer;"></span>
 						<span>{{manageAcctSearchParams.pageNo}}/{{lastPageNo}}</span>

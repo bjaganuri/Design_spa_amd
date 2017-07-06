@@ -1,6 +1,6 @@
 define (['../module'] , function(app){
-	app.constant("MIN" , 15);	//Min is specified in seconds
-	app.constant("T" , 60);		//T specified in minutes
+	app.constant("MIN" , 15);	//Min is specified in minutes
+	app.constant("T" , 60);		//T specified in seconds
 
 	//Service defined to observe idle state od user
 	app.provider("idleObserverService" , function () {
@@ -8,21 +8,24 @@ define (['../module'] , function(app){
 		var count = 15;
 		var warning = false;
 		var timedout = false;
-		this.setTimeout = function (T) {
-			timeout = T;
-			count = T;
+		var idletimer = "";
+		this.setTimeout = function (MIN) {
+			timeout = MIN;
+			count = MIN;
 		};
 		
-		this.$get = ['Idle','$http','restDataService','$state','$interval' , function (Idle,$http,restDataService,$state,$interval) {
+		this.$get = ['$rootScope','Idle','$http','restDataService','$state','$interval' , function ($rootScope,Idle,$http,restDataService,$state,$interval) {
+			$rootScope.timeout = timeout;
+			$rootScope.count = count;
 			return{
 				checkUserLoggedStatus: function () {
 					restDataService.get("/users/sessionData" , '').then(function(response){
 						if(response.data.status === "AUTHORIZED" && !$state.includes("authenticateUser") && !$state.includes("otherwise")){
 							$("#warningModal").modal("show");
 							warning = true;
-							this.idletimer = $interval(function(){
-								count--;
-							} , 1000);
+							idletimer = $interval(function(){
+								$rootScope.count--;
+							} , 1000*60);
 						}
 						else{
 							Idle.unwatch();
@@ -46,8 +49,8 @@ define (['../module'] , function(app){
 						$("#timeOutModal").modal("hide");
 						timedout = false;
 					}
-					$interval.cancel(this.idletimer);
-					count = timeout;
+					$interval.cancel(idletimer);
+					$rootScope.count = $rootScope.timeout;
 				},
 				logout:function($event){
 					this.stop();

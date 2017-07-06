@@ -15,7 +15,7 @@ define(['../module'], function (app) {
 				response.data.hasOwnProperty("__v") ? delete response.data['__v'] : null;
 				response.data.altMobile = parseInt(response.data.altMobile,10);
 				response.data.mobile = parseInt(response.data.mobile,10);
-				response.data.dob = (new Date(response.data.dob)).toLocaleDateString();
+				//response.data.dob = (new Date(response.data.dob)).toLocaleDateString();
 				$scope.updateUser = response.data;
 			});
 		};
@@ -23,6 +23,7 @@ define(['../module'], function (app) {
 		$scope.updateProfile = function ($event) {
 			$scope.submitted = true;
 			if($scope.updateProfileForm.$valid){
+				$scope.updateUser.dob = (new Date($scope.updateUser.dob)).toDateString();
 				restDataService.postData("users/updateUserProfile",$scope.updateUser,function(response){
 					if(response.data.status == "Success"){
 						$event.target.reset();
