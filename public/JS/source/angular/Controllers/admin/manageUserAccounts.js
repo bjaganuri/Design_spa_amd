@@ -155,7 +155,7 @@ define(['../module'], function (app) {
 			var userAccountTableClone = (document.getElementById('userAccountListTable')).cloneNode(true);
 			userAccountTableClone.setAttribute("border" , 1);
 			userAccountTableClone.setAttribute("cellspacing" , 0);
-			userAccountTableClone.setAttribute("style","font-size:10px;");
+			userAccountTableClone.setAttribute("style","font-size:8px;");
 			var childElements = userAccountTableClone.children;
 			var childElementsCount = userAccountTableClone.childElementCount;
 			userAccountTableClone.removeChild(childElements[childElementsCount-1]);

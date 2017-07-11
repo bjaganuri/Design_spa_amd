@@ -126,7 +126,7 @@ module.exports.html2pdf = function(req,res){
 			"top": "1in",           
 			"right": "0.5in",
 			"bottom": "1in",
-			"left": "1in"
+			"left": "0.5in"
 		}
 	};
 	
