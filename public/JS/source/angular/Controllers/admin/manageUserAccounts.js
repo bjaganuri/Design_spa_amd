@@ -1,6 +1,6 @@
 define(['../module'], function (app) {
-	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView','ModalService' , 
-		function($scope,restDataService,$state,userToView,ModalService){
+	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView','ModalService' , 'fileUpload','$http',
+		function($scope,restDataService,$state,userToView,ModalService,fileUpload,$http){
 		$scope.manageAcctSearchParams = {};
 		$scope.submitted = false;
 		$scope.sameAsWorkingUserID = "";
@@ -144,5 +144,74 @@ define(['../module'], function (app) {
 				$scope.dataReadSuccess = true;
 			});	
 		};
+
+		$scope.exportUserAccounts = function($event){
+			$event.preventDefault();
+			var exportAs = $event.target.innerText;
+			var data = $scope.accountsList;
+			var downloadUrl = "";
+			var fileName = "";
+
+			var userAccountTableClone = (document.getElementById('userAccountListTable')).cloneNode(true);
+			userAccountTableClone.setAttribute("border" , 1);
+			userAccountTableClone.setAttribute("cellspacing" , 0);
+			userAccountTableClone.setAttribute("style","font-size:12px;");
+			var childElements = userAccountTableClone.children;
+			var childElementsCount = userAccountTableClone.childElementCount;
+			userAccountTableClone.removeChild(childElements[childElementsCount-1]);
+			userAccountTableClone.firstElementChild.children[0].removeChild(userAccountTableClone.firstElementChild.children[0].lastElementChild);
+			var dataRows = userAccountTableClone.lastElementChild.children;
+			var dataRowsCount = userAccountTableClone.lastElementChild.childElementCount;
+			for(var i=0;i<dataRowsCount;i++){
+				dataRows[i].removeChild(dataRows[i].lastElementChild);
+			}
+
+			if(exportAs === "PDF"){				
+				restDataService.post(
+					'users/html2pdf',
+					{html2pdfData:JSON.stringify(userAccountTableClone.outerHTML)},
+					{headers: {
+						'Content-Type': "application/json",
+						'Accept': "application/pdf"
+					},
+					responseType: 'arraybuffer'}
+				).then(function(res){
+					var blob=new Blob([res.data] , { type: 'application/pdf'});
+					downloadUrl=URL.createObjectURL(blob);
+					fileName="users_account_list_"+$scope.sameAsWorkingUserID+"_"+Date.now()+".pdf";
+					$scope.downLoadFile(downloadUrl,fileName);
+				});
+			}
+			else if(exportAs === "CSV"){
+				var cscvString = "";
+				csvString = "SL.No,Name,Email,Username,LockedBy(last),Lock Comments(last),Operational State"+ "\n";
+				for(var i=0; i<data.length;i++){
+					csvString = csvString+(i+1)+",";
+					csvString = csvString + data[i].name+",";
+					csvString = csvString + data[i].email+",";
+					csvString = csvString + data[i].username+",";
+					csvString = csvString + data[i].lockedBy+",";
+					csvString = csvString + data[i].lockComments+",";
+					csvString = csvString + data[i].opState+",";
+					csvString = csvString + "\n";
+				}
+				downloadUrl = 'data:application/octet-stream;base64,'+btoa(csvString);
+				fileName = "users_account_list_"+$scope.sameAsWorkingUserID+"_"+Date.now()+".csv";
+				$scope.downLoadFile(downloadUrl,fileName);
+			}
+			
+		};
+
+		$scope.downLoadFile = function(url,fileName){
+			if(url !== "" && fileName !== ""){
+				var a = $('<a/>', {
+					style:'display:none',
+					href:url,
+					download:fileName
+				}).appendTo('body');
+				a[0].click();
+				a.remove();
+			}
+		}
 	}]);
 });

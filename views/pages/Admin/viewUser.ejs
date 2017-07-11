@@ -28,7 +28,19 @@
 	</div>
  
 	<div class="col-sm-12" ng-hide="accountsList.length === 0">
-		<table class="table table-striped table-bordered">
+		<div class="dropdown" style="margin-bottom:10px;float:right;">
+			<button class="btn btn-primary" data-toggle="dropdown">
+				<span class="glyphicon glyphicon-export"></span>
+				<span> Export Data</span>
+			</button>
+			<ul class="dropdown-menu">
+				<li><a href="#" ng-click="exportUserAccounts($event)">PDF</a></li>
+				<li class="divider"></li>
+				<li><a href="#" ng-click="exportUserAccounts($event)">CSV</a></li>
+			</ul>
+		</div>
+
+		<table class="table table-striped table-bordered" id="userAccountListTable">
 			<thead>
 				<tr>
 					<th ng-repeat="header in accountsListHeaders" style="vertical-align:middle;">

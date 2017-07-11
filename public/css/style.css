@@ -44,14 +44,18 @@ body {
   	z-index: 9999;
 }
 .dropdown-menu{
+	padding: 0px;
+}
+.nav .dropdown-menu{
 	background-color: inherit;
 	border-color: #080808;
-	padding: 0px;
 	background-color: #222
 }
 .dropdown-menu  li a{
 	height:50px;
 	line-height: 50px;
+}
+.nav .dropdown-menu  li a{
 	color:#777;
 }
 .dropdown-menu  li a:hover{

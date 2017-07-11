@@ -2,19 +2,11 @@ define (['../module'] , function(app){
 	//Service communicate with backend and get or post data
 	app.service("restDataService" , ['$http' , '$log' , function ($http,$log) {
 		this.get = function (url,data) {
-			return $http({
-				url: url,
-				method: "GET",
-				params: data
-			});
+			return $http.get(url,{params: data});
 		};
 
-		this.post = function (url,data) {
-			return $http({
-				url: url,
-				method: "POST",
-				data: data
-			});
+		this.post = function (url,data,config) {
+			return $http.post(url,data,config);
 		};
 		
 		this.getData = function (url,data,callback) {

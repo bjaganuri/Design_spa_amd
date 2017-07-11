@@ -98,6 +98,8 @@ app.post("/manageAccountLock" , ensureAuthenticated , AdminOPS.manageLockAdminRi
 
 app.post("/importUsers/:reqFileType" , ensureAuthenticated ,  AdminOPS.importUsersList);
 
+app.post("/html2pdf" , ensureAuthenticated ,  AdminOPS.html2pdf);
+
 function ensureAuthenticated(req, res, next){
 	var accountLocked = false;
 	var lockedBy = "NA";

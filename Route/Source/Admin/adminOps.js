@@ -2,6 +2,7 @@ var User = require("../../../Model/users");
 var JobScheduler = require("../../../Model/schedulejobs");
 var fileUploadService = require('../Common/fileUpload');
 var async = require("async");
+var pdf = require('html-pdf');
 
 module.exports.getUserAccountsList = function(req,res){
 	var param = req.query.searchParam;
@@ -112,5 +113,26 @@ module.exports.importUsersList = function(req,res){
 				res.json(JSON.stringify(result));
 			});
 		}
+	});
+};
+
+module.exports.html2pdf = function(req,res){
+	res.setHeader('Content-Type', 'application/pdf');
+	res.setHeader('Content-Disposition', 'attachment; filename=users_account_list.pdf');
+	var options = {
+		"format": "Letter",
+		"orientation": "landscape",
+		"border": {
+			"top": "1in",           
+			"right": "0.5in",
+			"bottom": "1in",
+			"left": "1in"
+		}
+	};
+	
+	pdf.create(JSON.parse(req.body.html2pdfData),options).toBuffer(function(err, buffer) {
+		if (err) 
+			return console.log(err);
+		res.send(new Buffer(buffer, 'binary'));
 	});
 };
