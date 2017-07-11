@@ -1,6 +1,6 @@
 define(['../module'], function (app) {
-	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView','ModalService' , 'fileUpload','$http',
-		function($scope,restDataService,$state,userToView,ModalService,fileUpload,$http){
+	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView','ModalService',
+		function($scope,restDataService,$state,userToView,ModalService){
 		$scope.manageAcctSearchParams = {};
 		$scope.submitted = false;
 		$scope.sameAsWorkingUserID = "";
@@ -155,7 +155,7 @@ define(['../module'], function (app) {
 			var userAccountTableClone = (document.getElementById('userAccountListTable')).cloneNode(true);
 			userAccountTableClone.setAttribute("border" , 1);
 			userAccountTableClone.setAttribute("cellspacing" , 0);
-			userAccountTableClone.setAttribute("style","font-size:12px;");
+			userAccountTableClone.setAttribute("style","font-size:10px;");
 			var childElements = userAccountTableClone.children;
 			var childElementsCount = userAccountTableClone.childElementCount;
 			userAccountTableClone.removeChild(childElements[childElementsCount-1]);
