@@ -67,6 +67,8 @@ app.get("/getUserProfile" , ensureAuthenticated , HandleUserProfile.getUserProfi
 
 app.post("/signUp" , AuthenticateUser.signUp);
 
+app.get("/checkUserChoiceAvailability" , AuthenticateUser.checkUserChoiceAvailability);
+
 app.post('/login', AuthenticateUser.login);
 
 app.get('/recoverUser' , AuthenticateUser.recoverUser);

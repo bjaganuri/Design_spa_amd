@@ -109,3 +109,6 @@ input.ng-touched.ng-invalid {
 section{
 	overflow: hidden;
 }
+.errorText{
+	color:#a94442;
+}

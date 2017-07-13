@@ -14,20 +14,22 @@
 		<form name="loginForm" ng-submit="login($event)" novalidate class="form-horizontal">
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="username" style="text-align: left;">Username:</label>
-				<div class="col-sm-9">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':loginForm.username.$touched && loginForm.username.$invalid , 'has-success':loginForm.username.$dirty && loginForm.username.$valid}">
 			     	<input type="text" name="username" ng-model="user.username" placeholder="Enter your Username" class="form-control" required>
-			     	<span style="color:red" ng-show="loginForm.username.$touched && loginForm.username.$invalid">
+			     	<!-- <span class="errorText" ng-show="loginForm.username.$touched && loginForm.username.$invalid">
 			     		<span ng-show="loginForm.username.$error.required">Username is required.</span>
-			     	</span>
+			     	</span> -->
+				<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':loginForm.username.$touched && loginForm.username.$invalid,'glyphicon-ok':loginForm.username.$dirty && loginForm.username.$valid}"></span>
 			    </div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="password" style="text-align: left;">password:</label>
-				<div class="col-sm-9">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':loginForm.password.$touched && loginForm.password.$invalid , 'has-success':loginForm.password.$dirty && loginForm.password.$valid}">
 			     	<input type="password" name="password" ng-model="user.password" placeholder="Enter your password" class="form-control" required>
-			     	<span style="color:red" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
+			     	<!-- <span class="errorText" ng-show="loginForm.password.$touched && loginForm.password.$invalid">
 			     		<span ng-show="loginForm.password.$error.required">Password is required.</span>
-			     	</span>
+			     	</span> -->
+				<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':loginForm.password.$touched && loginForm.password.$invalid,'glyphicon-ok':loginForm.password.$dirty && loginForm.password.$valid}"></span>
 			    </div>
 			</div>
 			<div class="form-group">

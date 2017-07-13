@@ -27,21 +27,23 @@
 		<form name="signUpForm" ng-submit="signUp($event)" novalidate class="form-horizontal" >
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="name" style="text-align: left;">Full Name:</label>
-				<div class="col-sm-9">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.name.$dirty ) && signUpForm.name.$invalid , 'has-success':signUpForm.name.$dirty && signUpForm.name.$valid}">
 					<input type="text" name="name" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.name" placeholder="Enter your name" class="form-control" ng-minlength="5" required>
-					<span style="color:red" ng-show="(submitted || signUpForm.name.$dirty ) && signUpForm.name.$invalid">
+					<span class="errorText" ng-show="(submitted || signUpForm.name.$dirty ) && signUpForm.name.$invalid">
 						<span ng-show="signUpForm.name.$error.required">Name is required.</span>
 					</span>
-					<span style="color:red" ng-show="signUpForm.name.$touched && signUpForm.name.$error.minlength">Username should have min. 5 characters</span>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':(submitted || signUpForm.name.$dirty ) && signUpForm.name.$invalid,'glyphicon-ok':signUpForm.name.$dirty && signUpForm.name.$valid}"></span>
+					<span class="errorText" ng-show="signUpForm.name.$touched && signUpForm.name.$error.minlength">Username should have min. 5 characters</span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="dob" style="text-align: left;">Date of Birth:</label>
-				<div class="col-sm-9">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.dob.$dirty ) && signUpForm.dob.$invalid , 'has-success':signUpForm.dob.$dirty && signUpForm.dob.$valid}">
 					<datepicker date-format="MMMM d, y">
 						<input ng-model="newUser.dob" name="dob" type="text" placeholder="Enter your dob" class="form-control" required/>
-					</datepicker>			     	
-					<span style="color:red" ng-show="(submitted || signUpForm.dob.$dirty ) && signUpForm.dob.$invalid">
+					</datepicker>	
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':(submitted || signUpForm.dob.$dirty ) && signUpForm.dob.$invalid,'glyphicon-ok':signUpForm.dob.$dirty && signUpForm.dob.$valid}"></span>
+					<span class="errorText" ng-show="(submitted || signUpForm.dob.$dirty ) && signUpForm.dob.$invalid">
 						<span ng-show="signUpForm.dob.$error.required">dob is required.</span>
 					</span>
 				</div>
@@ -51,59 +53,66 @@
 				<div class="col-sm-9">
 					<label class="radio-inline"><input type="radio" name="gender" ng-model="newUser.gender" value="Male" required>Male</label>
 					<label class="radio-inline"><input type="radio" name="gender" ng-model="newUser.gender" value="Female" required>Female</label><br>
-					<span style="color:red" ng-show="submitted  && signUpForm.gender.$invalid">
+					<span class="errorText" ng-show="submitted  && signUpForm.gender.$invalid">
 						<span ng-show="signUpForm.gender.$error.required">Gender is required.</span>
 					</span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="email" style="text-align: left;">Email:</label>
-				<div class="col-sm-9">
-					<input type="email" name="email" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.email" placeholder="Enter your email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
-					<span style="color:red" ng-show="(submitted || signUpForm.email.$dirty) && signUpForm.email.$invalid">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.email.$dirty) && signUpForm.email.$invalid , 'has-success':signUpForm.email.$dirty && signUpForm.email.$valid}">
+					<input type="email" name="email" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.email" placeholder="Enter your email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" check-user-choice-availability="email" required>
+					<span class="errorText" ng-show="(submitted || signUpForm.email.$dirty) && signUpForm.email.$invalid">
 						<span ng-show="signUpForm.email.$error.required">email is required.</span>
 					</span>
-					<span style="color:red" ng-show="signUpForm.email.$touched && signUpForm.email.$error.pattern">Invalid email</span>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':(submitted || signUpForm.email.$dirty) && signUpForm.email.$invalid,'glyphicon-ok':signUpForm.email.$dirty && signUpForm.email.$valid}"></span>
+					<span class="errorText" ng-show="(submitted || signUpForm.email.$dirty) && signUpForm.email.$error.pattern">Invalid email</span>
+					<span class="errorText" ng-show="signUpForm.email.$dirty && signUpForm.email.$error.available && !signUpForm.email.$error.required && !signUpForm.email.$error.pattern">Email is in use</span>
 				 </div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="mobile" style="text-align: left;">Phone Number:</label>
-				<div class="col-sm-9">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.mobile.$dirty) && signUpForm.mobile.$invalid , 'has-success':signUpForm.mobile.$dirty && signUpForm.mobile.$valid}">
 					<input type="number" name="mobile" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.mobile" placeholder="Enter your mobile" class="form-control" ng-pattern="/^[0-9]{10,10}$/" required>
-					<span style="color:red" ng-show="(submitted || signUpForm.mobile.$dirty) && signUpForm.mobile.$invalid">
+					<span class="errorText" ng-show="(submitted || signUpForm.mobile.$dirty) && signUpForm.mobile.$invalid">
 						<span ng-show="signUpForm.mobile.$error.required">Phone No. is required.</span>
 					</span>
-					<span style="color:red" ng-show="signUpForm.mobile.$touched && signUpForm.mobile.$error.pattern">Invalid Phone Number</span>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':(submitted || signUpForm.mobile.$dirty) && signUpForm.mobile.$invalid,'glyphicon-ok':signUpForm.mobile.$dirty && signUpForm.mobile.$valid}"></span>
+					<span class="errorText" ng-show="(submitted || signUpForm.mobile.$dirty) && signUpForm.mobile.$error.pattern">Invalid Phone Number</span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="username" style="text-align: left;">Username:</label>
-				<div class="col-sm-9">
-					<input type="text" name="username" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.username" placeholder="Enter your username" class="form-control" ng-minlength="5" required>
-					<span style="color:red" ng-show="(submitted || signUpForm.username.$dirty) && signUpForm.username.$invalid">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.username.$dirty) && signUpForm.username.$invalid , 'has-success':signUpForm.username.$dirty && signUpForm.username.$valid}">
+					<input type="text" name="username" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.username" placeholder="Enter your username" class="form-control" ng-minlength="5" check-user-choice-availability="username" required>
+					<span class="errorText" ng-show="(submitted || signUpForm.username.$dirty) && signUpForm.username.$invalid">
 						<span ng-show="signUpForm.username.$error.required">Username is required.</span>
 					</span>
-					<span style="color:red" ng-show="signUpForm.username.$touched && signUpForm.username.$error.minlength">Username should have min. 5 characters</span>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':(submitted || signUpForm.username.$dirty) && signUpForm.username.$invalid,'glyphicon-ok':signUpForm.username.$dirty && signUpForm.username.$valid}"></span>
+					<span class="errorText" ng-show="(submitted || signUpForm.username.$dirty) && signUpForm.username.$error.minlength">Username should have min. 5 characters</span>
+					<span class="errorText" ng-show="signUpForm.username.$dirty && signUpForm.username.$error.available && !signUpForm.username.$error.required && !signUpForm.username.$error.minlength">Username is in use</span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="password" style="text-align: left;">Password:</label>
-				<div class="col-sm-9">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.password.$dirty)&& signUpForm.password.$invalid , 'has-success':signUpForm.password.$dirty && signUpForm.password.$valid}">
 					<input type="password" name="password" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.password" placeholder="Enter your password" class="form-control" ng-minlength="5" ng-change="cpassword=''" required>
-					<span style="color:red" ng-show="(submitted || signUpForm.password.$dirty) && signUpForm.password.$invalid">
+					<span class="errorText" ng-show="(submitted || signUpForm.password.$dirty) && signUpForm.password.$invalid">
 						<span ng-show="signUpForm.password.$error.required">Password is required.</span>
 					</span>
-					<span style="color:red" ng-show="signUpForm.password.$touched && signUpForm.password.$error.minlength">Password should have atleast 5 characters</span>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':(submitted || signUpForm.password.$dirty) && signUpForm.password.$invalid,'glyphicon-ok':signUpForm.password.$dirty && signUpForm.password.$valid}"></span>
+					<span class="errorText" ng-show="signUpForm.password.$touched && signUpForm.password.$error.minlength">Password should have atleast 5 characters</span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 text-left" for="cpassword" style="text-align: left;">Confirm password:</label>
-				<div class="col-sm-9">
+				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.cpassword.$dirty) && signUpForm.cpassword.$invalid , 'has-success':signUpForm.cpassword.$dirty && signUpForm.cpassword.$valid}">
 					<input type="password" name="cpassword" ng-model="newUser.cpassword" placeholder="Confirm password" class="form-control" pw-check="password" required>
-					<span style="color:red" ng-show="(submitted || signUpForm.cpassword.$dirty) && signUpForm.cpassword.$invalid">
+					<span class="errorText" ng-show="(submitted || signUpForm.cpassword.$dirty) && signUpForm.cpassword.$invalid">
 						<span ng-show="signUpForm.cpassword.$error.required">Password should be confirmed.</span>
 					</span>
-					<span style="color:red" ng-show="signUpForm.cpassword.$dirty && signUpForm.cpassword.$error.pwmatch && !signUpForm.cpassword.$error.required">Passwords don't match.</span>
+					<span class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove':(submitted || signUpForm.cpassword.$dirty) && signUpForm.cpassword.$invalid,'glyphicon-ok':signUpForm.cpassword.$dirty && signUpForm.cpassword.$valid}"></span>
+					<span class="errorText" ng-show="signUpForm.cpassword.$dirty && signUpForm.cpassword.$error.pwmatch && !signUpForm.cpassword.$error.required">Passwords don't match.</span>
 				</div>
 			</div>
 			<div class="form-group" ng-if="!genericSignUp">

@@ -86,22 +86,22 @@ module.exports.signUp = function (req,res) {
 	req.checkBody('password' , 'Password is required').notEmpty();
 	req.checkBody('cpassword' , 'Both password do not match').equals(req.body.password);
 
-	var errors = req.validationErrors();
-
-	if(errors){
-		res.send(JSON.stringify(errors));
-	}
-	else{
-		var newUser = new User(req.body);
-		User.createNewUser(newUser , function(err , user){
-			if(err) {
-				res.send(JSON.stringify({status:"Error",error:err.errmsg}));
-			}
-			else{
-				res.send(JSON.stringify({status:"Success"}));
-			}
-		});
-	}
+	req.getValidationResult().then(function(result){
+		if(result.array().length > 0){
+			res.send(JSON.stringify({status:"Error",error:result.array()}));
+		}
+		else{
+			var newUser = new User(req.body);
+			User.createNewUser(newUser , function(err , user){
+				if(err) {
+					res.send(JSON.stringify({status:"Error",error:err.errmsg}));
+				}
+				else{
+					res.send(JSON.stringify({status:"Success"}));
+				}
+			});
+		}
+	});
 };
 
 module.exports.login = function (req, res, next) {
@@ -148,21 +148,38 @@ module.exports.setNewPassword = function (req,res) {
 	req.checkBody('mobile' , 'Phone No. is required').notEmpty();
 	req.checkBody('username' , 'Username is required').notEmpty();
 	req.checkBody('password' , 'Password is required').notEmpty();
+	
+	req.getValidationResult().then(function(result){
+		if(result.array().length > 0){
+			res.send(JSON.stringify({status:'Failed' , error:result.array()}));
+		}
+		else{
+			User.updateUserProfileData(req.body , function(err , raw){
+				if(err) throw err;
+				if(raw.n >= 1){
+					res.send(JSON.stringify({status:"Success"}));
+				}
+				else{
+					res.send(JSON.stringify({status:"Failed"}));
+				}
+			});
+		}
+	});	
+};
 
-	var errors = req.validationErrors();
-
-	if(errors){
-		res.send(JSON.stringify(errors));
-	}
-	else{
-		User.updateUserProfileData(req.body , function(err , raw){
-			if(err) throw err;
-			if(raw.n >= 1){
-				res.send(JSON.stringify({status:"Success"}));
-			}
-			else{
-				res.send(JSON.stringify({status:"Failed"}));
-			}
-		});
-	}
+module.exports.checkUserChoiceAvailability = function(req,res){
+	var params = req.query;
+	var fieldName = "";
+	fieldName = Object.keys(params)[0];
+	var query = {};
+	query[fieldName] = {$in:[params[fieldName]]};
+	User.getUserAccounts(query,0,10,function(err,resultArr){
+		if(err) throw err;
+		if(resultArr.length > 0){
+			res.send({status:true});	
+		}
+		else{
+			res.send({status:false});
+		}
+	});
 };
