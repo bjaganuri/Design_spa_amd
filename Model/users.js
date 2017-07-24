@@ -30,7 +30,11 @@ var userSchema = new Schema({
 	adminRightGrantComments:{type:String , default:'NA'},
 	adminRightRevokeComments:{type:String , default:'NA'},
 	adminRightGrantedBy:{type:String , default:'NA'},
-	adminRightRevokedBy:{type:String , default:'NA'}
+	adminRightRevokedBy:{type:String , default:'NA'},
+	createdAt:{type:Date},
+	updatedAt:{type:Date}
+},{
+	timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
 });
 
 userSchema.statics.failedLogin = {
@@ -45,6 +49,9 @@ userSchema.virtual('isLocked').get(function() {
 
 userSchema.pre('save', function(next) {
     var user = this;
+	user.createdAt = Date.now();
+	user.updatedAt = Date.now();
+
 	if(!user.toObject().hasOwnProperty('admin') || user.toObject().hasOwnProperty('admin') === "" || user.toObject().hasOwnProperty('admin') === undefined || user.toObject().hasOwnProperty('admin') === null){
 		user.admin = false;
 	}
@@ -156,7 +163,7 @@ module.exports.updateUserProfileData = function (user,callback) {
 };
 
 module.exports.getUserAccounts = function(query,skip,limit,callback){
-	User.find(query,{_id:1,name:1,email:1,username:1,opState:1,lockedBy:1,lockComments:1,unLockedBy:1,unLockComments:1,adminRightGrantComments:1,adminRightRevokeComments:1,adminRightGrantedBy:1,adminRightRevokedBy:1}).skip(skip).limit(limit).sort({name:1}).exec(callback);
+	User.find(query,{password:0}).skip(skip).limit(limit).sort({name:1}).exec(callback);
 };
 
 module.exports.insertMultiple = function(data , callback){

@@ -1,6 +1,6 @@
 define(['../module'], function (app) {
-	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView','ModalService',
-		function($scope,restDataService,$state,userToView,ModalService){
+	app.controller("manageUserAccounts" , ['$scope','restDataService','$state','userToView','ModalService','lastViewedUserActList','viewUserLastSearchParams',
+		function($scope,restDataService,$state,userToView,ModalService,lastViewedUserActList,viewUserLastSearchParams){
 		$scope.manageAcctSearchParams = {};
 		$scope.submitted = false;
 		$scope.sameAsWorkingUserID = "";
@@ -10,7 +10,7 @@ define(['../module'], function (app) {
 		$scope.recordsSize = 0;
 		$scope.accountsList = [];
 		$scope.dataReadSuccess = false;
-		$scope.accountsListHeaders = ['Sl.No' , 'Name' , 'Email' , 'Username' , 'LockedBy(last)' , 'Lock Comments(last)' , 'Operational State' , 'Lock/Unlock'];
+		$scope.accountsListHeaders = ['Sl.No' , 'Name' , 'Email' , 'Username' , 'Operational State' , 'Admin' , 'Action'];
 		$scope.userDataToview = userToView.data;
 		$scope.userDataToUpdate = {};
 
@@ -19,13 +19,13 @@ define(['../module'], function (app) {
 			$scope.manageAcctSearchParams.pageNo =1;
 			$scope.submitted = true;
 			if($scope.searchAccountsForm.$valid){
-				$scope.updateTableData($scope.manageAcctSearchParams);
+				$scope.fecthAndUpDateTableData($scope.manageAcctSearchParams);
 			}
 		};
 
 		$scope.onPageSizeChange = function(){
 			$scope.manageAcctSearchParams.pageNo =1;
-			$scope.updateTableData($scope.manageAcctSearchParams);
+			$scope.fecthAndUpDateTableData($scope.manageAcctSearchParams);
 		};
 
 		$scope.onPageNoChange = function(page){
@@ -73,7 +73,7 @@ define(['../module'], function (app) {
 			}
 
 			if(pageChanged === true || pageChanged === "true"){
-				$scope.updateTableData($scope.manageAcctSearchParams);
+				$scope.fecthAndUpDateTableData($scope.manageAcctSearchParams);
 			}
 		};
 		
@@ -83,12 +83,29 @@ define(['../module'], function (app) {
 			var modalInstance = ModalService.showModal({
 				templateUrl: 'adminOpComments.html',
 				controller:function($scope, $element, close){
+					$scope.operationalStatus = _this.userDataToUpdate.opState;
+					$scope.adminRightGrantStatus = _this.userDataToUpdate.admin;
 					$scope.submitted = false;
-					$scope.upDateAction = function($event){
+					$scope.updateStatusAndRights = function($event){
 						$event.preventDefault();
 						$scope.submitted = true;
 						if($scope.manageUserAccountForm.$valid){
-							_this.userDataToUpdate.comments = $scope.comments;
+							_this.userDataToUpdate.action = [];
+							_this.userDataToUpdate.upDateUserRightOpComments = $scope.upDateUserRightOpComments;
+							if(!$scope.opStatus){
+								delete _this.userDataToUpdate.opStatus;
+								delete _this.userDataToUpdate.upDateUserRightOpComments.opStateUpdateComments;
+							}
+							else{
+								_this.userDataToUpdate.action.push("@opState");
+							}
+							if(!$scope.adminRight){
+								delete _this.userDataToUpdate.adminRight;
+								delete _this.userDataToUpdate.upDateUserRightOpComments.adminRightUpdateComments;
+							}
+							else{
+								_this.userDataToUpdate.action.push("@admin");
+							}
 							_this.executeUpdate(_this.userDataToUpdate);
 							$element.modal('hide');
 							$event.target.reset();
@@ -114,7 +131,7 @@ define(['../module'], function (app) {
 			restDataService.postData("users/manageAccountLock",user,function(response){
 				if(response.data.status == "Success"){
 					if($state.is("adminOPs.viewUser")){
-						$scope.updateTableData($scope.manageAcctSearchParams);
+						$scope.fecthAndUpDateTableData($scope.manageAcctSearchParams);
 					}
 					else if($state.is("adminOPs.viewUserDetail")){
 						$state.reload($state.current.name);
@@ -124,26 +141,28 @@ define(['../module'], function (app) {
 					alert("Something went wrong pls try again");
 				}
 			});
-		}
-		
-		$scope.updateTableData = function(acctListingParams){
+		};
+
+		$scope.fecthAndUpDateTableData = function(acctListingParams){
+			viewUserLastSearchParams.setLastFilterParam(acctListingParams);
 			restDataService.getData("users/getUserAccountsList" , acctListingParams , function(response){
-				$scope.accountsList  = [];
-				angular.forEach(response.data.results , function(item,index){
-					if(item.opState == "ACTIVE" || item.opState == "INACTIVE")
-						response.data.results[index].action = "Lock";
-					else if(item.opState == "LOCKED")
-						response.data.results[index].action = "Unlock";
-					else
-						response.data.results[index].action = "Lock";
-				});
-				[].push.apply($scope.accountsList , response.data.results);
-				$scope.sameAsWorkingUserID = response.data.workingUserId;
-				$scope.lastPageNo = response.data.noOfPages;
-				$scope.recordsSize = response.data.recordsSize;
-				$scope.dataReadSuccess = true;
+				$scope.updateTable(response.data);
 			});	
 		};
+		
+		$scope.updateTable = function(data){
+			$scope.accountsList  = [];
+			[].push.apply($scope.accountsList , data.results);
+			$scope.sameAsWorkingUserID = data.workingUserId;
+			$scope.lastPageNo = data.noOfPages;
+			$scope.recordsSize = data.recordsSize;
+			$scope.dataReadSuccess = true;
+		};
+
+		if(lastViewedUserActList && lastViewedUserActList.data && lastViewedUserActList.data.results && lastViewedUserActList.data.results.length > 0){
+			$scope.updateTable(lastViewedUserActList.data);
+			angular.copy(viewUserLastSearchParams.getLastSearchParam() , $scope.manageAcctSearchParams);
+		}
 
 		$scope.exportUserAccounts = function($event){
 			$event.preventDefault();
@@ -198,8 +217,7 @@ define(['../module'], function (app) {
 				downloadUrl = 'data:application/octet-stream;base64,'+btoa(csvString);
 				fileName = "users_account_list_"+$scope.sameAsWorkingUserID+"_"+Date.now()+".csv";
 				$scope.downLoadFile(downloadUrl,fileName);
-			}
-			
+			}			
 		};
 
 		$scope.downLoadFile = function(url,fileName){

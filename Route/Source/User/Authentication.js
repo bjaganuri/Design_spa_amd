@@ -5,10 +5,13 @@ var HttpStatus = require('http-status-codes');
 var User = require("../../../Model/users");
 var ActiveUsers = require("../../../Model/activeUsers");
 var Constants = require("../../Global_Const/Constants");
+var handleServerError = require("../Common/error_handler");
 
 passport.use(new LocalStrategy(function(username, password, done) {
 	User.getUserByUsername({username:username},function(err,user){
-		if(err) throw err;
+		if(err){
+			return done(err);
+		}
 		if(!user){
 			return done(null,false,{message:"Unknown User"});
 		}
@@ -27,7 +30,9 @@ passport.use(new LocalStrategy(function(username, password, done) {
         }
 
 		User.comparePassword(password , user.password , function(err, isMatch){
-			if(err) throw err;
+			if(err){
+				return done(err);
+			}
 			if(isMatch){
 				var updates = {
                     $set: { loginAttempts: 0 },
@@ -40,8 +45,9 @@ passport.use(new LocalStrategy(function(username, password, done) {
 				}*/
 
 				return user.update(updates, function(err) {
-                    if (err) 
+                    if (err){ 
 						return done(err);
+					}
                     return done(null, user);
                 });
 			}
@@ -88,16 +94,16 @@ module.exports.signUp = function (req,res) {
 
 	req.getValidationResult().then(function(result){
 		if(result.array().length > 0){
-			res.send(JSON.stringify({status:"Error",error:result.array()}));
+			res.status(HttpStatus.OK).send(JSON.stringify({status:"Error",error:result.array()}));
 		}
 		else{
 			var newUser = new User(req.body);
 			User.createNewUser(newUser , function(err , user){
 				if(err) {
-					res.send(JSON.stringify({status:"Error",error:err.errmsg}));
+					return handleServerError.handleServerError(err , req , res);
 				}
 				else{
-					res.send(JSON.stringify({status:"Success"}));
+					res.status(HttpStatus.OK).send(JSON.stringify({status:"Success"}));
 				}
 			});
 		}
@@ -110,24 +116,28 @@ module.exports.login = function (req, res, next) {
 			return next(err);
 		}
 		if (!user) { 
-			return res.send(JSON.stringify({status:"Failed",info:info}));
+			return res.status(HttpStatus.OK).send(JSON.stringify({status:"Failed",info:info}));
 		}
 		req.logIn(user, function(err) {
 			if (err) {
 				return next(err); 
 			}
 			ActiveUsers.removeActiveSession({$and:[{'session.passport.user':{$eq:req.session.passport.user} , _id:{$not:{$eq:req.sessionID}}}]},function (error) {
-				if(error) throw error;
+				if(error) {
+					return handleServerError.handleServerError(err , req , res);
+				}
+				return res.status(HttpStatus.OK).send(JSON.stringify({status:"Success",message:info}));
 			});
-			return res.status(HttpStatus.OK).send(JSON.stringify({status:"Success",message:info}));
 		});
 	})(req, res, next);
 };
 
 module.exports.recoverUser = function (req,res) {
     User.recoverUserData(req.query , function(err , user){
-		if(err) throw err;
-		res.send(user);
+		if(err){
+			return handleServerError.handleServerError(err , req , res);
+		}
+		res.status(HttpStatus.OK).send(user);
 	});
 };
 
@@ -151,16 +161,18 @@ module.exports.setNewPassword = function (req,res) {
 	
 	req.getValidationResult().then(function(result){
 		if(result.array().length > 0){
-			res.send(JSON.stringify({status:'Failed' , error:result.array()}));
+			res.status(HttpStatus.OK).send(JSON.stringify({status:'Failed' , error:result.array()}));
 		}
 		else{
 			User.updateUserProfileData(req.body , function(err , raw){
-				if(err) throw err;
-				if(raw.n >= 1){
-					res.send(JSON.stringify({status:"Success"}));
+				if(err){
+					return handleServerError.handleServerError(err , req , res);
+				}
+				else if(raw.n >= 1){
+					res.status(HttpStatus.OK).send(JSON.stringify({status:"Success"}));
 				}
 				else{
-					res.send(JSON.stringify({status:"Failed"}));
+					res.status(HttpStatus.OK).send(JSON.stringify({status:"Failed"}));
 				}
 			});
 		}
@@ -174,12 +186,14 @@ module.exports.checkUserChoiceAvailability = function(req,res){
 	var query = {};
 	query[fieldName] = {$in:[params[fieldName]]};
 	User.getUserAccounts(query,0,10,function(err,resultArr){
-		if(err) throw err;
-		if(resultArr.length > 0){
-			res.send({status:true});	
+		if(err){
+			return handleServerError.handleServerError(err , req , res);
+		}
+		else if(resultArr.length > 0){
+			res.status(HttpStatus.OK).send({status:true});	
 		}
 		else{
-			res.send({status:false});
+			res.status(HttpStatus.OK).send({status:false});
 		}
 	});
 };

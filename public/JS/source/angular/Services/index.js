@@ -3,4 +3,5 @@ define([
     './common/idleObserverService',
 	'./common/restDataService',
 	'./common/restDataInterceptor',
+	'./admin/viewUserLastSearchParams',
 ], function () {});

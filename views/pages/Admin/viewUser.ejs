@@ -57,13 +57,13 @@
 						</td>
 						<td>{{user.email}}</td>
 						<td>{{user.username}}</td>
-						<td>{{user.lockedBy}}</td>
-						<td>{{user.lockComments}}</td>
 						<td>
-							<span ng-class="{'text-success':user.opState == 'ACTIVE' || user.opState == 'INACTIVE'  , 'text-danger':user.opState == 'LOCKED'}">{{user.opState}}</span>
+							<span ng-class="{'text-success':user.opState === 'ACTIVE' || user.opState === 'INACTIVE'  , 'text-danger':user.opState == 'LOCKED'}">{{user.opState}}</span>
 						</td>
+						<td>{{user.admin ? 'Yes' : 'No'}}</td>
 						<td>
-							<button class="btn btn-primary" ng-click="lockUnlockAccount(user)" ng-disabled="sameAsWorkingUserID === user.username" title="{{sameAsWorkingUserID === user.username ? 'Hello it\'s your own account' : user.action+' '+user.username+' \'s account '}}">{{user.action}}</button>
+							<!--<button class="btn btn-primary" ng-click="lockUnlockAccount(user)" ng-disabled="sameAsWorkingUserID === user.username" title="{{sameAsWorkingUserID === user.username ? 'Hello it\'s your own account' : user.action+' '+user.name+' \'s account '}}">{{user.action}}</button>-->
+							<button class="btn btn-primary" ng-click="lockUnlockAccount(user)" ng-disabled="sameAsWorkingUserID === user.username" title="{{sameAsWorkingUserID === user.username ? 'Hello it\'s your own account' : 'Update '+user.name+'\'s operation status and rights '}}"><span class="glyphicon glyphicon-edit"></span></button>
 						</td>
 					</tr>
 				</tbody>

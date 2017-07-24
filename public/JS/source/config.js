@@ -204,6 +204,14 @@ define (['../app'] , function(app){
 		.state("adminOPs",{
 			abstract:true,
 			url:"/adminOp",
+			resolve : {
+				userToView:function(){
+					return {};
+				},
+				lastViewedUserActList:function(){
+					return {};
+				}
+			},
 			views:{
 				"header":{
 					templateUrl:"/users/brand"	
@@ -222,8 +230,14 @@ define (['../app'] , function(app){
 		.state("adminOPs.viewUser" , {
 			url:"/viewUser",
 			resolve : {
-				userToView:function(restDataService,$stateParams){
-					return {};
+				lastViewedUserActList:function(restDataService,viewUserLastSearchParams){
+					var lastSearchDataObj = viewUserLastSearchParams.getLastSearchParam();
+					if(lastSearchDataObj.searchParam !== ""){
+						return restDataService.get('users/getUserAccountsList' , lastSearchDataObj);
+					}
+					else{
+						return {};
+					}
 				}
 			},
 			views:{
@@ -251,11 +265,6 @@ define (['../app'] , function(app){
 		})
 		.state("adminOPs.addNewUser" , {
 			url:"/addNewUser",
-			resolve : {
-				userToView:function(restDataService,$stateParams){
-					return {};
-				}
-			},
 			views:{
 				"content@adminOPs":{
 					templateUrl:'/users/addNewUser',

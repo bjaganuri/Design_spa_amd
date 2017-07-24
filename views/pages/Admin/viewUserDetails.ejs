@@ -17,7 +17,7 @@
 				</tr>
 				<tr>
 					<td><b>Date Of Birth</b></td>
-					<td>{{userDataToview.dob}}</td>
+					<td>{{userDataToview.dob | date:'mediumDate'}}</td>
 				</tr>
 				<tr>
 					<td><b>Gender</b></td>
@@ -42,6 +42,14 @@
 				<tr>
 					<td><b>Altername Email</b></td>
 					<td>{{userDataToview.altEmail}}</td>
+				</tr>
+				<tr>
+					<td><b>Created At</b></td>
+					<td>{{userDataToview.createdAt | date:'medium'}}</td>
+				</tr>
+				<tr>
+					<td><b>Updated At</b></td>
+					<td>{{userDataToview.updatedAt | date:'medium'}}</td>
 				</tr>
 				<tr>
 					<td><b>Admin</b></td>

@@ -1,4 +1,6 @@
 var User = require("../../../Model/users");
+var HttpStatus = require('http-status-codes');
+var handleServerError = require("../Common/error_handler");
 
 module.exports.getUserProfile = function (req,res) {
 	var query = {};
@@ -11,8 +13,10 @@ module.exports.getUserProfile = function (req,res) {
 		query = {username:req.user.username , email:req.user.email , name:req.user.name};
 	}
     User.getUserProfile(query , function(err,user){
+		if(err){
+			return handleServerError.handleServerError(err , req , res);
+		}
 		var resObj = {};
-		if(err) throw err;
 		if(user){		
 			resObj = user.toObject();
 			resObj.exists = true;
@@ -24,7 +28,7 @@ module.exports.getUserProfile = function (req,res) {
 		else{
 			resObj.exists = false;
 		}
-		res.send(JSON.stringify(resObj));
+		res.status(HttpStatus.OK).send(JSON.stringify(resObj));
 	});
 };
 
@@ -58,16 +62,18 @@ module.exports.updateUserProfile = function (req, res, next) {
 	var errors = req.validationErrors();
 
 	if(errors){
-		res.send(JSON.stringify(errors));
+		res.status(HttpStatus.OK).send(JSON.stringify(errors));
 	}
 	else{
 		User.updateUserProfileData(req.body , function (err , raw) {
-			if(err) throw err;
-			if(raw.n >= 1){
-				res.send(JSON.stringify({status:"Success"}));
+			if(err){
+				return handleServerError.handleServerError(err , req , res);
+			}
+			else if(raw.n >= 1){
+				res.status(HttpStatus.OK).send(JSON.stringify({status:"Success"}));
 			}
 			else{
-				res.send(JSON.stringify({status:"Failed"}));
+				res.status(HttpStatus.OK).send(JSON.stringify({status:"Failed"}));
 			}
 		});
 	}

@@ -112,3 +112,7 @@ section{
 .errorText{
 	color:#a94442;
 }
+
+.modal-dialog .modal-content .col-sm-12{
+	float:none;
+}
