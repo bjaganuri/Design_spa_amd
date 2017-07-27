@@ -1,7 +1,6 @@
 var multer  = require('multer');
 var mkdirp = require('mkdirp');
 var path = require('path');
-var PSD = require('psd');
 var fs = require('fs');
 var jsonfile = require('jsonfile')
 var csv = require('csvtojson');
@@ -28,7 +27,7 @@ var fileStorage = multer.diskStorage({
 	}
 });
 
-var filterFile = multer({ 
+module.exports.filterFile = multer({ 
 	storage: fileStorage,
 	fileFilter:function (req, file, callback) {
 		var ext = path.extname(file.originalname);
@@ -53,49 +52,51 @@ module.exports.fileExists = function (req , res) {
 	});
 };
 
-module.exports.saveFile = function (req, res) {
-    filterFile(req,res,function(error) {
-        if(error) {
-            return res.status(HttpStatus.OK).send({error:"Invalid file"});
-        }
-        else{
-        	if(req.body.overwrite === "true"){
-        		gridFS.fileExists({filename:req.body.fileName, contentType:req.body.type , 'metadata.owner_id':{$eq:req.user['_id']}} , function (err,files) {
-        			if(err){
-        				return handleServerError.handleServerError(err , req , res);
-					}
-					else{
-						var filesLength = files.length;
-        				var fileName = "";
-						for(var i=0;i<filesLength;i++){
-							fileName = files[i].filename;
-							console.log(fileName + ' Remove initiated');
-							gridFS.removeExisting(files[i] , function (err) {
-								if(err){
-									return handleServerError.handleServerError(err , req , res);
-								}
-								console.log(fileName + ' File remove success');
-							});
+module.exports.saveFile = function (req, res, callback) {
+	if(req.body.overwrite === "true" || req.body.overwrite === true){
+		gridFS.fileExists({filename:req.body.fileName, contentType:req.body.type , 'metadata.owner_id':{$eq:req.user['_id']}} , function (err,files) {
+			if(err){
+				return handleServerError.handleServerError(err , req , res);
+			}
+			else{
+				var filesLength = files.length;
+				var fileName = "";
+				for(var i=0;i<filesLength;i++){
+					fileName = files[i].filename;
+					console.log(fileName + ' Remove initiated');
+					gridFS.removeExisting(files[i] , function (err) {
+						if(err){
+							return handleServerError.handleServerError(err , req , res);
 						}
-					}
-        		});
-        	}
-        	gridFS.writeFileToDB(req.file,req.user,req.body.comments,function (error, storedFile) {
-        		if(error){
-        			return handleServerError.handleServerError(error , req , res);
-        		}
-				else{
-					var psd = PSD.fromFile("./Uploads/"+req.user.username+"/"+req.file.originalname);
-					psd.parse();
-					res.status(HttpStatus.OK).send({status:'Success' , psdTree:psd.tree().export() , message:"File save success"});
+						console.log(fileName + ' File remove success');
+					});
 				}
-        	});
-        }
-    });
+			}
+		});
+	}
+	gridFS.writeFileToDB(req.file,req.user,req.body.comments,function (error, storedFile) {
+		if(error){
+			return handleServerError.handleServerError(error , req , res);
+		}
+		else{
+			callback.call(null,storedFile);
+		}
+	});
+};
+
+module.exports.removeFile = function(filePath,fileName){
+	fs.unlink(filePath, function (err) {
+		if(err){
+			console.log(err);
+		}
+		else{
+			console.log(fileName + ' deleted successfully');
+		}
+	});
 };
 
 module.exports.getFileData = function(req,res,cb){
-	filterFile(req,res , function(error){
+	this.filterFile(req,res , function(error){
 		if(error){
 			return res.status(HttpStatus.OK).send({error:"Invalid file"});
 		}

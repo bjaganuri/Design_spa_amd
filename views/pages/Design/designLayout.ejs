@@ -13,7 +13,8 @@
 	</div>
 	<div class="col-sm-12 col-md-12" ng-show="psdTotemplate">
 		<input type="file" file-model="myFile" class="pull-left file-input-height"/>
-		<button ng-click="uploadFile()" class="pull-left file-input-height">upload me</button>
+		<label class="pull-left m-r-15"><input type="checkbox" name="saveFileForFutureUse" ng-model="saveFileForFutureUse">&nbsp;Save PSD for Future Use</label>
+		<button ng-click="uploadFile()" class="pull-left file-input-height">Generate Template</button>
 	</div>
 	<div class="col-sm-12 col-md-12" ng-show="!psdTotemplate">
 		<div class="form-horizontal">

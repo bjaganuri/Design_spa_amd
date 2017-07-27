@@ -5,6 +5,7 @@ var async = require("async");
 var pdf = require('html-pdf');
 var HttpStatus = require('http-status-codes');
 var handleServerError = require("../Common/error_handler");
+var fileUploadService = require('../Common/fileUpload');
 
 module.exports.getUserAccountsList = function(req,res){
 	var param = req.query.searchParam;
@@ -141,6 +142,7 @@ module.exports.importUsersList = function(req,res){
 							if(err){
 								return handleServerError.handleServerError(err , req , res);
 							}
+							fileUploadService.removeFile(req.file.path,req.file.originalname);
 							res.status(HttpStatus.OK).json(JSON.stringify(result));
 						});
 					}

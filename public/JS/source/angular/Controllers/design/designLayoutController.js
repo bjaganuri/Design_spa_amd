@@ -3,6 +3,7 @@ define(['../module'], function (app) {
 		$scope.psdTotemplate = true;
 		$scope.fileName = 'Choose a file...';
 		$scope.overwrite = false;
+		$scope.saveFileForFutureUse = false;
 		
 		$scope.uploadFile = function(){
 			var file = $scope.myFile;
@@ -27,24 +28,34 @@ define(['../module'], function (app) {
 				fd.append('comments', "No comment");	
 				fd.append('fileName', filename);
 				fd.append('type', fileType);
-				restDataService.getData('users/fileExists' ,{fileName:filename , type:fileType} ,function (response) {
-					if(response.data.status){
-						if (confirm("File Already exists do you want to overwrite") == true){
-							$scope.overwrite = true;
+				fd.append('saveFileToDB', $scope.saveFileForFutureUse);
+				if(!$scope.saveFileForFutureUse){
+					$scope.executeFileparse(fd , uploadUrl);
+				}
+				else{
+					restDataService.getData('users/fileExists' ,{fileName:filename , type:fileType} ,function (response) {
+						if(response.data.status){
+							if (confirm("File Already exists do you want to overwrite") == true){
+								$scope.overwrite = true;
+							}
+							else{
+								$scope.overwrite = false;
+							}
 						}
 						else{
 							$scope.overwrite = false;
-						}
-					}
-					else{
-						$scope.overwrite = false;
-					}				
-					fd.append('overwrite', $scope.overwrite);
-					fileUpload.uploadFileToUrl(fd, uploadUrl,function(res){
-						console.log(res.data);
+						}				
+						fd.append('overwrite', $scope.overwrite);
+						$scope.executeFileparse(fd , uploadUrl);
 					});
-				});
+				}
 			}
-		}
+		};
+
+		$scope.executeFileparse = function(fd , uploadUrl){
+			fileUpload.uploadFileToUrl(fd, uploadUrl,function(res){
+				console.log(res.data);
+			});
+		};
 	}]);
 });
