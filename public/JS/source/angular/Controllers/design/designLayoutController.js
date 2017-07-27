@@ -6,29 +6,45 @@ define(['../module'], function (app) {
 		
 		$scope.uploadFile = function(){
 			var file = $scope.myFile;
-			var uploadUrl = "users/uploadPSDFile/psd";
-			var fd = new FormData();
-			fd.append('file', file);
-			fd.append('comments', "No comment");	
-			fd.append('fileName', file.name);
-			fd.append('type', file.type);
-			restDataService.getData('users/fileExists' ,{fileName:file.name,type:file.type} ,function (response) {
-				if(response.data.status){
-					if (confirm("File Already exists do you want to overwrite") == true){
-						$scope.overwrite = true;
+			var filename = file.name;
+			var fileExt = filename.substring(filename.lastIndexOf('.')+1, filename.length) || filename;
+			var fileType = "application/octet-stream";
+			if(fileExt === ""){
+				alert("Import Valid file");
+			}
+			else{
+				if(fileExt === "psd"){
+					fileType = "application/octet-stream";
+				}
+				else{
+					fileType = file.type;
+				}
+
+				var uploadUrl = "users/uploadPSDFile/psd";
+				file.type = fileType;
+				var fd = new FormData();
+				fd.append('file', file);
+				fd.append('comments', "No comment");	
+				fd.append('fileName', filename);
+				fd.append('type', fileType);
+				restDataService.getData('users/fileExists' ,{fileName:filename , type:fileType} ,function (response) {
+					if(response.data.status){
+						if (confirm("File Already exists do you want to overwrite") == true){
+							$scope.overwrite = true;
+						}
+						else{
+							$scope.overwrite = false;
+						}
 					}
 					else{
 						$scope.overwrite = false;
-					}
-				}
-				else{
-					$scope.overwrite = false;
-				}				
-				fd.append('overwrite', $scope.overwrite);
-				fileUpload.uploadFileToUrl(fd, uploadUrl,function(res){
-					console.log(res.data);
+					}				
+					fd.append('overwrite', $scope.overwrite);
+					fileUpload.uploadFileToUrl(fd, uploadUrl,function(res){
+						console.log(res.data);
+					});
 				});
-			});
-		};
+			}
+		}
 	}]);
 });

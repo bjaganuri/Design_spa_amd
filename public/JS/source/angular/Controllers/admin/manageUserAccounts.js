@@ -77,14 +77,33 @@ define(['../module'], function (app) {
 			}
 		};
 		
-		$scope.lockUnlockAccount = function(user){
+		$scope.lockUnlockAccount = function(user,toUpdate){
 			angular.copy(user , $scope.userDataToUpdate);
 			var _this = $scope;
 			var modalInstance = ModalService.showModal({
 				templateUrl: 'adminOpComments.html',
 				controller:function($scope, $element, close){
+					$scope.adminOpModalTitle = "Update "+_this.userDataToUpdate.name+"\'s Account status and Admin Rights";
+					$scope.toUpdate = toUpdate;
 					$scope.operationalStatus = _this.userDataToUpdate.opState;
 					$scope.adminRightGrantStatus = _this.userDataToUpdate.admin;
+			
+					if($state.is('adminOPs.viewUserDetail')){
+						$scope.isUserDetailsPage = true;
+					}
+
+					if($state.is('adminOPs.viewUserDetail') && toUpdate === 'opState'){
+						$scope.adminRight = false;
+						$scope.opStatus = true;
+						$scope.adminOpModalTitle = "Update "+_this.userDataToUpdate.name+"\'s Account status";
+					}
+
+					if($state.is('adminOPs.viewUserDetail') && toUpdate === 'admin'){
+						$scope.opStatus = false;
+						$scope.adminRight = true;
+						$scope.adminOpModalTitle = "Update "+_this.userDataToUpdate.name+"\'s Admin Rights";
+					}
+
 					$scope.submitted = false;
 					$scope.updateStatusAndRights = function($event){
 						$event.preventDefault();
@@ -122,7 +141,7 @@ define(['../module'], function (app) {
 			}).then(function(modal) {
 				modal.element.modal();
 				modal.close.then(function(result) {
-					
+					close(null,200);
 				});
 			});
 		};
@@ -203,16 +222,14 @@ define(['../module'], function (app) {
 			}
 			else if(exportAs === "CSV"){
 				var cscvString = "";
-				csvString = "SL.No,Name,Email,Username,LockedBy(last),Lock Comments(last),Operational State"+ "\n";
+				csvString = "SL.No,Name,Email,Username,Operational State,Admin"+ "\n";
 				for(var i=0; i<data.length;i++){
 					csvString = csvString+(i+1)+",";
 					csvString = csvString + data[i].name+",";
 					csvString = csvString + data[i].email+",";
 					csvString = csvString + data[i].username+",";
-					csvString = csvString + data[i].lockedBy+",";
-					csvString = csvString + data[i].lockComments+",";
 					csvString = csvString + data[i].opState+",";
-					csvString = csvString + "\n";
+					csvString = csvString + (data[i].admin ? "Yes" : "No")+",\n";
 				}
 				downloadUrl = 'data:application/octet-stream;base64,'+btoa(csvString);
 				fileName = "users_account_list_"+$scope.sameAsWorkingUserID+"_"+Date.now()+".csv";

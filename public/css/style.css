@@ -116,3 +116,228 @@ section{
 .modal-dialog .modal-content .col-sm-12{
 	float:none;
 }
+.m-0{
+	margin: 0px !important;
+}
+.m-5{
+	margin: 5px;
+}
+.m-10{
+	margin: 10px;
+}
+.m-15{
+	margin: 15px;
+}
+
+.m-t-0{
+	margin-top: 0px;
+}
+.m-t-5{
+	margin-top: 5px;
+}
+.m-t-10{
+	margin-top: 10px;
+}
+.m-t-15{
+	margin-top: 15px;
+}
+.m-t-25{
+	margin-top: 25px;
+}
+
+.m-b-0{
+	margin-bottom: 0px;
+}
+.m-b-5{
+	margin-bottom: 5px;
+}
+.m-b-10{
+	margin-bottom: 10px;
+}
+.m-b-15{
+	margin-bottom: 15px;
+}
+.m-b-25{
+	margin-bottom: 25px;
+}
+
+.m-l-0{
+	margin-left: 0px;
+}
+.m-l-5{
+	margin-left: 5px;
+}
+.m-l-10{
+	margin-left: 10px;
+}
+.m-l-15{
+	margin-left: 15px;
+}
+.m-l-25{
+	margin-left: 25px;
+}
+
+.m-r-0{
+	margin-right: 0px;
+}
+.m-r-5{
+	margin-right: 5px;
+}
+.m-r-10{
+	margin-right: 10px;
+}
+.m-r-15{
+	margin-right: 15px;
+}
+.m-r-25{
+	margin-right: 25px;
+}
+
+.p-0{
+	padding: 0px !important;
+}
+.p-5{
+	padding: 5px;
+}
+.p-10{
+	padding: 10px;
+}
+.p-15{
+	padding: 15px;
+}
+
+.p-t-0{
+	padding-top: 0px;
+}
+.p-t-5{
+	padding-top: 5px;
+}
+.p-t-10{
+	padding-top: 10px;
+}
+.p-t-15{
+	padding-top: 15px;
+}
+
+.p-b-0{
+	padding-bottom: 0px;
+}
+.p-b-5{
+	padding-bottom: 5px;
+}
+.p-b-10{
+	padding-bottom: 10px;
+}
+.p-b-15{
+	padding-bottom: 15px;
+}
+
+.p-l-0{
+	padding-left: 0px;
+}
+.p-l-5{
+	padding-left: 5px;
+}
+.p-l-10{
+	padding-left: 10px;
+}
+.p-l-15{
+	padding-left: 15px;
+}
+
+.p-r-0{
+	padding-right: 0px;
+}
+.p-r-5{
+	padding-right: 5px;
+}
+.p-r-10{
+	padding-right: 10px;
+}
+.p-r-15{
+	padding-right: 15px;
+}
+
+.text-white{
+	color:white;
+}
+
+.cursor-pointer{
+	cursor: pointer;
+}
+
+.overflow-hidden{
+	overflow: hidden;
+}
+
+.overflow-auto{
+	overflow: auto;
+}
+
+.overflow-scroll{
+	overflow: scroll;
+}
+
+.overflow-x-scroll{
+	overflow-x: scroll;
+}
+
+.overflow-y-scroll{
+	overflow-y: scroll;
+}
+
+.overflow-x-hidden{
+	overflow-x: hidden;
+}
+
+.overflow-y-hidden{
+	overflow-y: hidden;
+}
+
+.overflow-x-auto{
+	overflow-x: auto;
+}
+
+.overflow-y-auto{
+	overflow-y: auto;
+}
+
+.d-inline {
+	display: inline;
+}
+
+.d-inline-block{
+	display: inline-block;
+}
+
+.height-auto{
+	height: auto;
+}
+
+.height-10{
+	height: 10%;
+}
+
+.height-20{
+	height: 20%;
+}
+
+.height-50{
+	height: 50%;
+}
+
+.height-90{
+	height: 90%;
+}
+
+.height-100{
+	height: 100%;
+}
+
+.line-height-10 {
+	line-height: 10%;
+}
+
+label.text-left {
+	text-align: left !important;
+}

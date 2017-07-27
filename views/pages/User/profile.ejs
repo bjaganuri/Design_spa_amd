@@ -1,12 +1,12 @@
 <div class="alert alert-info" ng-hide="!updateSuccess">
 	<span>Profile updated successfully</span>
-	<a ng-click="updateProfileAgain()" class="pull-right" style="cursor:pointer;">I want to Edit my profile</a>
+	<a ng-click="updateProfileAgain()" class="pull-right cursor-pointer">I want to Edit my profile</a>
 </div>
 <div ng-hide="updateSuccess">
 	<div class="alert alert-danger" ng-hide="!showUpdateError"><span ng-bind="updateError"></span></div>
 	<form name="updateProfileForm" ng-submit="updateProfile($event)" novalidate class="form-horizontal">
 		<div class="form-group">
-			<label class="control-label col-sm-3 text-left" for="name" style="text-align: left;">Full Name:</label>
+			<label class="control-label col-sm-3 text-left" for="name">Full Name:</label>
 			<div class="col-sm-9">
 				<input type="text" name="name" ng-model-options="{ updateOn: 'blur' }" ng-model="updateUser.name" placeholder="Enter your name" class="form-control" ng-minlength="5" required>
 				<span class="errorText" ng-show="(submitted || updateProfileForm.name.$dirty ) && updateProfileForm.name.$invalid">
@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3 text-left" for="dob" style="text-align: left;">Date of Birth:</label>
+			<label class="control-label col-sm-3 text-left" for="dob">Date of Birth:</label>
 			<div class="col-sm-9">
 				<datepicker date-format="MMMM d, y" date-set="{{updateUser.dob}}">
 					<input ng-model="updateUser.dob" name="dob" type="text" placeholder="Enter your dob" class="form-control" ng-disabled="true" />
@@ -24,40 +24,40 @@
 			 </div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3 text-left" for="email" style="text-align: left;">Email:</label>
+			<label class="control-label col-sm-3 text-left" for="email" >Email:</label>
 			<div class="col-sm-9">
 		     		<input type="email" name="email" ng-model="updateUser.email" placeholder="Enter your email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" readonly=true>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3 text-left" for="email" style="text-align: left;">Alternate Email :</label>
+			<label class="control-label col-sm-3 text-left" for="email">Alternate Email :</label>
 			<div class="col-sm-9">
 				<input type="email" name="altEmail" ng-model-options="{ updateOn: 'blur' }" ng-model="updateUser.altEmail" placeholder="Enter your email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/">
 				<span class="errorText" ng-show="updateProfileForm.altEmail.$touched && updateProfileForm.altEmail.$error.pattern">Invalid email</span>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3 text-left" for="mobile" style="text-align: left;">Phone Number:</label>
+			<label class="control-label col-sm-3 text-left" for="mobile"> Phone Number:</label>
 			<div class="col-sm-9">
-		     		<input type="number" name="mobile" ng-model="updateUser.mobile" placeholder="Enter your mobile" class="form-control" ng-pattern="/^[0-9]{10,10}$/" readonly=true>
+		     		<input type="number" name="mobile" ng-model="updateUser.mobile" placeholder="Enter your mobile" class="form-control" ng-pattern="/^[0-9]{10,10}$/" readonly=true />
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3 text-left" for="altMobile" style="text-align: left;">Alternate Phone Number:</label>
+			<label class="control-label col-sm-3 text-left" for="altMobile">Alternate Phone Number:</label>
 			<div class="col-sm-9">
 				<input type="number" ng-model-options="{ updateOn: 'blur' }" name="altMobile" ng-model="updateUser.altMobile" placeholder="Enter your mobile" class="form-control" ng-pattern="/^[0-9]{10,10}$/">
 				<span class="errorText" ng-show="updateProfileForm.altMobile.$touched && updateProfileForm.altMobile.$error.pattern">Invalid Phone Number</span>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3 text-left" for="password" style="text-align: left;">Set new Password :</label>
+			<label class="control-label col-sm-3 text-left" for="password" >Set new Password :</label>
 			<div class="col-sm-9">
 				<input type="password" ng-model-options="{ updateOn: 'blur' }" name="password" ng-model="updateUser.password" placeholder="Enter your password" class="form-control" ng-minlength="5" ng-change="cpassword=''">
 				<span class="errorText" ng-show="updateProfileForm.password.$touched && updateProfileForm.password.$error.minlength">Password should have atleast 5 characters</span>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="control-label col-sm-3 text-left" for="cpassword" style="text-align: left;">Confirm new Password :</label>
+			<label class="control-label col-sm-3 text-left" for="cpassword">Confirm new Password :</label>
 			<div class="col-sm-9">
 				<input type="password" name="cpassword" ng-model="updateUser.cpassword" placeholder="Enter your cpassword" class="form-control" pw-check="password">
 				<span class="errorText" ng-show="updateProfileForm.cpassword.$dirty && updateProfileForm.cpassword.$error.pwmatch && !updateProfileForm.cpassword.$error.required">Passwords don't match.</span>

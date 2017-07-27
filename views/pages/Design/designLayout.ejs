@@ -1,6 +1,6 @@
 <% include ../../partials/Design/Design %>
 <div class="row">
-	<div class="col-sm-12 col-md-12" style="margin-bottom:15px;">
+	<div class="col-sm-12 col-md-12 m-b-15">
 		<h2>Select Mode of Design</h2>
 		<form class="form-horizontal">
 			<div class="radio">
@@ -12,8 +12,8 @@
 		</form>
 	</div>
 	<div class="col-sm-12 col-md-12" ng-show="psdTotemplate">
-		<input type="file" file-model="myFile"/>
-		<button ng-click="uploadFile()">upload me</button>
+		<input type="file" file-model="myFile" class="pull-left file-input-height"/>
+		<button ng-click="uploadFile()" class="pull-left file-input-height">upload me</button>
 	</div>
 	<div class="col-sm-12 col-md-12" ng-show="!psdTotemplate">
 		<div class="form-horizontal">

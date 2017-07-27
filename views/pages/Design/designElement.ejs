@@ -4,7 +4,7 @@
 		<label for="elements" class="col-sm-2">Select the Element:</label>
 		<div class="col-sm-4">
 			<select class="form-control" ng-model="selectedElem" ng-options="elem as elem.name for elem in htmlElements" ng-change="createElement(selectedElem)">
-				<option style="display:none" value="">--select--</option>
+				<option class="hide hidden" value="">--select--</option>
 			</select>
 		</div>
 	</div>
@@ -14,11 +14,11 @@
 		<div class="design-element-container element-wrapper col-lg-12">
 			
 		</div>
-		<div class="design-element-container applied-style-wrapper col-lg-12" style="overflow:hidden;padding:15px 0px;">
-			<div class="col-lg-12 text-info text-center" style="height:10%;line-height:10%;">
+		<div class="design-element-container applied-style-wrapper col-lg-12 overflow-hidden p-l-15 p-r-15">
+			<div class="col-lg-12 text-info text-center height-10 line-height-10">
 				<span>Applied styles</span>
 			</div>
-			<div class="col-lg-12" style="height:90%;overflow-y:auto;padding:0px;">
+			<div class="col-lg-12 p-0 overflow-y-auto height-90">
 				<div  applied-style ng-repeat="(key,value) in curElemAppliedStyles">
 					<!--<span applied-style></span>-->
 				</div>
@@ -27,7 +27,7 @@
 	</div>
 	<div class="col-lg-6 pull-left">
 		<div class="form-horizontal design-element-container add-style-wrapper col-lg-12 pull-left" ng-hide="showHelper">
-			<ul class="nav nav-tabs" style="margin-bottom:10px;">
+			<ul class="nav nav-tabs m-b-10">
 				<li class="active"><a data-toggle="tab" href="" data-target="#applyStyles">Apply Styles</a></li>
 				<li><a data-toggle="tab" href="" data-target="#changeAttrs">Attributes</a></li>
 			</ul>
@@ -40,7 +40,7 @@
 						</div>
 					</div>
 					<!--<span class="help-block" style="margin-top: -10px">Select checkbox to open helper in applying styles :</span>-->
-					<div style="overflow-y:scroll;overflow-x:hidden;height:285px;padding-left: 10px;">
+					<div class="p-l-10 overflow-hidden overflow-y-scroll" style="height:285px;">
 						<div style-add ng-repeat="style in cssProps | filter:filterStyle">
 							<!--<span style-add></span>-->
 						</div>

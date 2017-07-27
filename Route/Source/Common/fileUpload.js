@@ -32,7 +32,7 @@ var filterFile = multer({
 	storage: fileStorage,
 	fileFilter:function (req, file, callback) {
 		var ext = path.extname(file.originalname);
-		if(ext === req.params.reqFileType) {
+		if(ext == req.params.reqFileType) {
             return callback(new Error('Only' + req.params.reqFileType + ' files allowed'));
         }
         callback(null, true);
@@ -85,7 +85,9 @@ module.exports.saveFile = function (req, res) {
         			return handleServerError.handleServerError(error , req , res);
         		}
 				else{
-					res.status(HttpStatus.OK).send({status:'Success' , message:storedFile.filename + " Written to DB"});
+					var psd = PSD.fromFile("./Uploads/"+req.user.username+"/"+req.file.originalname);
+					psd.parse();
+					res.status(HttpStatus.OK).send({status:'Success' , psdTree:psd.tree().export() , message:"File save success"});
 				}
         	});
         }

@@ -4,8 +4,8 @@
 		<div class="col-md-6">
 <% } %>
 <div class="row" ng-controller="loginController" ng-class="{'loginFormContainer':reLoginTriggered != true}">
-	<div class="col-sm-12" style="padding:0px;">
-		<div class="alert alert-danger" ng-hide="validUser" style="margin-bottom:2px;"><span ng-bind="loginError"></span></div>
+	<div class="col-sm-12 p-0">
+		<div class="alert alert-danger m-b-5" ng-hide="validUser"><span ng-bind="loginError"></span></div>
 	</div>
 	<div class="col-sm-12 text-left loginHeader" ng-if="!reLoginTriggered">
 		<span>Sign In</span>
@@ -13,7 +13,7 @@
 	<div class="col-sm-12">
 		<form name="loginForm" ng-submit="login($event)" novalidate class="form-horizontal">
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="username" style="text-align: left;">Username:</label>
+				<label class="control-label col-sm-3 text-left" for="username">Username:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':loginForm.username.$touched && loginForm.username.$invalid , 'has-success':loginForm.username.$dirty && loginForm.username.$valid}">
 			     	<input type="text" name="username" ng-model="user.username" placeholder="Enter your Username" class="form-control" required>
 			     	<!-- <span class="errorText" ng-show="loginForm.username.$touched && loginForm.username.$invalid">
@@ -23,7 +23,7 @@
 			    </div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="password" style="text-align: left;">password:</label>
+				<label class="control-label col-sm-3 text-left" for="password">Password:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':loginForm.password.$touched && loginForm.password.$invalid , 'has-success':loginForm.password.$dirty && loginForm.password.$valid}">
 			     	<input type="password" name="password" ng-model="user.password" placeholder="Enter your password" class="form-control" required>
 			     	<!-- <span class="errorText" ng-show="loginForm.password.$touched && loginForm.password.$invalid">

@@ -1,18 +1,18 @@
 <div class="signUpFormContainer row" ng-controller="signupController">
-	<div class="col-sm-12" style="padding:0px;" ng-if="genericSignUp">
-		<div class="alert alert-success" ng-hide="!signUpSuccess" style="margin-bottom:2px;">SignUp success you can <a ui-sref="authenticateUser.login" class="link">Login now</a></div>
-		<div class="alert alert-danger" ng-hide="!showSignUpError" style="margin-bottom:2px;">SignUp failed with following error <span ng-bind="signUpError"></span></div>
+	<div class="col-sm-12 p-0" ng-if="genericSignUp">
+		<div class="alert alert-success m-b-5" ng-hide="!signUpSuccess">SignUp success you can <a ui-sref="authenticateUser.login" class="link">Login now</a></div>
+		<div class="alert alert-danger m-b-5" ng-hide="!showSignUpError">SignUp failed with following error <span ng-bind="signUpError"></span></div>
 	</div>
-	<div class="col-sm-12" style="padding:0px;" ng-if="!genericSignUp">
-		<div class="alert alert-success" ng-hide="!signUpSuccess" style="margin-bottom:2px;">New user has been added successfully...</div>
-		<div class="alert alert-danger" ng-hide="!showSignUpError" style="margin-bottom:2px;">SignUp failed with following error <span ng-bind="signUpError"></span></div>
+	<div class="col-sm-12 p-0" ng-if="!genericSignUp">
+		<div class="alert alert-success m-b-5" ng-hide="!signUpSuccess">New user has been added successfully...</div>
+		<div class="alert alert-danger m-b-5" ng-hide="!showSignUpError">SignUp failed with following error <span ng-bind="signUpError"></span></div>
 	</div>
 	<div class="col-sm-12 text-left loginHeader">
 		<span ng-if="genericSignUp">Sign Up</span>
 		<div ng-if="!genericSignUp">
 			<span>Add user data and submit</span>
-			<span style="margin:0px 15px;">|</span>
-			<span class="dropdown" style="cursor:pointer;">
+			<span class="m-t-15 m-b-15 m-l-0 m-r-0">|</span>
+			<span class="dropdown cursor-pointer">
 				<span class="dropdown-toggle" data-toggle="dropdown">Import Users <span class="caret"></span></button></span>
 				<ul class="dropdown-menu">
 				    <li><a href="" class="menuItem" ng-click="activateImportOpt('json')">Import JSON</a></li>
@@ -20,13 +20,13 @@
 				    <li><a href="" class="menuItem" ng-click="activateImportOpt('csv')">Import CSV</a></li>
 				 </ul>
 			</button>
-			<input type="file" id="importUserList" style="visibility: hidden;" />
+			<input type="file" id="importUserList" class="invisible" />
 		</div>
 	</div>
 	<div class="col-sm-12">
 		<form name="signUpForm" ng-submit="signUp($event)" novalidate class="form-horizontal" >
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="name" style="text-align: left;">Full Name:</label>
+				<label class="control-label col-sm-3 text-left" for="name">Full Name:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.name.$dirty ) && signUpForm.name.$invalid , 'has-success':signUpForm.name.$dirty && signUpForm.name.$valid}">
 					<input type="text" name="name" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.name" placeholder="Enter your name" class="form-control" ng-minlength="5" required>
 					<span class="errorText" ng-show="(submitted || signUpForm.name.$dirty ) && signUpForm.name.$invalid">
@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="dob" style="text-align: left;">Date of Birth:</label>
+				<label class="control-label col-sm-3 text-left" for="dob">Date of Birth:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.dob.$dirty ) && signUpForm.dob.$invalid , 'has-success':signUpForm.dob.$dirty && signUpForm.dob.$valid}">
 					<datepicker date-format="MMMM d, y">
 						<input ng-model="newUser.dob" name="dob" type="text" placeholder="Enter your dob" class="form-control" required/>
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="gender" style="text-align: left;">Gender:</label>
+				<label class="control-label col-sm-3 text-left" for="gender">Gender:</label>
 				<div class="col-sm-9">
 					<label class="radio-inline"><input type="radio" name="gender" ng-model="newUser.gender" value="Male" required>Male</label>
 					<label class="radio-inline"><input type="radio" name="gender" ng-model="newUser.gender" value="Female" required>Female</label><br>
@@ -59,7 +59,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="email" style="text-align: left;">Email:</label>
+				<label class="control-label col-sm-3 text-left" for="email">Email:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.email.$dirty) && signUpForm.email.$invalid , 'has-success':signUpForm.email.$dirty && signUpForm.email.$valid}">
 					<input type="email" name="email" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.email" placeholder="Enter your email" class="form-control" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" check-user-choice-availability="email" required>
 					<span class="errorText" ng-show="(submitted || signUpForm.email.$dirty) && signUpForm.email.$invalid">
@@ -71,7 +71,7 @@
 				 </div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="mobile" style="text-align: left;">Phone Number:</label>
+				<label class="control-label col-sm-3 text-left" for="mobile">Phone Number:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.mobile.$dirty) && signUpForm.mobile.$invalid , 'has-success':signUpForm.mobile.$dirty && signUpForm.mobile.$valid}">
 					<input type="number" name="mobile" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.mobile" placeholder="Enter your mobile" class="form-control" ng-pattern="/^[0-9]{10,10}$/" required>
 					<span class="errorText" ng-show="(submitted || signUpForm.mobile.$dirty) && signUpForm.mobile.$invalid">
@@ -82,7 +82,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="username" style="text-align: left;">Username:</label>
+				<label class="control-label col-sm-3 text-left" for="username">Username:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.username.$dirty) && signUpForm.username.$invalid , 'has-success':signUpForm.username.$dirty && signUpForm.username.$valid}">
 					<input type="text" name="username" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.username" placeholder="Enter your username" class="form-control" ng-minlength="5" check-user-choice-availability="username" required>
 					<span class="errorText" ng-show="(submitted || signUpForm.username.$dirty) && signUpForm.username.$invalid">
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="password" style="text-align: left;">Password:</label>
+				<label class="control-label col-sm-3 text-left" for="password">Password:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.password.$dirty)&& signUpForm.password.$invalid , 'has-success':signUpForm.password.$dirty && signUpForm.password.$valid}">
 					<input type="password" name="password" ng-model-options="{ updateOn: 'blur' }" ng-model="newUser.password" placeholder="Enter your password" class="form-control" ng-minlength="5" ng-change="cpassword=''" required>
 					<span class="errorText" ng-show="(submitted || signUpForm.password.$dirty) && signUpForm.password.$invalid">
@@ -105,7 +105,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 text-left" for="cpassword" style="text-align: left;">Confirm password:</label>
+				<label class="control-label col-sm-3 text-left" for="cpassword">Confirm password:</label>
 				<div class="col-sm-9 has-feedback" ng-class="{'has-error':(submitted || signUpForm.cpassword.$dirty) && signUpForm.cpassword.$invalid , 'has-success':signUpForm.cpassword.$dirty && signUpForm.cpassword.$valid}">
 					<input type="password" name="cpassword" ng-model="newUser.cpassword" placeholder="Confirm password" class="form-control" pw-check="password" required>
 					<span class="errorText" ng-show="(submitted || signUpForm.cpassword.$dirty) && signUpForm.cpassword.$invalid">
@@ -116,7 +116,7 @@
 				</div>
 			</div>
 			<div class="form-group" ng-if="!genericSignUp">
-				<label class="control-label col-sm-3 text-left" for="admin" style="text-align: left;">Admin Role:</label>
+				<label class="control-label col-sm-3 text-left" for="admin">Admin Role:</label>
 				<div class="col-sm-9">
 					<label class="radio-inline"><input type="radio" name="admin" ng-model="newUser.admin" ng-value="true" >Yes</label>
 					<label class="radio-inline"><input type="radio" name="admin" ng-model="newUser.admin" ng-value="false">No</label><br>

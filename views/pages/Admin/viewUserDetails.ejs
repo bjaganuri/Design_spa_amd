@@ -9,7 +9,7 @@
 				<col width="25%">
 				<col width="75%">
 				<tr>
-					<th colspan="2" style="padding-left:25%">User Master Data</th>
+					<th colspan="2" class="text-justify">User Master Data</th>
 				</tr>
 				<tr>
 					<td><b>Name</b></td>
@@ -52,24 +52,24 @@
 					<td>{{userDataToview.updatedAt | date:'medium'}}</td>
 				</tr>
 				<tr>
-					<td><b>Admin</b></td>
+					<td><b>Operational Status</b></td>
 					<td>
-						<span>{{userDataToview.admin}}</span>
+						<span class="{{userDataToview.opState !== 'LOCKED' ? 'text-success' : 'text-danger'}}">{{userDataToview.opState}}</span>
+						<button ng-if="!userDataToview.ownProfile" ng-click="lockUnlockAccount(userDataToview , 'opState')" class="btn btn-primary m-l-25" title="Lock {{userDataToview.name }}'s account">
+							<span ng-bind="userDataToview.opState !== 'LOCKED' ?'Lock':'Unlock'"></span>
+						</button>
+					</td>
+				</tr>
+				<tr>
+				<td><b>Admin</b></td>
+					<td>
+						<span class="{{userDataToview.admin ? 'text-success' : 'text-muted'}}">{{userDataToview.admin}}</span>
 						<span ng-if="!userDataToview.ownProfile">
-							<button ng-click="lockUnlockAccount({username:userDataToview.username , email:userDataToview.email , admin:(!userDataToview.admin? 'Grant' : 'Revoke')})" class="btn btn-primary" style="margin-left:25px;" title="{{!userDataToview.admin? 'Grant admin rights to' : 'Revoke admin rights from'}} {{userDataToview.name}}">
+							<button ng-click="lockUnlockAccount(userDataToview , 'admin')" class="btn btn-primary m-l-25" title="{{!userDataToview.admin? 'Grant admin rights to' : 'Revoke admin rights from'}} {{userDataToview.name}}">
 								<span ng-bind="!userDataToview.admin ? 'Grant' : 'Revoke'"></span>
 							</button>
 							
 						</span>
-					</td>
-				</tr>
-				<tr>
-					<td><b>Operational Status</b></td>
-					<td>
-						<span class="{{userDataToview.opState !== 'LOCKED' ? 'text-success' : 'text-danger'}}">{{userDataToview.opState}}</span>
-						<button ng-if="!userDataToview.ownProfile" ng-click="lockUnlockAccount({username:userDataToview.username, email:userDataToview.email , action:(userDataToview.opState !== 'LOCKED' ?'Lock':'Unlock')})" class="btn btn-primary" style="margin-left:25px;" title="Lock {{userDataToview.name }}'s account">
-							<span ng-bind="userDataToview.opState !== 'LOCKED' ?'Lock':'Unlock'"></span>
-						</button>
 					</td>
 				</tr>
 			</tbody>

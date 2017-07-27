@@ -8,7 +8,7 @@
 			<div class="form-group">
 				<div class="col-sm-6">
 					<input type="text" name="searchParam" ng-model="manageAcctSearchParams.searchParam" placeholder="Enter Email or Username or Name" class="form-control" required>
-					<span style="color:red" ng-show="searchAccountsForm.searchParam.$invalid">
+					<span class="text-danger" ng-show="searchAccountsForm.searchParam.$invalid">
 						<span ng-show="submitted && searchAccountsForm.searchParam.$error.required">Search field can not be empty</span>
 					</span>
 				</div>
@@ -28,7 +28,7 @@
 	</div>
  
 	<div class="col-sm-12" ng-hide="accountsList.length === 0">
-		<div class="dropdown" style="margin-bottom:10px;float:right;">
+		<div class="dropdown m-b-10 pull-right">
 			<button class="btn btn-primary" data-toggle="dropdown">
 				<span class="glyphicon glyphicon-export"></span>
 				<span> Export Data</span>
@@ -44,7 +44,7 @@
 			<table class="table table-striped table-bordered" id="userAccountListTable">
 				<thead>
 					<tr>
-						<th ng-repeat="header in accountsListHeaders" style="vertical-align:middle;">
+						<th ng-repeat="header in accountsListHeaders" class="media-middle">
 							{{header}}
 						</th>
 					</tr>
@@ -60,10 +60,10 @@
 						<td>
 							<span ng-class="{'text-success':user.opState === 'ACTIVE' || user.opState === 'INACTIVE'  , 'text-danger':user.opState == 'LOCKED'}">{{user.opState}}</span>
 						</td>
-						<td>{{user.admin ? 'Yes' : 'No'}}</td>
+						<td ng-class="{'text-success':user.admin , 'text-muted':!user.admin}">{{user.admin ? 'Yes' : 'No'}}</td>
 						<td>
 							<!--<button class="btn btn-primary" ng-click="lockUnlockAccount(user)" ng-disabled="sameAsWorkingUserID === user.username" title="{{sameAsWorkingUserID === user.username ? 'Hello it\'s your own account' : user.action+' '+user.name+' \'s account '}}">{{user.action}}</button>-->
-							<button class="btn btn-primary" ng-click="lockUnlockAccount(user)" ng-disabled="sameAsWorkingUserID === user.username" title="{{sameAsWorkingUserID === user.username ? 'Hello it\'s your own account' : 'Update '+user.name+'\'s operation status and rights '}}"><span class="glyphicon glyphicon-edit"></span></button>
+							<button class="btn btn-primary" ng-click="lockUnlockAccount(user , 'both')" ng-disabled="sameAsWorkingUserID === user.username" title="{{sameAsWorkingUserID === user.username ? 'Hello it\'s your own account' : 'Update '+user.name+'\'s operation status and rights '}}"><span class="glyphicon glyphicon-edit"></span></button>
 						</td>
 					</tr>
 				</tbody>
@@ -73,16 +73,16 @@
 							<span ng-bind="recordsSize"></span>
 							<span> Record(s) found</span>
 						</td>
-						<td colspan="2" style="border-right:0px solid black;border-left:0px solid black;"></td>
-						<td colspan="3" style="text-align:right;border-right:0px solid black;border-left:0px solid black;">
+						<td colspan="1" style="border-right:0px solid black;border-left:0px solid black;"></td>
+						<td colspan="3" class="text-right" style="border-right:0px solid black;border-left:0px solid black;">
 							<label>Page Size : </label>
 							<select ng-model="manageAcctSearchParams.pageSize" ng-options="size for size in [10,25,50,100,500]" ng-change="onPageSizeChange()"></select>
-							<span style="margin-right:25px;"></span>
-							<span class="glyphicon glyphicon-fast-backward" title="Fast Backword:First Page" ng-click="onPageNoChange('FIRST')" style="cursor:pointer;"></span>
-							<span class="glyphicon glyphicon-backward" title="Backword:Previous Page" ng-click="onPageNoChange('PREV')" style="cursor:pointer;"></span>
+							<span class="m-r-25"></span>
+							<span class="glyphicon glyphicon-fast-backward cursor-pointer" title="Fast Backword:First Page" ng-click="onPageNoChange('FIRST')" ></span>
+							<span class="glyphicon glyphicon-backward cursor-pointer" title="Backword:Previous Page" ng-click="onPageNoChange('PREV')" ></span>
 							<span>{{manageAcctSearchParams.pageNo}}/{{lastPageNo}}</span>
-							<span class="glyphicon glyphicon-forward" title="Forward:Next Page" ng-click="onPageNoChange('NEXT')" style="cursor:pointer;" ></span>
-							<span class="glyphicon glyphicon-fast-forward" title="Fast Forward:Last Page" ng-click="onPageNoChange('LAST')" style="cursor:pointer;"></span>
+							<span class="glyphicon glyphicon-forward cursor-pointer" title="Forward:Next Page" ng-click="onPageNoChange('NEXT')"></span>
+							<span class="glyphicon glyphicon-fast-forward cursor-pointer" title="Fast Forward:Last Page" ng-click="onPageNoChange('LAST')"></span>
 						</td>
 					</tr>
 				</tfoot>

@@ -124,3 +124,7 @@
 .d-inline-block{
 	display: inline-block;
 }
+
+.file-input-height {
+	height:25px;
+}

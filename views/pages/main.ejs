@@ -43,7 +43,7 @@
 						<p>You were idle too long. Normally you'd be logged out</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info" style="color:white;" ng-click="logout($event)">Login</button>
+						<button type="button" class="btn btn-info text-white" ng-click="logout($event)">Login</button>
 					</div>
 				</div>
 			</div>
@@ -80,11 +80,11 @@
 							<h4 class="modal-title">Information</h4>
 						</div>
 						<div class="modal-body">
-							<div class="col-sm-12" style="padding:0px;">
+							<div class="col-sm-12 p-0">
 								<span ng-bind="accountLockComments"></span>
 							</div>
 						</div>
-						<div class="modal-footer" style="margin-top:15px;">
+						<div class="modal-footer m-t-15">
 							<!-- <button type="button" ng-click="navigateToLoginPage()" class="btn btn-primary" data-dismiss="modal">Login</button> -->
 						</div>
 					</div>
@@ -99,41 +99,51 @@
 					<div class="modal-content">
 						<div class="modal-header col-sm-12">
 							<button type="button" class="close" ng-click="close('Cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title">Update Account status and Admin Rights</h4>
+							<h4 class="modal-title">{{adminOpModalTitle}}</h4>
 						</div>
 						<form name="manageUserAccountForm" ng-submit="updateStatusAndRights($event)" novalidate class="form form-horizontal">
 							<div class="modal-body col-sm-12">
-								<div class="checkbox" style="margin:0px 0px 5px 0px">
-									<label class="col-sm-6"><input type="checkbox" ng-model="opStatus"><b>Operational Status</b></label>
-									<label>
-										<span><b>Current Operational status : </b>&nbsp;</span>
-										<span ng-class="{'text-success':operationalStatus==='ACTIVE' , 'text-danger':operationalStatus==='LOCKED'}" ng-bind="operationalStatus"></span>
-									</label>
+								<div class="col-sm-12" ng-hide="adminRight && toUpdate !== 'both'">
+									<div class="checkbox">
+										<label class="col-sm-5">
+											<input type="checkbox" ng-model="opStatus" ng-disabled="isUserDetailsPage">
+											<b>Operational Status</b>
+										</label>
+										<label>
+											<span><b>Current Operational status : </b>&nbsp;</span>
+											<span ng-class="{'text-success':operationalStatus==='ACTIVE' , 'text-danger':operationalStatus==='LOCKED'}" ng-bind="operationalStatus"></span>
+										</label>
+									</div>
+									<div class="form-group m-0" ng-hide="!opStatus">
+										<span class="help-block">{{operationalStatus === 'LOCKED' ? 'Selected Option : Unlock Account' : 'Selected Option : Lock Account'}}</span>
+										<textarea class="form-control" rows="5" ng-model-options="{ updateOn: 'blur' }" name="opStateUpdateComments" placeholder="Enter your comments here" ng-model="upDateUserRightOpComments.opStateUpdateComments" ng-required="opStatus"></textarea>
+										<span class="text-danger" ng-show="(submitted || manageUserAccountForm.opStateUpdateComments.$dirty) && manageUserAccountForm.opStateUpdateComments.$invalid">
+											<span ng-show="manageUserAccountForm.opStateUpdateComments.$error.required">Comments required</span>
+										</span>
+									</div>
 								</div>
-								<div class="form-group" style="margin:0px;" ng-hide="!opStatus">
-									<span class="help-block">{{operationalStatus === 'LOCKED' ? 'Selected Option : Unlock Account' : 'Selected Option : Lock Account'}}</span>
-									<textarea class="form-control" rows="5" ng-model-options="{ updateOn: 'blur' }" name="opStateUpdateComments" placeholder="Enter your comments here" ng-model="upDateUserRightOpComments.opStateUpdateComments" ng-required="opStatus"></textarea>
-									<span style="color:red" ng-show="(submitted || manageUserAccountForm.opStateUpdateComments.$dirty) && manageUserAccountForm.opStateUpdateComments.$invalid">
-										<span ng-show="manageUserAccountForm.opStateUpdateComments.$error.required">Comments required</span>
-									</span>
-								</div>
-								<div class="checkbox" style="margin:15px 0px 5px 0px">
-									<label class="col-sm-6"><input type="checkbox" ng-model="adminRight"><b>Admin Rights</b></label>
-									<label>
-										<span><b>Currently Admin :</b> &nbsp;</span>
-										<span ng-class="{'text-success':adminRightGrantStatus,'text-muted':!adminRightGrantStatus}">{{adminRightGrantStatus ? 'Yes' : 'No'}}</span>
-									</label>
-								</div>
-								<div class="form-group" style="margin:0px 0px 15px 0px" ng-hide="!adminRight">
-									<span class="help-block">{{adminRightGrantStatus === true ? 'Selected Option : Revoke Admin Rights' : 'Selected Option : Grant Admin Rights'}}</span>
-									<textarea class="form-control" rows="5" ng-model-options="{ updateOn: 'blur' }" name="adminRightUpdateComments" ng-model="upDateUserRightOpComments.adminRightUpdateComments" placeholder="Enter your comments here" ng-required="adminRight"></textarea>
-									<span style="color:red" ng-show="(submitted || manageUserAccountForm.adminRightUpdateComments.$dirty) && manageUserAccountForm.adminRightUpdateComments.$invalid">
-										<span ng-show="manageUserAccountForm.adminRightUpdateComments.$error.required">Comments required</span>
-									</span>
+								<div class="col-sm-12" ng-hide="opStatus && toUpdate !== 'both'">
+									<div class="checkbox">
+										<label class="col-sm-5">
+											<input type="checkbox" ng-model="adminRight" ng-disabled="isUserDetailsPage">
+											<b>Admin Rights</b>
+										</label>
+										<label>
+											<span><b>Currently Admin :</b> &nbsp;</span>
+											<span ng-class="{'text-success':adminRightGrantStatus,'text-muted':!adminRightGrantStatus}">{{adminRightGrantStatus ? 'Yes' : 'No'}}</span>
+										</label>
+									</div>
+									<div class="form-group m-0" ng-hide="!adminRight">
+										<span class="help-block">{{adminRightGrantStatus === true ? 'Selected Option : Revoke Admin Rights' : 'Selected Option : Grant Admin Rights'}}</span>
+										<textarea class="form-control" rows="5" ng-model-options="{ updateOn: 'blur' }" name="adminRightUpdateComments" ng-model="upDateUserRightOpComments.adminRightUpdateComments" placeholder="Enter your comments here" ng-required="adminRight"></textarea>
+										<span class="text-danger" ng-show="(submitted || manageUserAccountForm.adminRightUpdateComments.$dirty) && manageUserAccountForm.adminRightUpdateComments.$invalid">
+											<span ng-show="manageUserAccountForm.adminRightUpdateComments.$error.required">Comments required</span>
+										</span>
+									</div>
 								</div>
 							</div>
 							<div class="modal-footer col-sm-12">
-								<div class="form-group" style="margin:0px;">
+								<div class="form-group m-0">
 									<input type="submit" value="Submit" class="btn btn-primary" ng-disabled="!opStatus && !adminRight">
 								</div>
 							</div>
