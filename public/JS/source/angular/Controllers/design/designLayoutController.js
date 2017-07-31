@@ -34,7 +34,7 @@ define(['../module'], function (app) {
 				}
 				else{
 					restDataService.getData('users/fileExists' ,{fileName:filename , type:fileType} ,function (response) {
-						if(response.data.status){
+						if(response.data.status === true || response.data.status === "true" || response.data.status){
 							if (confirm("File Already exists do you want to overwrite") == true){
 								$scope.overwrite = true;
 							}

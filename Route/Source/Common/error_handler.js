@@ -1,7 +1,7 @@
 var HttpStatus = require('http-status-codes');
 
 module.exports.handleServerError = function(err , req , res){
-	if(result instanceof Error){
+	if(err instanceof Error){
 		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({error: HttpStatus.getStatusText(HttpStatus.INTERNAL_SERVER_ERROR)});
 	}
 	else{

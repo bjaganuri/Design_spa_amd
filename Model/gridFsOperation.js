@@ -9,17 +9,14 @@ mongoose.connection.on('open', function callback () {
     GridFS = Grid(mongoose.connection.db, mongoose.mongo);
 });
 
-module.exports.writeFileToDB = function (file,user,comments,callback) {
+module.exports.writeFileToDB = function (file,metaData,callback) {
     var writestream = GridFS.createWriteStream({
-        filename: file.originalname,
+        filename: file.originalname || file.filename,
         mode:'w',
         chunkSize: 1024,
         content_type: file.mimetype,
         //root: 'ImageCollection',
-        metadata:{
-            owner_id: ObjectID(user['_id']),
-            comments:comments
-        }
+        metadata:metaData
     });
     writestream.on('close', function (file) {
         callback(null, file);

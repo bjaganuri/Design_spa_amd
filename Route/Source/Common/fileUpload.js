@@ -39,42 +39,68 @@ module.exports.filterFile = multer({
 }).single('file');
 
 module.exports.fileExists = function (req , res) {
-    gridFS.fileExists({filename:req.query.fileName, contentType:req.query.type , 'metadata.owner_id':{$eq:req.user['_id']}} , function (err,files) {
+    gridFS.fileExists({$or:[{$and:[{'metadata.copyOf':{$eq:'own'}},{'metadata.isCopy':{$eq:false}},{filename:req.query.fileName}]} , {$and:[{'metadata.copyOf':{$eq:req.query.fileName}},{'metadata.isCopy':{$eq:true}}]}], contentType:req.query.type , 'metadata.owner_doc_key':{$eq:req.user['_id']}} , function (err,files) {
 		if (err){
 			return handleServerError.handleServerError(err , req , res);
 		}
 		else if(files.length >= 1){
-			res.status(HttpStatus.OK).send({status:true});
+			res.status(HttpStatus.OK).send({status:true , length:files.length});
 		}
 		else{
-			res.status(HttpStatus.OK).send({status:false});
+			res.status(HttpStatus.OK).send({status:false , length:files.length});
 		}
 	});
 };
 
 module.exports.saveFile = function (req, res, callback) {
-	if(req.body.overwrite === "true" || req.body.overwrite === true){
-		gridFS.fileExists({filename:req.body.fileName, contentType:req.body.type , 'metadata.owner_id':{$eq:req.user['_id']}} , function (err,files) {
-			if(err){
-				return handleServerError.handleServerError(err , req , res);
-			}
-			else{
-				var filesLength = files.length;
-				var fileName = "";
+	var _this = this;
+	gridFS.fileExists({$or:[{$and:[{'metadata.copyOf':{$eq:'own'}},{'metadata.isCopy':{$eq:false}},{filename:req.body.fileName}]} , {$and:[{'metadata.copyOf':{$eq:req.body.fileName}},{'metadata.isCopy':{$eq:true}}]}], contentType:req.body.type , 'metadata.owner_doc_key':{$eq:req.user['_id']}} , function (err,files) {
+		if(err){
+			return handleServerError.handleServerError(err , req , res);
+		}
+		else{
+			var filesLength = files.length;
+			var metaData = {};
+			
+			Object.assign(metaData , {
+				owner_id:req.user.username,
+				owner_doc_key:req.user['_id'],
+				owner_comments:req.body.comments,
+				isCopy:false,
+				copyOf:""
+			});
+			
+			if((req.body.overwrite === "true" || req.body.overwrite === true) && filesLength > 0){
 				for(var i=0;i<filesLength;i++){
-					fileName = files[i].filename;
-					console.log(fileName + ' Remove initiated');
 					gridFS.removeExisting(files[i] , function (err) {
 						if(err){
 							return handleServerError.handleServerError(err , req , res);
 						}
-						console.log(fileName + ' File remove success');
+						console.log('success');
 					});
 				}
+				metaData.isCopy = false;
+				metaData.copyOf = "own";
 			}
-		});
-	}
-	gridFS.writeFileToDB(req.file,req.user,req.body.comments,function (error, storedFile) {
+			else if ((req.body.overwrite === "false" || req.body.overwrite === false) && filesLength > 0){
+				var tempFileName = req.file.filename.substring(0,req.file.filename.lastIndexOf('.'));
+				var newFileName = tempFileName+"_copy_"+Date.now()+"."+req.file.filename.substring(req.file.filename.lastIndexOf('.')+1);
+				metaData.isCopy = true;
+				metaData.copyOf = req.file.filename;
+				req.file.filename = newFileName;
+				req.file.originalname = newFileName;
+			}
+			else if ((req.body.overwrite === "false" || req.body.overwrite === false) && filesLength === 0){
+				metaData.isCopy = false;
+				metaData.copyOf = "own";
+			}
+			_this.writeFileToDB(req.file, metaData , callback);
+		}
+	});
+};
+
+module.exports.writeFileToDB = function(file,metaData,callback){
+	gridFS.writeFileToDB(file,metaData,function (error, storedFile) {
 		if(error){
 			return handleServerError.handleServerError(error , req , res);
 		}
@@ -82,15 +108,15 @@ module.exports.saveFile = function (req, res, callback) {
 			callback.call(null,storedFile);
 		}
 	});
-};
+}
 
-module.exports.removeFile = function(filePath,fileName){
+module.exports.removeTempFile = function(filePath,fileName){
 	fs.unlink(filePath, function (err) {
 		if(err){
 			console.log(err);
 		}
 		else{
-			console.log(fileName + ' deleted successfully');
+			console.log(fileName + ' deleted successfully from temp. location');
 		}
 	});
 };

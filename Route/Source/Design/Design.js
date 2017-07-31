@@ -15,13 +15,14 @@ module.exports.uploadPSDFile = function(req,res){
 
 			if(req.body.saveFileToDB === "true" || req.body.saveFileToDB === true){
 				fileUploadService.saveFile(req,res,function(storedFile){
+					fileUploadService.removeTempFile(psdFilePath,psdFileName);
 					res.status(HttpStatus.OK).send({status:'Success' , psdTree:parsedPSD.tree().export() , message:"File save success",fileSavedToDB:true});
 				});
 			}
 			else{
+				fileUploadService.removeTempFile(psdFilePath,psdFileName);
 				res.status(HttpStatus.OK).send({status:'Success' , psdTree:parsedPSD.tree().export() , message:"File has not been saved",fileSavedToDB:false});
 			}
-			fileUploadService.removeFile(psdFilePath,psdFileName);
 		}
 	});
 };

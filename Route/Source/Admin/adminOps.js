@@ -73,6 +73,8 @@ module.exports.manageLockAdminRight = function(req, res){
 							user.opState = "ACTIVE";
 							user.unLockComments = req.body.upDateUserRightOpComments.opStateUpdateComments;
 							user.unLockedBy = req.user.email;
+							user.lockUntil = 1;
+							user.loginAttempts = 0;
 						}
 					}
 					else if(req.body.action[i] === "@admin" && req.body.upDateUserRightOpComments.hasOwnProperty('adminRightUpdateComments') && (req.body.upDateUserRightOpComments.adminRightUpdateComments !== undefined && req.body.upDateUserRightOpComments.adminRightUpdateComments !== "")){
@@ -142,7 +144,7 @@ module.exports.importUsersList = function(req,res){
 							if(err){
 								return handleServerError.handleServerError(err , req , res);
 							}
-							fileUploadService.removeFile(req.file.path,req.file.originalname);
+							fileUploadService.removeTempFile(req.file.path,req.file.originalname);
 							res.status(HttpStatus.OK).json(JSON.stringify(result));
 						});
 					}

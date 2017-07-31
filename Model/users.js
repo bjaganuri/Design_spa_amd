@@ -85,7 +85,7 @@ userSchema.methods.incrementLoginAttempts = function(cb) {
     }
     var updates = { $inc: { loginAttempts: 1 } };
     if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !this.isLocked) {
-        updates.$set = { lockUntil: Date.now() + LOCK_TIME};
+        updates.$set = { lockUntil: Date.now() + LOCK_TIME , opState:'LOCKED' , lockedBy:'Unknown Source' , lockComments:'Exceeded maximum number of attempts'};
     }
     return this.update(updates, cb);
 };

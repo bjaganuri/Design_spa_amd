@@ -83,9 +83,9 @@ app.get("/cssprops" , Learn.cssprops);
 
 app.get("/htmlElements" , Learn.htmlElements);
 
-app.get('/fileExists' , fileUploadService.fileExists);
+app.get('/fileExists' , ensureAuthenticated , fileUploadService.fileExists);
 
-app.post("/uploadPSDFile/:reqFileType" , Design.uploadPSDFile); // to uploadfile
+app.post("/uploadPSDFile/:reqFileType" , ensureAuthenticated , Design.uploadPSDFile); // to uploadfile
 
 // Admin operation
 app.get("/viewUser" , ensureAuthenticated ,  Routes.viewUser);
@@ -109,6 +109,7 @@ function ensureAuthenticated(req, res, next){
 	if(req.user && req.user.opState && req.user.opState === "LOCKED"){
 		lockedBy = req.user.lockedBy;
 		lockComments = req.user.lockComments;
+		lockUntil = req.user.lockUntil;
 		accountLocked = true;
 		req.logout();
 		req.flash('success_msg', 'You are logged out');
@@ -116,13 +117,21 @@ function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		return next();
 	} else {
-		if(accountLocked)
+		if(accountLocked && lockUntil && lockUntil > Date.now()){
 			res.status(HttpStatus.UNAUTHORIZED).json({
 				status:"ACCOUNT_LOCKED",
-				message:"Your account has been locked permanently by "+ lockedBy +" with " + lockComments + " as comments pls contact admin to unlock your account"
+				message:"Your account has been locked until "+ (new Date(lockUntil)) +" due to " + lockComments + " to unlock immidiately pls contact admin."
 			});
-		else
+		}
+		else if(accountLocked){
+			res.status(HttpStatus.UNAUTHORIZED).json({
+				status:"ACCOUNT_LOCKED",
+				message:"Your account has been locked permanently by "+ lockedBy +" with " + lockComments + " as comments pls contact admin to unlock your account."
+			});
+		}
+		else{
 			res.status(HttpStatus.UNAUTHORIZED).json({status:"LOGIN_REQUIRED"});
+		}
 	}
 }
 
