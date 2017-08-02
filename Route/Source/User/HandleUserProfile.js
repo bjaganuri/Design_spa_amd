@@ -14,7 +14,7 @@ module.exports.getUserProfile = function (req,res) {
 	}
     User.getUserProfile(query , function(err,user){
 		if(err){
-			return handleServerError.handleServerError(err , req , res);
+			return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 		}
 		var resObj = {};
 		if(user){		
@@ -58,23 +58,23 @@ module.exports.updateUserProfile = function (req, res, next) {
 		req.checkBody('password' , 'Password is required').notEmpty();
 		req.checkBody('cpassword' , 'Both password do not match').equals(req.body.password);
 	}
-	
-	var errors = req.validationErrors();
 
-	if(errors){
-		res.status(HttpStatus.OK).send(JSON.stringify(errors));
-	}
-	else{
-		User.updateUserProfileData(req.body , function (err , raw) {
-			if(err){
-				return handleServerError.handleServerError(err , req , res);
-			}
-			else if(raw.n >= 1){
-				res.status(HttpStatus.OK).send(JSON.stringify({status:"Success"}));
-			}
-			else{
-				res.status(HttpStatus.OK).send(JSON.stringify({status:"Failed"}));
-			}
-		});
-	}
+	req.getValidationResult().then(function(result){
+		if(result.array().length > 0){
+			return handleServerError.handleServerError({status:"ERROR" , type:'VAL_ERROR' ,message:result.array()} , req , res);
+		}
+		else{
+			User.updateUserProfileData(req.body , function (err , raw) {
+				if(err){
+					return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
+				}
+				else if(raw.n >= 1){
+					res.status(HttpStatus.OK).send(JSON.stringify({status:"Success"}));
+				}
+				else{
+					return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
+				}
+			});
+		}
+	});
 };

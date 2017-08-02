@@ -18,10 +18,10 @@ define(['../module'], function (app) {
 			signUpData.dob =  (new Date($scope.newUser.dob)).toDateString();
 			if($scope.signUpForm.$valid){
 				restDataService.postData("users/signUp",signUpData,function(response){
-					if(response.data.status == "Error"){
+					if(response.data.status === "VAL_ERROR"){
 						$scope.showSignUpError = true;
 						$scope.signUpSuccess = false;
-						$scope.signUpError = response.data.error;
+						$scope.signUpError = response.data.message;
 					}
 					else if(response.data.status == "Success"){
 						$scope.showSignUpError = false;

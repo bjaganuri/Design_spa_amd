@@ -40,7 +40,7 @@ define(['../module'], function (app) {
 					if(response.data.status == "Success"){
 						$scope.passwdResetSuccess = true;
 					}
-					else if(response.data.status == "Failed"){
+					else if(response.data.status === "VAL_ERROR"){
 						$scope.passwdResetFailed = true;
 					}
 					$event.target.reset();

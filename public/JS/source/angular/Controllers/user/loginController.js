@@ -1,5 +1,5 @@
 define(['../module'], function (app) {
-	app.controller("loginController" , ['$scope','$location','$window','$state','restDataService' ,function($scope,$location,$window,$state,restDataService){
+	app.controller("loginController" , ['$scope','$location','$window','$state','restDataService','ModalService' ,function($scope,$location,$window,$state,restDataService,ModalService){
 		$scope.user = {};
 		$scope.validUser = true;
 		$scope.loginError = "Invalid Username/Password";

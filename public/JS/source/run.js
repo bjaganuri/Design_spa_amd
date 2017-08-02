@@ -1,5 +1,5 @@
 define (['../app'] , function(app){
-	app.run(['$rootScope','idleObserverService' , 'Idle','$templateCache','ModalService','$state', function($rootScope,idleObserverService,Idle,$templateCache,ModalService,$state) {
+	app.run(['$rootScope','idleObserverService' , 'Idle','$templateCache','ModalService','$state','$window', function($rootScope,idleObserverService,Idle,$templateCache,ModalService,$state,$window) {
 		$rootScope.$on('IdleStart', function() {
 			idleObserverService.checkUserLoggedStatus();
 		});
@@ -41,27 +41,31 @@ define (['../app'] , function(app){
 			idleObserverService.start();
 		});
 
-		$rootScope.$on("loggedOut" , function(event,args){
+		$rootScope.$on("LOGIN_REQ" , function(event,args){
 			var modalInstance = ModalService.showModal({
 				templateUrl: 'reLoginModal.html',
-				controller:function($scope, $element){
-					$rootScope.reLoginTriggered = true;			
+				controller:function($scope, $element,close){
+					$rootScope.reLoginTriggered = true;
 				},
 				preClose: function(modal){
 					return modal.element.modal('hide');
 				}
 			}).then(function(modal) {
 				modal.element.modal();
+				modal.element.close = function(){
+					
+				};
 			});
 		});
 
-		$rootScope.$on("accountLocked" , function(event,args){
+		$rootScope.$on("SERVER_EXCEPTION" , function(event,eventData){
+			var data = eventData;
 			var modalInstance = ModalService.showModal({
 				templateUrl: 'accountLocked.html',
 				controller:function($scope, $element, close){
-					$scope.navigateToLoginPage = function(){
+					$scope.okBtnClick = function(){
 						$element.modal('hide');
-						close(null, 200);
+						close(data, 200);
 					};
 				},
 				preClose: function(modal){
@@ -70,11 +74,15 @@ define (['../app'] , function(app){
 			}).then(function(modal) {
 				modal.element.modal();
 				modal.close.then(function(result) {
-					
+					if((result.reload === true || result.reload === "true") && (result.navigateToLogin === false || result.navigateToLogin === "false")){
+						$window.location.reload();
+					}
+					else if((result.reload === false || result.reload === "false") && (result.navigateToLogin === true || result.navigateToLogin === "true")){
+						$state.transitionTo("authenticateUser.login");
+					}
 				});
 			});
 		});
-
 		Idle.watch();
 	}]);
 });

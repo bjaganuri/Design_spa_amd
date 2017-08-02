@@ -10,7 +10,8 @@ var HandleUserProfile = require("./Source/User/HandleUserProfile");
 var Learn = require("./Source/Learn/Learn");
 var Design = require("./Source/Design/Design");
 var AdminOPS = require("./Source/Admin/adminOps");
-var fileUploadService = require('./Source/Common/fileUpload')
+var fileUploadService = require('./Source/Common/fileUpload');
+var handleServerError = require("./Source/Common/error_handler");
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -118,19 +119,13 @@ function ensureAuthenticated(req, res, next){
 		return next();
 	} else {
 		if(accountLocked && lockUntil && lockUntil > Date.now()){
-			res.status(HttpStatus.UNAUTHORIZED).json({
-				status:"ACCOUNT_LOCKED",
-				message:"Your account has been locked until "+ (new Date(lockUntil)) +" due to " + lockComments + " to unlock immidiately pls contact admin."
-			});
+			return handleServerError.handleServerError({status:"ERROR", type:'ACCOUNT_LOCK' , message:"Your account has been locked until "+ (new Date(lockUntil)) +" due to " + lockComments + " to unlock immidiately pls contact admin."} , req , res);
 		}
 		else if(accountLocked){
-			res.status(HttpStatus.UNAUTHORIZED).json({
-				status:"ACCOUNT_LOCKED",
-				message:"Your account has been locked permanently by "+ lockedBy +" with " + lockComments + " as comments pls contact admin to unlock your account."
-			});
+			return handleServerError.handleServerError({status:"ERROR" , type:'ACCOUNT_LOCK' , message:"Your account has been locked permanently by "+ lockedBy +" with " + lockComments + " as comments pls contact admin to unlock your account."} , req , res);
 		}
 		else{
-			res.status(HttpStatus.UNAUTHORIZED).json({status:"LOGIN_REQUIRED"});
+			return handleServerError.handleServerError({status:"ERROR" , type:'LOGIN_REQ' , message:"Login required"} , req , res);
 		}
 	}
 }

@@ -5,7 +5,7 @@ var fileUploadService = require('../Common/fileUpload');
 module.exports.uploadPSDFile = function(req,res){
 	fileUploadService.filterFile(req,res,function(error,result){
 		if(error) {
-            return res.status(HttpStatus.OK).send({error:"Invalid file"});
+			return handleServerError.handleServerError({status:"ERROR" , type:'INVALID_REQ'} , req , res);
         }
 		else{
 			var psdFilePath = "./Uploads/"+req.user.username+"/"+req.file.originalname;

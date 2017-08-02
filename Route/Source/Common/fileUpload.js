@@ -41,7 +41,7 @@ module.exports.filterFile = multer({
 module.exports.fileExists = function (req , res) {
     gridFS.fileExists({$or:[{$and:[{'metadata.copyOf':{$eq:'own'}},{'metadata.isCopy':{$eq:false}},{filename:req.query.fileName}]} , {$and:[{'metadata.copyOf':{$eq:req.query.fileName}},{'metadata.isCopy':{$eq:true}}]}], contentType:req.query.type , 'metadata.owner_doc_key':{$eq:req.user['_id']}} , function (err,files) {
 		if (err){
-			return handleServerError.handleServerError(err , req , res);
+			return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 		}
 		else if(files.length >= 1){
 			res.status(HttpStatus.OK).send({status:true , length:files.length});
@@ -56,7 +56,7 @@ module.exports.saveFile = function (req, res, callback) {
 	var _this = this;
 	gridFS.fileExists({$or:[{$and:[{'metadata.copyOf':{$eq:'own'}},{'metadata.isCopy':{$eq:false}},{filename:req.body.fileName}]} , {$and:[{'metadata.copyOf':{$eq:req.body.fileName}},{'metadata.isCopy':{$eq:true}}]}], contentType:req.body.type , 'metadata.owner_doc_key':{$eq:req.user['_id']}} , function (err,files) {
 		if(err){
-			return handleServerError.handleServerError(err , req , res);
+			return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 		}
 		else{
 			var filesLength = files.length;
@@ -74,7 +74,7 @@ module.exports.saveFile = function (req, res, callback) {
 				for(var i=0;i<filesLength;i++){
 					gridFS.removeExisting(files[i] , function (err) {
 						if(err){
-							return handleServerError.handleServerError(err , req , res);
+							return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 						}
 						console.log('success');
 					});
@@ -102,7 +102,7 @@ module.exports.saveFile = function (req, res, callback) {
 module.exports.writeFileToDB = function(file,metaData,callback){
 	gridFS.writeFileToDB(file,metaData,function (error, storedFile) {
 		if(error){
-			return handleServerError.handleServerError(error , req , res);
+			return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 		}
 		else{
 			callback.call(null,storedFile);
@@ -124,7 +124,7 @@ module.exports.removeTempFile = function(filePath,fileName){
 module.exports.getFileData = function(req,res,cb){
 	this.filterFile(req,res , function(error){
 		if(error){
-			return res.status(HttpStatus.OK).send({error:"Invalid file"});
+			return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 		}
 		else{
 			if(req.params.reqFileType === "json"){

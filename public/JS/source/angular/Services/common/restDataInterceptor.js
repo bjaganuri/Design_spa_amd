@@ -14,24 +14,34 @@ define (['../module'] , function(app){
 		};
 
 		this.responseError = function (rejection) {
-			var data = (angular.fromJson(rejection.data)).status;
+			var rejData = angular.fromJson(rejection.data);
 			var $rootScope = $injector.get('$rootScope');
-			if(rejection.status == 401 && data === "LOGIN_REQUIRED"){
-				/*var restDataService = $injector.get('restDataService');
-				var $http = $injector.get('$http');
-				var $window = $injector.get('$window');
-				var deferred = $q.defer();
-				if($window.sessionStorage.getItem("loggedInUser")){
-					restDataService.post("users/login",$window.sessionStorage.getItem("loggedInUser")).then(deferred.resolve, deferred.reject);
-					return deferred.promise.then(function () {
-						return $http(rejection.config);
-					});
-				}*/
-				$rootScope.$broadcast("loggedOut");
-			}
-			else if(rejection.status == 401 && data === "ACCOUNT_LOCKED"){
-				$rootScope.accountLockComments = (angular.fromJson(rejection.data)).message;
-				$rootScope.$broadcast("accountLocked");
+			var status = rejData.status;
+			var rejectionType = rejData.type;
+			var rejectionMessage = rejData.message;
+			var statusCode = rejection.status;
+			if((statusCode === 500 || statusCode === "500") && status === "ERROR"){
+				switch (rejectionType){
+					case "NOT_ADMIN":
+						$rootScope.errorMessage = rejData.message || "You are not authorized to use this feature. To get access pls contact admin.";
+						$rootScope.$broadcast("SERVER_EXCEPTION" , {reload:true , navigateToLogin:false});
+						break;
+					case "INVALID_REQ":
+						$rootScope.errorMessage = rejData.message || "Invalid request, pls check the data you entered and try again.";
+						$rootScope.$broadcast("SERVER_EXCEPTION" , {reload:false , navigateToLogin:false});
+						break;
+					case "SERVER_ERROR":
+						$rootScope.errorMessage = rejData.message || "Unkown error occured, pls check the data you have given and try again.";
+						$rootScope.$broadcast("SERVER_EXCEPTION" , {reload:false , navigateToLogin:false});
+						break;
+					case "ACCOUNT_LOCK":
+						$rootScope.errorMessage = rejData.message || "Your account has been locked, pls contact admin to unlock and try again.";
+						$rootScope.$broadcast("SERVER_EXCEPTION" , {reload:false , navigateToLogin:true});
+						break;
+					case "LOGIN_REQ":
+						$rootScope.$broadcast("LOGIN_REQ");
+						break;
+				}
 			}
 			return $q.reject(rejection);
 		};

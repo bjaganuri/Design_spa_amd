@@ -20,7 +20,7 @@ module.exports.getUserAccountsList = function(req,res){
 		query = {$or:[{ name:{$regex:param, $options:'i' }} , { username:{$regex:param, $options:'i' }} , { email:{$regex:param, $options:'i' }}]};		
 		User.count(query , function(err,length){
 			if(err) {
-				return handleServerError.handleServerError(err , req , res);
+				return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 			}
 			recordsSize = length;
 
@@ -42,14 +42,14 @@ module.exports.getUserAccountsList = function(req,res){
 
 			User.getUserAccounts(query,skip,limit,function(err,usersData){
 				if(err){
-					return handleServerError.handleServerError(err , req , res);
+					return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 				}
 				res.status(HttpStatus.OK).send({workingUserId:req.user.username , recordsSize:recordsSize, pageNo:parseInt(Math.round(skip/limit)+1) , pageSize:limit, noOfPages:noOfPages , results:usersData});
 			});
 		});
 	}
 	else{
-		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({status:"AUTH_ERROR" , message:"You are not authorized to access this feature"});
+		return handleServerError.handleServerError({status:"ERROR" , type:'NOT_ADMIN' , message:"You are not authorized to access this feature"} , req , res);
 	}
 };
 
@@ -57,7 +57,7 @@ module.exports.manageLockAdminRight = function(req, res){
 	if(req.user && req.user.admin && (req.user.admin === true || req.user.admin === "true")){
 		User.getUserProfile({username:req.body.username , email:req.body.email} , function(err,user){
 			if(err){
-				return handleServerError.handleServerError(err , req , res);
+				return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 			}
 			var validReq = true;
 			if(req.body.hasOwnProperty('action') && req.body.action.length > 0 && req.body.upDateUserRightOpComments){
@@ -100,25 +100,25 @@ module.exports.manageLockAdminRight = function(req, res){
 			}
 			
 			if(!validReq){
-				res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(JSON.stringify({status:"Error" , message:'Invalid request'}));
+				return handleServerError.handleServerError({status:"ERROR" , type:'INVALID_REQ'} , req , res);
 			}
 			else{
 				User.updateUserProfileData(user , function (err , raw) {
 					if(err){
-						return handleServerError.handleServerError(err , req , res);
+						return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 					}
 					else if(raw.n >= 1){
 						res.status(HttpStatus.OK).send(JSON.stringify({status:"Success"}));
 					}
 					else{
-						res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(JSON.stringify({status:"Error" , message:'Something went wrong pls try again'}));
+						return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 					}
 				});
 			}
 		});
 	}
 	else{
-		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({status:"AUTH_ERROR" , message:"You are not authorized to access this feature"});
+		return handleServerError.handleServerError({status:"ERROR" , type:'NOT_ADMIN' , message:"You are not authorized to access this feature"} , req , res);
 	}
 };
 
@@ -126,7 +126,7 @@ module.exports.importUsersList = function(req,res){
 	if(req.user && req.user.admin && (req.user.admin === true || req.user.admin === "true")){
 		fileUploadService.getFileData(req,res,function(err , data){
 			if(err){
-				return handleServerError.handleServerError(err , req , res);
+				return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 			}
 			else{
 				JobScheduler.scheduleCreateMulUserJob(/*"in 1 minutes"*/"now" , {data:data,scheduledBy:req.user.username,schedulerEmail:req.user.email},"Import_users_"+req.file.filename+"_"+req.params.reqFileType+"_"+req.user.username+"_"+Date.now() , function(err,job){
@@ -142,7 +142,7 @@ module.exports.importUsersList = function(req,res){
 						job.attrs.status = "SCHEDULED";
 						job.save(function(err){
 							if(err){
-								return handleServerError.handleServerError(err , req , res);
+								return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 							}
 							fileUploadService.removeTempFile(req.file.path,req.file.originalname);
 							res.status(HttpStatus.OK).json(JSON.stringify(result));
@@ -153,7 +153,7 @@ module.exports.importUsersList = function(req,res){
 		});
 	}
 	else{
-		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({status:"AUTH_ERROR" , message:"You are not authorized to access this feature"});
+		return handleServerError.handleServerError({status:"ERROR" , type:'NOT_ADMIN' , message:"You are not authorized to access this feature"} , req , res);
 	}
 };
 
@@ -174,12 +174,12 @@ module.exports.html2pdf = function(req,res){
 		
 		pdf.create(JSON.parse(req.body.html2pdfData),options).toBuffer(function(err, buffer) {
 			if (err) {
-				return handleServerError.handleServerError(err , req , res);
+				return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 			}				
 			res.status(HttpStatus.OK).send(new Buffer(buffer, 'binary'));
 		});
 	}
 	else{
-		res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({status:"AUTH_ERROR" , message:"You are not authorized to access this feature"});
+		return handleServerError.handleServerError({status:"ERROR" , type:'NOT_ADMIN' , message:"You are not authorized to access this feature"} , req , res);
 	}
 };
