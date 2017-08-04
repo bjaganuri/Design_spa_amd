@@ -22,7 +22,7 @@ var fileStorage = multer.diskStorage({
     	var ext = require('path').extname(file.originalname);
     	ext = ext.length>1 ? ext : "." + require('mime').extension(file.mimetype);
     	require('crypto').pseudoRandomBytes(16, function (err, raw) {
-        	cb(null, (err ? raw.toString('hex') : file.originalname.split(".")[0] ) + ext);
+        	cb(null, (err ? raw.toString('hex') : file.originalname.substr(0,file.originalname.lastIndexOf('.'))) + ext);
     	});
 	}
 });

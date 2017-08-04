@@ -1,6 +1,9 @@
 <div class="alert alert-info" ng-hide="!updateSuccess">
 	<span>Profile updated successfully</span>
-	<a ng-click="updateProfileAgain()" class="pull-right cursor-pointer">I want to Edit my profile</a>
+	<a ng-click="updateProfileAgain()" class="pull-right cursor-pointer">
+		<span class="glyphicon glyphicon-edit"></span>
+		<span>Edit Again</span>
+	</a>
 </div>
 <div ng-hide="updateSuccess">
 	<div class="alert alert-danger" ng-hide="!showUpdateError"><span ng-bind="updateError"></span></div>

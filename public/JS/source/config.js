@@ -39,8 +39,9 @@ define (['../app'] , function(app){
 		.state('authenticateUser.logout',{
 			url:"/logout",
 			templateUrl:"/users/logout",
-			controller:["$scope" , "$window", function($scope,$window){
+			controller:["$scope" , "$window","viewUserLastSearchParams", function($scope,$window,viewUserLastSearchParams){
 				//$window.sessionStorage.clear();
+				viewUserLastSearchParams.resetLastFilterParam();
 			}]
 		})
 		.state("common",{
