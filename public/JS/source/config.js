@@ -16,7 +16,7 @@ define (['../app'] , function(app){
 			abstract:true,
 			url:'/authenticateUser',
 			views:{
-				"@":{
+				"authenticationViews@":{
 					template:"<div ui-view></div>"	
 				}
 			}

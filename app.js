@@ -65,8 +65,8 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(session({
 	store: store,
     secret: 'secret',
-    saveUninitialized: false,
-    resave: false,
+    saveUninitialized: true,
+    resave: true,
     cookie:{
     	maxAge:1000*60*60*2
     },

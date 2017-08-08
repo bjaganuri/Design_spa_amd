@@ -16,6 +16,7 @@ define (['../module'] , function(app){
 		this.responseError = function (rejection) {
 			var rejData = angular.fromJson(rejection.data);
 			var $rootScope = $injector.get('$rootScope');
+			var $state = $injector.get('$state')
 			var status = rejData.status;
 			var rejectionType = rejData.type;
 			var rejectionMessage = rejData.message;
@@ -43,7 +44,12 @@ define (['../module'] , function(app){
 						break;
 				}
 			}
-			return $q.reject(rejection);
+			if($rootScope.stateChangeStarted){
+				return $q.resolve(rejection);
+			}
+			else {
+				return $q.reject(rejection);
+			}
 		};
 	}]);
 });

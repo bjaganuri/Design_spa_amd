@@ -1,5 +1,6 @@
 define (['../app'] , function(app){
 	app.run(['$rootScope','idleObserverService' , 'Idle','$templateCache','ModalService','$state','$window', function($rootScope,idleObserverService,Idle,$templateCache,ModalService,$state,$window) {
+		$rootScope.stateChangeStarted = false;
 		$rootScope.$on('IdleStart', function() {
 			idleObserverService.checkUserLoggedStatus();
 		});
@@ -15,6 +16,7 @@ define (['../app'] , function(app){
 
 		$rootScope.$on("$stateChangeStart" , function (event, toState, toParams, fromState, fromParams) {
 			var templateUrls = [];
+			$rootScope.stateChangeStarted = true;
 			if(fromState.hasOwnProperty('templateUrl')  && typeof fromState.templateUrl === "string"){
 				templateUrls.push(fromState.templateUrl);
 			}
@@ -34,11 +36,15 @@ define (['../app'] , function(app){
 			for(var i=0;i<templateUrls.length;i++){
 				$templateCache.remove(templateUrls[i]);
 			}
-			//$templateCache.removeAll();
 		});
 
 		$rootScope.$on("$stateChangeSuccess" , function (event, toState, toParams, fromState, fromParams) {
+			$rootScope.stateChangeStarted = false;
 			idleObserverService.start();
+		});
+
+		$rootScope.$on("$stateChangeError" , function (event, toState, toParams, fromState, fromParams,error) {
+			console.log("Error in changing the state");
 		});
 
 		$rootScope.$on("LOGIN_REQ" , function(event,args){
@@ -52,6 +58,11 @@ define (['../app'] , function(app){
 				}
 			}).then(function(modal) {
 				modal.element.modal();
+				$('.modal-backdrop').removeClass( "login-req-modal-backdrop");
+				if($rootScope.stateChangeStarted){
+					$('.modal-backdrop').addClass( "login-req-modal-backdrop");
+					$rootScope.stateChangeStarted = false;
+				}
 				modal.element.close = function(){
 					
 				};
