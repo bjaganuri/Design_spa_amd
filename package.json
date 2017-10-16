@@ -75,13 +75,12 @@
     "path": "^0.12.7",
     "psd": "^3.1.0",
     "rmdir": "^1.2.0",
-    "sendmail": "^1.2.0",
     "sessionstore": "^1.2.16",
     "socket.io": "^1.7.2",
     "socketio-jwt": "^4.5.0",
     "validator": "latest"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.12.1"
   }
 }

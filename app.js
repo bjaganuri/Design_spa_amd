@@ -11,6 +11,7 @@ var mongoose = require('mongoose');
 var appConstants = require("./Route/Global_Const/Constants");
 var index = require("./Route/index");
 var route = require("./Route/routes");
+var handleServerError = require("./Route/Source/Common/error_handler");
 
 var app = express();
 app.use(compression());
@@ -114,8 +115,18 @@ app.use(index);
 app.use("/users" , route);
 
 app.use(function(req,res,next){
-	res.render(__dirname+"/views/pages/main");
-	next();
+	// respond with html page
+	if (req.accepts(['html', 'json', 'text']) === "html") {
+		res.render(__dirname+"/views/pages/main");
+		next();
+		return;
+	}
+
+	// respond with json
+	if (req.accepts(['html', 'json', 'text']) === "json" || req.accepts(['html', 'json', 'text']) === "text") {
+		handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR' , message:"Invalid Resource Request"} , req , res);
+		return;
+	}
 });
 
 var server = app.listen(port, function () {

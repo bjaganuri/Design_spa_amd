@@ -68,6 +68,8 @@ module.exports.manageLockAdminRight = function(req, res){
 							user.opState = "LOCKED";
 							user.lockComments = req.body.upDateUserRightOpComments.opStateUpdateComments;
 							user.lockedBy = req.user.email;
+							delete user.lockUntil;
+							user.loginAttempts = Number.MAX_SAFE_INTEGER;
 						}
 						else if(user.opState === "LOCKED"){
 							user.opState = "ACTIVE";
