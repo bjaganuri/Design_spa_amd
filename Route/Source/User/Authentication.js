@@ -140,7 +140,7 @@ module.exports.recoverUser = function (req,res) {
 		if(err){
 			return handleServerError.handleServerError({status:"ERROR" , type:'SERVER_ERROR'} , req , res);
 		}
-		res.status(HttpStatus.OK).send(user);
+		res.status(HttpStatus.OK).send((user !== null && user !== '' && user !== undefined && user !== ' ') ? user : {});
 	});
 };
 
