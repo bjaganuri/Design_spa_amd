@@ -16,10 +16,10 @@ passport.use(new LocalStrategy(function(username, password, done) {
 			return done(null,false,{message:"Unknown User"});
 		}
 
-		if(user.opState === "LOCKED" && !user.isLocked && user.lockedBy !== "Unknown Source") {
+		if(user.opState === "LOCKED" && !user.isLocked && user.lockedBy !== "System") {
 			return done(null,false,{message:"Your account has been locked permanently by "+ user.lockedBy +" with " + user.lockComments + " as comments pls contact admin to unlock your account"});
 		}
-		else if(user.opState === "LOCKED" && !user.isLocked && user.lockedBy === "Unknown Source") {
+		else if(user.opState === "LOCKED" && !user.isLocked && user.lockedBy === "System") {
 			return done(null,false,{message: "Your account has been locked because " + user.lockedBy + " has tried to login many times, to unlock pls contact admin"});
 		}
 
