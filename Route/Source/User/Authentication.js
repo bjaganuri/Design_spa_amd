@@ -8,7 +8,8 @@ var Constants = require("../../Global_Const/Constants");
 var handleServerError = require("../Common/error_handler");
 
 passport.use(new LocalStrategy(function(username, password, done) {
-	User.getUserByUsername({username:username},function(err,user){
+	var userObj = {};
+	User.getUserByUsername({username:username},function(err,user){		
 		if(err){
 			return done(err);
 		}
@@ -16,14 +17,17 @@ passport.use(new LocalStrategy(function(username, password, done) {
 			return done(null,false,{message:"Unknown User"});
 		}
 
-		if(user.opState === "LOCKED" && !user.isLocked && user.lockedBy !== "System") {
+		userObj = Object.assign(user.toObject());
+
+		if(userObj.opState === "LOCKED" && userObj.hasOwnProperty("lockedBy") && userObj.lockedBy !== "System") {
 			return done(null,false,{message:"Your account has been locked permanently by "+ user.lockedBy +" with " + user.lockComments + " as comments pls contact admin to unlock your account"});
 		}
-		else if(user.opState === "LOCKED" && !user.hasOwnProperty("lockUntil")) {
-			return done(null,false,{message: "Your account has been locked permanently by " + user.lockedBy + " , to unlock pls contact admin"});
+
+		else if(userObj.opState === "LOCKED" && userObj.hasOwnProperty("lockedBy") && !userObj.hasOwnProperty("lockUntil")) {
+			return done(null,false,{message: "Your account has been locked permanently by " + user.lockedBy + " To unlock pls contact admin"});
 		}
 
-		if (user.opState === "LOCKED" && user.isLocked) {
+		else if (userObj.opState === "LOCKED" && user.isLocked) {
             return user.incrementLoginAttempts(function(err) {
                 if (err) {
                     return done(err);
@@ -38,8 +42,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
 			}
 			if(isMatch){
 				var updates = {
-                    $set: { loginAttempts: 0 },
-					$set:{opState:"ACTIVE"},
+                    $set: { loginAttempts: 0,opState:"ACTIVE" },
                     $unset: { lockUntil: 1 }
                 };
 
